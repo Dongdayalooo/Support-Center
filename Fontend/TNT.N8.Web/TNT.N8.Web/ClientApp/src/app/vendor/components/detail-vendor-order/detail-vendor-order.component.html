@@ -1,0 +1,599 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="vendor-order-detail">
+  <div class="row">
+    <div class="col-md-{{colLeft}}">
+
+      <div class="row no-margin button-group" [ngClass]="{'fixed': fixed}" [ngStyle]="{'width':withFiexd}">
+        <div class="col-md-12">
+          <div style="float: right;">
+            <button class="cancel mr-5" type="button" (click)="close()">
+              <span class="text-cancel">Thoát</span>
+            </button>
+
+            <button pButton type="button" label="Lưu" (click)="save()" *ngIf="vendorOrder.statusId == 2"></button>
+
+            <button class="total" type="button" (click)="showTotal()" *ngIf="!isShow">
+              <span class="text-total"><i class="fa fa-bars" aria-hidden="true"></i>&nbsp; Tổng hợp đơn
+                hàng</span>
+            </button>
+          </div>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+
+      <div class="row vendor-order-detail-content" id="parent">
+        <div class="col-md-12 no-padding">
+          <p-accordion expandIcon=" pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Thông tin đơn hàng" [selected]="true">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12 text-order-code">
+                        <label>Mã đơn hàng: <strong>{{vendorOrder?.vendorOrderCode}}</strong></label>
+                      </div>
+                      <div class="col-md-12 sub-text-order-code">
+                      </div>
+                    </div>
+
+                    <div class="row mt-10">
+                      <div class="col-md-12">
+                        <label>Tình trạng: <strong>{{vendorOrder?.statusName}}</strong></label>
+                      </div>
+                      <div class="col-md-12">
+
+                      </div>
+                    </div>
+
+                    <div #boxOrderDate class="row mt-5">
+                      <div class="col-md-12">
+                        <label>Ngày đặt hàng:<strong>{{vendorOrder?.vendorOrderDate ? (vendorOrder?.vendorOrderDate |
+                            date:'dd/MM/yyyy') : "" }}</strong></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label>Loại đơn hàng:
+                          <strong>{{ vendorOrder?.vendorOrderType == 1 ?
+                            "KTTN thanh toán" : "Nhà cung cấp thanh toán" }}</strong></label>
+                      </div>
+                    </div>
+
+                    <div class="row mt-5">
+                      <div class="col-md-12">
+                        <label>Người tạo: <strong>{{vendorOrder?.createdBy}}</strong></label>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <label>Phiếu hỗ trợ dịch vụ: <strong>{{vendorOrder?.orderActionName}}</strong></label>
+                      </div>
+
+                    </div>
+
+                    <div class="row mt-5">
+                      <div class="col-md-12">
+                        <label>Khách hàng: <strong>{{vendorOrder?.customerName}}</strong></label>
+                      </div>
+                    </div>
+
+                    <div class="row mt-5">
+                      <div class="col-md-12">
+                        <label>Email:<strong>{{vendorOrder?.customerEmail}}</strong></label>
+                      </div>
+                    </div>
+
+                    <div class="row mt-5">
+                      <div class="col-md-12">
+                        <label>Điện thoại:<strong>{{vendorOrder?.customerPhone}}</strong></label>
+                      </div>
+                    </div>
+
+                    <div class="row mt-5">
+                      <div class="col-md-12">
+                        <label>Địa chỉ:<strong>{{vendorOrder?.customerAddress}}</strong></label>
+                      </div>
+                    </div>
+
+                  </div>
+
+                  <div class="col-md-12">
+                    <div class="row mt-5">
+                      <div class="col-md-12">
+                        <label>Diễn giải:</label>
+                      </div>
+                      <div class="col-md-12">
+                        <textarea rows="5" cols="30" pInputTextarea class="w100"
+                          [(ngModel)]="vendorOrder.note"></textarea>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+
+        <div class="col-md-12 no-padding">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Chi tiết đơn hàng" [selected]="true">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="col-md-12">
+                    <p-tabView>
+                      <p-tabPanel header="Thông tin nhà cung cấp">
+                        <div class="row buffer-bottom">
+                          <div class="col-md-6 no-margin">
+                            <div class="col-md-12 mt-10">
+                              <label>Nhà cung cấp:</label><span class="require">*</span>
+                            </div>
+                            <div class="col-md-12">
+                              <input type="text" pInputText [(ngModel)]="vendorOrder.vendorName" class="w100"
+                                readonly />
+                            </div>
+
+                            <div class="col-md-12 mt-10">
+                              <label>Email:</label>
+                              <strong>{{vendorOrder?.vendorEmail}}</strong>
+                            </div>
+
+                            <div class="col-md-12 mt-10">
+                              <label>Điện thoại:</label>
+                              <strong>{{vendorOrder?.vendorPhone}}</strong>
+                            </div>
+
+                            <div class="col-md-12 mt-10">
+                              <label>Địa chỉ:</label>
+                              <strong>{{vendorOrder?.vendorAddress}}</strong>
+                            </div>
+                          </div>
+
+                          <div class="col-md-6 no-margin">
+                            <div class="col-md-12 mt-10">
+                              <label>Người liên hệ: </label>
+                            </div>
+                            <div class="col-md-12">
+                              <p-dropdown [(ngModel)]="vendorOrder.vendorNguoiLienHe" optionLabel="fullName"
+                                [filter]="true" [autoDisplayFirst]="false" [showClear]="true" [resetFilterOnHide]="true"
+                                placeholder="Chọn người liên hệ" [style]="{'width': '100%'}">
+                              </p-dropdown>
+                            </div>
+
+                            <div class="col-md-12 mt-10">
+                              <label>Email:</label>
+                              <strong>{{vendorOrder?.vendorNguoiLienHeEmail }}</strong>
+                            </div>
+
+                            <div class="col-md-12 mt-10">
+                              <label>Điện thoại:</label>
+                              <strong>{{vendorOrder?.vendorNguoiLienPhone}}</strong>
+                            </div>
+                          </div>
+                        </div>
+                      </p-tabPanel>
+
+                      <p-tabPanel header="Danh sách sản phẩm dịch vụ">
+                        <p-table [columns]="cols" [value]="listVendorOrderDetail" [scrollable]="true"
+                          [style]="{width:'100%'}" scrollHeight="400px" [resizableColumns]="true" [paginator]="true"
+                          [rows]="10" [rowsPerPageOptions]="[10,50,100]" [responsive]="true">
+
+                          <ng-template pTemplate="header" let-columns>
+                            <tr>
+                              <th style="text-align: center; width: 40px;">#</th>
+                              <th *ngFor="let col of columns" pResizableColumn
+                                [ngStyle]="{'width': col.width, 'text-align': 'center'}">
+                                {{col.header}}
+                              </th>
+                            </tr>
+                          </ng-template>
+
+                          <ng-template pTemplate="body" let-index="rowIndex" let-rowData let-columns="columns">
+                            <tr>
+
+                              <td style="text-align: center; width: 40px;">
+                                {{index + 1}}
+                              </td>
+
+                              <td *ngFor="let col of columns" class="ui-resizable-column"
+                                [ngStyle]="{'width': col.width, 'text-align': col.textAlign}" [ngSwitch]="col.field">
+                                <span class="ui-column-title">{{col.header}}</span>
+
+                                <span *ngSwitchCase="'thongTinChiTiet'">
+                                  <p *ngFor="let tt of rowData.thongTinChiTiet"> {{tt}}</p>
+                                </span>
+
+                                <span *ngSwitchCase="'giaTriChietKhau'">
+                                  {{rowData.chietKhauId == 1 ? ( rowData.giaTriChietKhau + "%") :
+                                  rowData.giaTriChietKhau
+                                  |
+                                  number: 0}}
+                                </span>
+
+                                <span *ngSwitchCase="'yeuCauThanhToan'">
+                                  {{rowData.yeuCauThanhToan == 1 ? ( rowData.giaTriThanhToan + "%") :
+                                  rowData.giaTriThanhToan
+                                  |
+                                  number: 0}}
+                                </span>
+
+                                <span *ngSwitchCase="'thanhTienSauThue'">
+                                  {{ rowData.price | number: 0}}
+                                </span>
+
+
+                                <span *ngSwitchCase="'price'">
+                                  {{ rowData.price | number: 0}}
+                                </span>
+
+                                <span *ngSwitchCase="'thaoTac'">
+                                  <button pButton icon="pi pi-eye" class="ui-button" style="margin-right: 5px;"
+                                    (click)="showDetailOrder(rowData)"></button>
+                                </span>
+
+
+
+                                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </p-tabPanel>
+
+                      <p-tabPanel header="Tài liệu đính kèm">
+                        <div class="row">
+                          <div class="col-md-12 mt-10">
+                            <p-fileUpload #fileUpload name="demo[]" multiple="multiple" customUpload="true"
+                              accept="image/*,video/*,audio/*,.zip,.rar,.pdf,.xls,.xlsx,.doc,.docx,.ppt,.pptx,.txt"
+                              [maxFileSize]="defaultLimitedFileSize"
+                              invalidFileSizeMessageSummary="{0}: file kích cỡ quá lớn,"
+                              invalidFileSizeMessageDetail="kích cỡ lớn nhất có thể lưu là {0}."
+                              invalidFileTypeMessageSummary="{0}: định dạng file bị cấm, "
+                              invalidFileTypeMessageDetail="bạn chỉ có thể lưu các file có định dạng như: {0}."
+                              chooseLabel="Chọn file" cancelLabel="Hủy toàn bộ file" uploadLabel="Lưu"
+                              (onSelect)="handleFile($event, fileUpload)" (onRemove)="removeFile($event)"
+                              (onClear)="clearAllFile()" (uploadHandler)="myUploader($event)">
+                            </p-fileUpload>
+                          </div>
+
+                          <div class="col-md-12 mt-10">
+                            <p-table #dt class="table-border" [columns]="colsFile" [value]="listFile"
+                              [responsive]="true" [resizableColumns]="true" [paginator]="true" [rows]="10">
+                              <ng-template pTemplate="caption">
+                                <div style="text-align: right">
+                                  <input type="text" pInputText size="50" placeholder="Tên tài liệu"
+                                    (input)="dt.filterGlobal($event.target.value, 'contains')" style="width:auto">
+                                </div>
+                              </ng-template>
+                              <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                  <th *ngFor="let col of columns" pResizableColumn
+                                    [ngStyle]="{'text-align': col.textAlign}">
+                                    {{col.header}}
+                                  </th>
+                                  <th style="width:4em"></th>
+                                  <th style="width:4em"></th>
+                                </tr>
+                              </ng-template>
+                              <ng-template pTemplate="body" let-rowData let-columns="columns">
+                                <tr>
+                                  <td *ngFor="let col of columns" [ngSwitch]="col.field" class="ui-resizable-column"
+                                    [ngStyle]="{'text-align': col.textAlign}">
+                                    <span class="ui-column-title">{{col.header}}</span>
+
+                                    <span *ngSwitchCase="'fileName'">
+                                      {{rowData[col.field].substring(0,rowData[col.field].lastIndexOf('_'))}}.{{rowData.fileExtension}}
+                                    </span>
+                                    <span *ngSwitchCase="'createdDate'">
+                                      {{rowData[col.field] | date:'dd/MM/yyyy HH:mm'}}
+                                    </span>
+                                    <span *ngSwitchCase="'size'">
+                                      <ng-container *ngIf="convertFileSize(rowData[col.field])">
+                                        {{rowData[col.field] / 1024 | number}} KB
+                                      </ng-container>
+                                      <ng-container *ngIf="!convertFileSize(rowData[col.field])">
+                                        {{rowData[col.field] / 1048576 | number}} MB
+                                      </ng-container>
+                                    </span>
+                                    <span *ngSwitchDefault>{{ rowData[col.field] }}</span>
+                                  </td>
+                                  <td>
+                                    <button pButton icon="pi pi-trash" (click)="deleteFile(rowData)"
+                                      class="ui-button-danger"></button>
+                                  </td>
+                                  <td>
+                                    <button pButton icon="pi pi-download" (click)="downloadFile(rowData)"></button>
+                                  </td>
+                                </tr>
+                              </ng-template>
+                            </p-table>
+                          </div>
+                        </div>
+                      </p-tabPanel>
+
+                      <p-tabPanel header="Thông tin thanh toán">
+                        <p-table [columns]="colsThanhToan" [value]="listThongTinThanhToan" [scrollable]="true"
+                          [style]="{width:'100%'}" scrollHeight="400px" [resizableColumns]="true" [paginator]="true"
+                          [rows]="10" [rowsPerPageOptions]="[10,50,100]" [responsive]="true">
+
+                          <ng-template pTemplate="header" let-columns>
+                            <tr>
+                              <th style="text-align: center; width: 40px;">#</th>
+                              <th *ngFor="let col of columns" pResizableColumn
+                                [ngStyle]="{'width': col.width, 'text-align': 'center'}">
+                                {{col.header}}
+                              </th>
+                            </tr>
+                          </ng-template>
+
+                          <ng-template pTemplate="body" let-rowData let-index="rowIndex" let-columns="columns">
+                            <tr>
+                              <td style="text-align: center; width: 40px;">
+                                {{index + 1}}
+                              </td>
+
+                              <td *ngFor="let col of columns" class="ui-resizable-column"
+                                [ngStyle]="{'width': col.width, 'text-align': col.textAlign}" [ngSwitch]="col.field">
+
+                                <span *ngSwitchCase="'maPhieu'" (click)="xemChiTietPhieu(rowData)" class="link" style="display: inline-block;
+                                padding: 2px 2px;">
+                                  {{ rowData.maPhieu}}
+                                </span>
+
+                                <span *ngSwitchCase="'soTienThuChi'">
+                                  {{ rowData.soTienThuChi | number: 0}}
+                                </span>
+
+                                <span *ngSwitchCase="'ngayTao'">
+                                  {{rowData[col.field] | date:'dd/MM/yyyy HH:mm'}}
+                                </span>
+
+                                <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                              </td>
+                            </tr>
+                          </ng-template>
+                        </p-table>
+                      </p-tabPanel>
+
+                    </p-tabView>
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+
+      <div class="col-md-12 no-padding" style="padding-top: 10px;padding-bottom: 10px;">
+        <app-note-time-line [viewNote]="true" [viewTimeline]="true" objectType="VendorOrder" [objectId]="vendorOrderId"
+          style="width: 100%;" [actionAdd]="true" [actionEdit]="true" [actionDelete]="true" [pageSize]="10"
+          [refresh]="refreshNote">
+        </app-note-time-line>
+      </div>
+
+    </div>
+
+    <div class="col-md-{{colRight}}" *ngIf="isShow">
+      <div class="no-margin overview">
+        <div class="row no-margin button-group">
+          <div class="col-md-12" (click)="showTotal()">
+            <span class="text-title">Tổng hợp đơn hàng</span>
+            <i class="ios-print"><img src="/assets/icons/components/ios-print.svg" class="ios-print"></i>
+          </div>
+        </div>
+        <div class="row no-margin" style="background: #ffffff;" *ngIf="vendorOrder.vendorOrderType == 1">
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng thành tiền trước thuế:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ totalAmountBeforeVat | number }}</label>
+          </div>
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền thuế:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ totalAmountVat | number }}</label>
+          </div>
+
+          <div class="col-md-12 mt-10">
+            <label class="total-monney-label">Chiết khấu theo đơn hàng</label>
+          </div>
+
+          <div class="col-md-12 mt-10">
+            <div class="row">
+              <div class="col-md-6">
+                <p-dropdown [options]="listKieuThuong" optionLabel="name" [autoDisplayFirst]="false"
+                  [disabled]="vendorOrder.statusId != 2" (onChange)="tinhTien()"
+                  [(ngModel)]="vendorOrder.discountObject"
+                  [ngClass]="invalidValidate && !vendorOrder.discountObject ? 'error-border' : ''"
+                  [style]="{'width': '100%'}"></p-dropdown>
+
+                <span class='mt-10 text-red' *ngIf="invalidValidate && !vendorOrder.discountObject">Loại chiết khấu
+                  không
+                  được để
+                  trống!</span>
+              </div>
+              <div class="col-md-6">
+                <p-inputNumber [min]="0" class="w-100" (onBlur)="tinhTien()" [(ngModel)]="vendorOrder.discountValue"
+                  [disabled]="vendorOrder.statusId != 2"
+                  [ngClass]="invalidValidate && !vendorOrder.discountValue ? 'error-border' : ''" mode="decimal"
+                  [minFractionDigits]="2"></p-inputNumber>
+
+                <span class='mt-10 text-red' *ngIf="invalidValidate && !vendorOrder.discountValue">Giá trị chiết khấu
+                  không được
+                  để
+                  trống!</span>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền chiết khấu (VND):</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ discountPerOrder | number }}</label>
+          </div>
+
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền đơn hàng:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ totalAmountCost | number }}</label>
+          </div>
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền cần thanh toán trước:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ tongTienCanThanhToanTruoc | number }}</label>
+          </div>
+
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền đã thanh toán:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ TotalPayment | number }}</label>
+          </div>
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền còn lại:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ TotalPaymentLeft | number }}</label>
+          </div>
+
+
+          <div class="col-md-12 mt-10">
+            <label>Phương thức thanh toán:</label>
+          </div>
+          <div class="col-md-12 mt-10">
+            <p-dropdown [options]="listPaymentMethod" placeholder="Chọn phương thức thanh toán" [showClear]="true"
+              [disabled]="vendorOrder.statusId != 2" [(ngModel)]="vendorOrder.phuongThucThanhToan"
+              optionLabel="categoryName"
+              [ngClass]="invalidValidate && !vendorOrder.phuongThucThanhToan ? 'error-border' : ''"
+              [style]="{'width': '100%'}"></p-dropdown>
+
+            <span class='mt-10 text-red' *ngIf="invalidValidate && !vendorOrder.phuongThucThanhToan">Phương thức thanh
+              toán không
+              được để trống!</span>
+          </div>
+
+          <div class="col-md-12 btn-box mt-10 text-end">
+            <button pButton type="button" label="Thanh toán" (click)="thanhToan()"
+              *ngIf="isShowThanhToan && vendorOrder.statusId != 4"></button>
+          </div>
+        </div>
+
+
+        <div class="row no-margin" style="background: #ffffff;" *ngIf="vendorOrder.vendorOrderType == 2">
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền doanh thu:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ tongTienDoanhThu | number }}</label>
+          </div>
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền hoa hồng:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ tongTienHoaHong | number }}</label>
+          </div>
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền hoa hồng đã thanh toán:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ TotalPayment | number }}</label>
+          </div>
+
+          <div class="col-md-6 mt-10">
+            <label class="total-monney-label">Tổng tiền hoa hồng còn lại:</label>
+          </div>
+          <div class="col-md-6 mt-10" style="text-align: right;">
+            <label class="total-monney-number">{{ TotalPaymentLeft | number }}</label>
+          </div>
+
+
+          <div class="col-md-12 mt-10">
+            <label>Phương thức thanh toán:</label>
+          </div>
+          <div class="col-md-12 mt-10">
+            <p-dropdown [options]="listPaymentMethod" placeholder="Chọn phương thức thanh toán" [showClear]="true"
+              [disabled]="vendorOrder.statusId != 2" [(ngModel)]="vendorOrder.phuongThucThanhToan"
+              optionLabel="categoryName"
+              [ngClass]="invalidValidate && !vendorOrder.phuongThucThanhToan ? 'error-border' : ''"
+              [style]="{'width': '100%'}"></p-dropdown>
+
+            <span class='mt-10 text-red' *ngIf="invalidValidate && !vendorOrder.phuongThucThanhToan">Phương thức thanh
+              toán không
+              được để trống!</span>
+          </div>
+
+          <div class="col-md-12 mt-10 text-end">
+            <button pButton type="button" label="Thanh toán" (click)="thanhToan()"
+              *ngIf="isShowThanhToan && vendorOrder.statusId != 4"></button>
+          </div>
+
+          <div class="col-md-12 mt-10"> </div>
+
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<p-dialog header="Thông tin hoa hồng dịch vụ" [(visible)]="showDialogAtr" [style]="{width: '35vw'}" [baseZIndex]="10000"
+  [modal]="true">
+  <div class="row no-margin">
+    <div class="col-md-6 mt-10">
+      <span>Dịch vụ:</span><strong class="ml-5">{{currentVendorOrderDetail?.tenDichVu}}</strong>
+    </div>
+    <div class="col-md-6 mt-10">
+      <span>Tổng tiền KH thanh toán:</span><strong class="ml-5">{{currentVendorOrderDetail?.tongTienKhachHangThanhToan
+        |
+        number}}</strong>
+    </div>
+
+    <div class="col-md-6 mt-10">
+      <span>Thời gian thực hiện:</span><strong class="ml-5">{{currentVendorOrderDetail?.thoiGianThucHien |
+        date:'dd/MM/yyyy'}}</strong>
+    </div>
+
+    <div class="col-md-6 mt-10" *ngFor="let item of listVendorOrderDetailAttrRow">
+      <span>{{item.dieuKien}}</span><strong class="ml-5">{{item?.value}}</strong>
+    </div>
+
+    <div class="col-md-12 mt-10">
+      <span>Tổng tiền hoa hồng:</span><strong class="ml-5">{{currentVendorOrderDetail?.tongTienHoaHong |
+        number}}</strong>
+    </div>
+
+  </div>
+  <p-footer>
+    <button type="button" pButton (click)="closeDialogAtr()" label="Đóng"></button>
+  </p-footer>
+</p-dialog>

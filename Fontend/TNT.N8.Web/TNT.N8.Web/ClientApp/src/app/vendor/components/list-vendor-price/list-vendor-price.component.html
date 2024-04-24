@@ -1,0 +1,223 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="list-vendor">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="box-header-group">
+              <div class="row">
+                <div class="col-md-1 col-xs-2">
+                  <div class="box-header-icon">
+                    <img src="/assets/images/product.svg" class="Money-2">
+                  </div>
+                </div>
+                <div class="col-md-11 col-xs-10 supplier-directory">
+                  <div class="box-header-title">Bảng giá nhà cung cấp</div>
+                  <div class="box-header-subtitle">
+                    {{listVendorMappingOption?.length}} bản ghi
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12">
+            <!-- <button type="button" class="btn-create" *ngIf="actionAdd" (click)="goToCreate()"><span
+                class="btn-create-text">Tạo mới</span></button>
+            <div style="clear: both;"></div> -->
+          </div>
+          <div class="col-md-12">
+            <div class="box-header-group-btn">
+              <button type="button" class="btn-refresh" (click)="refreshFilter()">
+                <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+              </button>
+              <button type="button" class="btn-filter" (click)="showFilter()">
+                <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+                <span class="btn-filter-text">Bộ lọc</span>
+              </button>
+              <input [(ngModel)]="filterGlobal" type="text" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+                (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+              <div style="clear: both;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <form [formGroup]="searchVendorForm">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Dịch vụ</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect formControlName="ListOption" [options]="listOption" defaultLabel="Chọn dịch vụ"
+                optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                selectedItemsLabel="{0} dịch vụ được chọn"></p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12">
+              <span>Nhà cung cấp</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect formControlName="ListVendor" [options]="listVendor" defaultLabel="Chọn nhà cung cấp"
+                optionLabel="vendorCodeName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                selectedItemsLabel="{0} nhà cung cấp được chọn"></p-multiSelect>
+            </div>
+          </div>
+
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <button type="button" class="btn-search" (click)="getMasterData()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div *ngIf="listVendorMappingOption?.length > 0" class="col-md-{{leftColNumber}} no-padding">
+      <p-table #myTable [columns]="selectedColumns" [value]="listVendorMappingOption" [scrollable]="true"
+        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
+        <ng-template pTemplate="caption">
+          <div style="text-align:left">
+            <p-multiSelect [options]="colsListProduct" [(ngModel)]="selectedColumns"
+              [ngModelOptions]="{standalone: true}" optionLabel="header" selectedItemsLabel="{0} cột được chọn"
+              [style]="{minWidth: '200px'}" defaultLabel="Chọn cột"></p-multiSelect>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of columns" [pSortableColumn]="col.field"
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+              <span>
+                {{col.header}}
+                <p-sortIcon [field]="col.field"></p-sortIcon>
+              </span>
+            </th>
+            <th style="text-align: center; width: 6rem;">
+              <span>Thao tác</span>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+              [ngStyle]="{'text-align': col.textAlign, 'display': col.display}">
+              <span class="ui-column-title">{{col.header}}</span>
+
+              <span *ngSwitchCase="'optionName'" (click)="goToDetail(rowData)" class="link">
+                {{rowData[col.field]}}
+              </span>
+
+
+              <span *ngSwitchCase="'price'">
+                {{rowData["price"] | number: 0}}
+              </span>
+
+              <span *ngSwitchCase="'soLuongToiThieu'">
+                {{rowData["soLuongToiThieu"] | number: 0}}
+              </span>
+
+              <span *ngSwitchCase="'prepaymentValue'">
+                {{rowData["yeuCauThanhToan"] == 1 ? ((rowData["giaTriThanhToan"] | number: 0) + "%") :
+                (rowData["giaTriThanhToan"]| number: 0)}}
+              </span>
+
+              <span *ngSwitchCase="'giaTriChietKhau'">
+                {{rowData["chietKhauId"] == 1 ? ((rowData["giaTriChietKhau"] | number: 0) + "%") :
+                (rowData["giaTriChietKhau"]| number: 0)}}
+              </span>
+
+
+              <span *ngSwitchCase="'mucHoaHong'">
+                <b *ngFor="let data of rowData.listCauHinhHoaHong">
+                  {{data.loaiHoaHong == 1 ? (data.giaTriHoaHong + "% ,") : (data.giaTriHoaHong != null ?
+                  (data.giaTriHoaHong | number: 0) + ', ' : "") }}
+                </b>
+              </span>
+
+
+              <span *ngSwitchCase="'efftiveDate'">
+                {{(rowData["thoiGianTu"] != null ? (rowData["thoiGianTu"] | date: "dd/MM/yyyy") : "") + "
+                - " + (rowData["thoiGianDen"]!= null ? (rowData["thoiGianDen"] | date:
+                "dd/MM/yyyy") : "")}}
+              </span>
+
+              <span *ngSwitchDefault>
+                {{rowData[col.field]}}
+              </span>
+            </td>
+
+            <td style="text-align: center; width: 6rem;">
+              <button class="ui-button-info" pButton icon="pi pi-eye" (click)="viewDetail(rowData)">
+              </button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+    <div *ngIf="!(listVendorMappingOption?.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <form [formGroup]="searchVendorForm">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Dịch vụ</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect formControlName="ListOption" [options]="listOption" defaultLabel="Chọn dịch vụ"
+                optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                selectedItemsLabel="{0} dịch vụ được chọn"></p-multiSelect>
+            </div>
+          </div>
+          <div class="row no-margin">
+            <div class="col-md-12">
+              <span>Nhà cung cấp</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect formControlName="ListVendor" [options]="listVendor" defaultLabel="Chọn nhà cung cấp"
+                optionLabel="vendorCodeName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                selectedItemsLabel="{0} nhà cung cấp được chọn"></p-multiSelect>
+            </div>
+          </div>
+
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <button type="button" class="btn-search" (click)="getMasterData()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,484 @@
+<div class="row no-margin">
+  <div class="col-md-12 text-end">
+    <button type="button" class="btn-filter" (click)="addVendorToOption(null)">
+      <span class="btn-filter-text">Thêm</span>
+    </button>
+
+
+
+
+    <button type="button" class="export-exel" (click)="exportExcel()"><span class="export-exel-text">Xuất
+        Excel</span></button>
+
+    <button type="button" class="btn-create" (click)="onpenDialogChoseFileExcel()" style="margin-left: 8px;">
+      <span class="btn-create-text">Nhập excel</span>
+    </button>
+
+  </div>
+
+  <div class="col-md-12 ">
+    <div class="box-header-group-btn text-end">
+      <button type="button" class="btn-refresh" (click)="refreshFilter()">
+        <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+      </button>
+      <button type="button" class="btn-filter" (click)="showFilter()">
+        <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+        <span class="btn-filter-text">Bộ lọc</span>
+      </button>
+
+      <input [(ngModel)]="filterGlobal" type="text" class="iput-text global-filter"
+        placeholder="Tìm kiếm trong danh sách" (input)="
+          myTable.filterGlobal($event.target.value.trim(), 'contains')
+          " />
+      <div style="clear: both;"></div>
+    </div>
+
+    <div class="row mt-10">
+      <div class="col-md-{{leftColNumber}} no-padding">
+
+        <p-table #dt [columns]="cols" [value]="listVendorMappingOption" [resizableColumns]="true" [scrollable]="true"
+          columnResizeMode="expand" [rowsPerPageOptions]="[10, 20, 30]" [paginator]="true" [filterDelay]="0"
+          [rows]="rows">
+          <ng-template pTemplate="header" let-columns>
+            <tr>
+              <th *ngFor="let col of columns" style="text-align: center;"
+                [ngStyle]="{ 'text-align': col.textAlign, 'width' : col.width}">
+                {{col.header}}
+              </th>
+              <th style="text-align: center; width: 10rem;">
+                <span>Thao tác</span>
+              </th>
+            </tr>
+          </ng-template>
+          <ng-template pTemplate="body" let-rowData let-index="rowIndex" let-columns="columns">
+            <tr>
+              <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                [ngStyle]="{'text-align': col.textAlign, 'width' : col.width}">
+                <span *ngSwitchCase="'stt'">
+                  {{index + 1}}
+                </span>
+
+                <span *ngSwitchCase="'price'">
+                  {{rowData["price"] | number: 0}}
+                </span>
+
+                <span *ngSwitchCase="'soLuongToiThieu'">
+                  {{rowData["soLuongToiThieu"] | number: 0}}
+                </span>
+
+                <span *ngSwitchCase="'prepaymentValue'">
+                  {{rowData["giaTriThanhToan"]  ? ((rowData["giaTriThanhToan"] | number: 0) +
+                  (rowData["yeuCauThanhToan"] == 1 ? "%" : "" )) : ""}}
+                </span>
+
+                <span *ngSwitchCase="'giaTriChietKhau'">
+                  {{rowData["chietKhauId"] == 1 ? ((rowData["giaTriChietKhau"] | number: 0) + "%") :
+                  (rowData["giaTriChietKhau"]| number: 0)}}
+                </span>
+
+
+                <span *ngSwitchCase="'mucHoaHong'">
+                  <b *ngFor="let data of getMucHoaHong(rowData['id'], null)">
+                    {{data.loaiHoaHong == 1 ? (data.giaTriHoaHong + "% ,") : (data.giaTriHoaHong != null ?
+                    (data.giaTriHoaHong | number: 0) + ', ' : "") }}
+                  </b>
+                </span>
+
+
+                <span *ngSwitchCase="'efftiveDate'">
+                  {{(rowData["thoiGianTu"] != null ? (rowData["thoiGianTu"] | date: "dd/MM/yyyy") : "") + "
+                  - " + (rowData["thoiGianDen"]!= null ? (rowData["thoiGianDen"] | date:
+                  "dd/MM/yyyy") : "")}}
+                </span>
+
+                <span *ngSwitchDefault>
+                  {{rowData[col.field]}}
+                </span>
+
+
+              </td>
+
+              <td style="text-align: center;  width: 10rem;">
+                <button class="ui-button-danger" pButton icon="pi pi-trash"
+                  (click)="deleteVendorMappingOption(rowData['vendorId'])">
+                </button>
+                <button class="ui-button-info" pButton icon="pi pi-pencil" (click)="addVendorToOption(rowData)"
+                  style="margin-left: .5em">
+                </button>
+              </td>
+            </tr>
+          </ng-template>
+        </p-table>
+      </div>
+
+      <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+        <div class="box-filter">
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <span>Nhóm nhà cung cấp</span>
+            </div>
+            <div class="col-md-12">
+              <p-multiSelect [options]="vendorList" defaultLabel="Chọn nhà cung cấp" optionLabel="vendorName"
+                [(ngModel)]="filterNhaCungCap" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                selectedItemsLabel="{0} nhà cung cấp được chọn"></p-multiSelect>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-6">
+              <span>Đơn giá từ</span>
+            </div>
+            <div class="col-md-6">
+              <span>Đơn giá đến</span>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-6 mt-5">
+              <p-inputNumber [min]="0" class="w-100" [(ngModel)]="filterDonGiaTu">
+              </p-inputNumber>
+
+            </div>
+            <div class="col-md-6">
+              <p-inputNumber [min]="0" class="w-100" [(ngModel)]="filterDonGiaDen">
+              </p-inputNumber>
+            </div>
+          </div>
+
+          <div class="row no-margin">
+            <div class="col-md-6">
+              <span>Thời gian từ</span>
+            </div>
+            <div class="col-md-6">
+              <span>Thời gian đến</span>
+            </div>
+          </div>
+
+
+          <div class="row no-margin">
+            <div class="col-md-6 mt-5">
+              <p-calendar [(ngModel)]="filterThoiGianTu" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+                [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+
+            </div>
+            <div class="col-md-6">
+              <p-calendar [(ngModel)]="filterThoiGianDen" dateFormat="dd/mm/yy" [style]="{'width':'100%'}"
+                [inputStyle]="{'width':'100%'}" [baseZIndex]="9999"></p-calendar>
+            </div>
+          </div>
+
+
+          <div class="row no-margin">
+            <div class="col-md-12 mt-5">
+              <button type="button" class="btn-search" (click)="loadTable()">
+                <span class="btn-search-text">Tìm kiếm</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<p-dialog header="Thêm nhanh nhà cung cấp" [(visible)]="showModal" [modal]="true"
+  [style]="{width: '60vw', height: '550px'}" [draggable]="false" [resizable]="false" [closable]="false">
+
+  <form [formGroup]="createVendorForm">
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12 customer-infor">
+        <div class="row">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down">
+            <p-accordionTab header="Thông tin nhà cung cấp dịch vụ" [selected]="true">
+              <div class="row buffer-bottom">
+                <div class="col-md-4 buffer-bottom-label">
+                  <span>Nhóm nhà cung cấp</span><span class="required">*</span>
+                  <div>
+                    <p-dropdown formControlName="VendorGroup" [filter]="true" [showClear]="true"
+                      [resetFilterOnHide]="true" [options]="listVendorGroup" optionLabel="categoryName"
+                      [ngClass]="(createVendorForm.get('VendorGroup').invalid && (createVendorForm.get('VendorGroup').dirty || createVendorForm.get('VendorGroup').touched)) ? 'error-border' : ''"
+                      placeholder="Chọn nhóm nhà cung cấp" [showClear]="true" [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+
+                  <div
+                    [hidden]="createVendorForm.get('VendorGroup').valid || createVendorForm.get('VendorGroup').untouched">
+                    <span *ngIf="createVendorForm.get('VendorGroup').hasError('required')" class="error-message-span">
+                      Chọn nhóm nhà cung cấp
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 buffer-bottom-label">
+                  <span>Tên nhà cung cấp</span><span class="required">*</span>
+                  <div>
+                    <input formControlName="VendorName" type="text" maxlength="250" class="w-100" pInputText
+                      [ngClass]="(createVendorForm.get('VendorName').invalid && (createVendorForm.get('VendorName').dirty || createVendorForm.get('VendorName').touched)) ? 'error-border' : ''"
+                      placeholder="" />
+                  </div>
+
+                  <div
+                    [hidden]="createVendorForm.get('VendorName').valid || createVendorForm.get('VendorName').untouched">
+                    <span
+                      *ngIf="createVendorForm.get('VendorName').hasError('required') || createVendorForm.get('VendorName').hasError('blankString')"
+                      class="error-message-span">
+                      Nhập tên nhà cung cấp
+                    </span>
+                  </div>
+                </div>
+                <div class="col-md-4 buffer-bottom-label">
+                  <span>Mã số thuế</span>
+                  <div>
+                    <input formControlName="MST" type="text" maxlength="20" class="w-100" pInputText
+                      [ngStyle]="(createVendorForm.get('MST').invalid && (createVendorForm.get('MST').dirty || createVendorForm.get('MST').touched)) ? 'error-border' : ''"
+                      placeholder="Tối đa 20 ký tự" />
+                  </div>
+                  <div [hidden]="createVendorForm.get('MST').valid || createVendorForm.get('MST').untouched">
+                    <span
+                      *ngIf="createVendorForm.get('MST').hasError('required') || createVendorForm.get('MST').hasError('blankString')"
+                      class="error-message-span">
+                      Nhập mã số thuế
+                    </span>
+                  </div>
+
+                </div>
+                <div class="col-md-4 buffer-bottom-label">
+                  <span>Số điện thoại</span>
+                  <div>
+                    <input type="text" formControlName="Phone" maxlength="32" class="w-100" pInputText placeholder=""
+                      [ngStyle]="(createVendorForm.get('Phone').invalid && (createVendorForm.get('Phone').dirty || createVendorForm.get('Phone').touched)) ? 'error-border' : ''" />
+                  </div>
+
+                  <div [hidden]="createVendorForm.get('Phone').valid || createVendorForm.get('Phone').untouched">
+                    <span
+                      *ngIf="createVendorForm.get('Phone').hasError('required') || createVendorForm.get('Phone').hasError('blankString')"
+                      class="error-message-span">
+                      Nhập mã số thuế
+                    </span>
+
+                    <span *ngIf="createVendorForm.get('Phone').hasError('pattern')" class="error-message-span">
+                      Sai định dạng số điện thoại
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 buffer-bottom-label">
+                  <span>Email</span>
+                  <div>
+                    <input type="text" formControlName="Email" maxlength="100" class="w-100" pInputText placeholder=""
+                      [ngStyle]="(createVendorForm.get('Email').invalid && (createVendorForm.get('Email').dirty || createVendorForm.get('Email').touched)) ? 'error-border' : ''" />
+                  </div>
+                  <div [hidden]="createVendorForm.get('Email').valid || createVendorForm.get('Email').untouched">
+                    <span
+                      *ngIf="createVendorForm.get('Email').hasError('required') || createVendorForm.get('Email').hasError('blankString')"
+                      class="error-message-span">
+                      Nhập mã số thuế
+                    </span>
+
+                    <span *ngIf="createVendorForm.get('Email').hasError('pattern')" class="error-message-span">
+                      Sai định dạng Email
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-4 buffer-bottom-label">
+                  <span>Website</span>
+                  <div>
+                    <input type="text" formControlName="Website" maxlength="100" class="w-100" pInputText
+                      placeholder="" />
+                  </div>
+                </div>
+                <div class="col-md-12 buffer-bottom-label">
+                  <span>Address</span>
+                  <div><input formControlName="Address" type="text" maxlength="100" class="w-100" pInputText
+                      placeholder="" /></div>
+                </div>
+                <div class="col-md-12 buffer-bottom-label">
+                  <p>Mô tả</p>
+                  <p-editor [style]="{'height':'180px', 'width': '100%'}"></p-editor>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12 customer-infor">
+        <div class="row">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+            class="w-100">
+            <p-accordionTab header="Thông tin tài khoản ngân hàng" [selected]="true">
+              <div class="row buffer-bottom">
+                <div class="col-md-3 buffer-bottom-label">
+                  <span>Tên ngân hàng</span><span class="required">*</span>
+                  <div>
+                    <p-dropdown formControlName="Bank" [filter]="true" [showClear]="true" [resetFilterOnHide]="true"
+                      [options]="listBank" optionLabel="categoryName" placeholder="Chọn ngân hàng" [showClear]="true"
+                      [ngClass]="(createVendorForm.get('Bank').invalid && (createVendorForm.get('Bank').dirty || createVendorForm.get('Bank').touched)) ? 'error-border' : ''"
+                      [style]="{'width': '100%'}">
+                    </p-dropdown>
+                  </div>
+
+                  <div [hidden]="createVendorForm.get('Bank').valid || createVendorForm.get('Bank').untouched">
+                    <span *ngIf="createVendorForm.get('Bank').hasError('required')" class="error-message-span">
+                      Chọn ngân hàng
+                    </span>
+                  </div>
+
+                </div>
+
+                <div class="col-md-3 buffer-bottom-label">
+
+                  <span>Số tài khoản</span><span class="required">*</span>
+                  <div>
+                    <input formControlName="Account" type="text" maxlength="20" class="w-100" pInputText
+                      [ngClass]="(createVendorForm.get('Account').invalid && (createVendorForm.get('Account').dirty || createVendorForm.get('Account').touched)) ? 'error-border' : ''"
+                      placeholder="Nhập số tài khoản" />
+                  </div>
+                  <div [hidden]="createVendorForm.get('Account').valid || createVendorForm.get('Account').untouched">
+                    <span
+                      *ngIf="createVendorForm.get('Account').hasError('required') || createVendorForm.get('Account').hasError('blankString')"
+                      class="error-message-span">
+                      Nhập số tài khoản
+                    </span>
+                  </div>
+                </div>
+
+                <div class="col-md-3 buffer-bottom-label">
+                  <span>Chủ tài khoản</span><span class="required">*</span>
+                  <div>
+                    <input formControlName="AccountName" type="text" maxlength="20" class="w-100" pInputText
+                      [ngClass]="(createVendorForm.get('AccountName').invalid && (createVendorForm.get('AccountName').dirty || createVendorForm.get('AccountName').touched)) ? 'error-border' : ''"
+                      placeholder="Chủ tài khoản" />
+                  </div>
+
+                  <div
+                    [hidden]="createVendorForm.get('AccountName').valid || createVendorForm.get('AccountName').untouched">
+                    <span
+                      *ngIf="createVendorForm.get('AccountName').hasError('required') || createVendorForm.get('AccountName').hasError('blankString')"
+                      class="error-message-span">
+                      Nhập tên chủ tài khoản
+                    </span>
+                  </div>
+
+                </div>
+                <div class="col-md-3 buffer-bottom-label">
+                  <span>Chi nhánh</span><span class="required">*</span>
+                  <div>
+                    <input formControlName="Branch" type="text" maxlength="20" class="w-100" pInputText
+                      [ngClass]="(createVendorForm.get('Branch').invalid && (createVendorForm.get('Branch').dirty || createVendorForm.get('Branch').touched)) ? 'error-border' : ''"
+                      placeholder="Chi nhánh" />
+                  </div>
+                  <div [hidden]="createVendorForm.get('Branch').valid || createVendorForm.get('Branch').untouched">
+                    <span
+                      *ngIf="createVendorForm.get('Branch').hasError('required') || createVendorForm.get('Branch').hasError('blankString')"
+                      class="error-message-span">
+                      Nhập tên chi nhánh
+                    </span>
+                  </div>
+
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12 customer-infor">
+        <div class="row">
+          <p-accordion expandIcon="pi pi-fw pi-chevron-circle-right" collapseIcon="pi pi-fw pi-chevron-circle-down"
+            class="w-100">
+            <p-accordionTab header="Thông tin người liên hệ" [selected]="true">
+              <div class="row buffer-bottom">
+
+                <div class="col-md-3 buffer-bottom-label">
+                  <span>Họ và tên</span>
+                  <div>
+                    <input formControlName="ContactName" type="text" maxlength="20" class="w-100" pInputText
+                      [ngStyle]="(createVendorForm.get('ContactName').invalid && (createVendorForm.get('ContactName').dirty || createVendorForm.get('ContactName').touched)) ? 'error-border' : ''"
+                      placeholder="Nhập họ tên" />
+                  </div>
+                </div>
+
+                <div class="col-md-3 buffer-bottom-label">
+                  <span>Giới tính</span>
+                  <div class="row">
+                    <div class="col-md-6 in_country">
+                      <p-radioButton name="groupname" value="NAM" label="Nam" formControlName="ContactGender">
+                      </p-radioButton>
+                    </div>
+                    <div class="col-md-6 in_country">
+                      <p-radioButton name="groupname" value="NU" label="Nữ" formControlName="ContactGender">
+                      </p-radioButton>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3 buffer-bottom-label">
+                  <span>Email</span>
+                  <div>
+                    <input formControlName="MST" type="text" maxlength="20" class="w-100" pInputText />
+                  </div>
+                </div>
+                <div class="col-md-3 buffer-bottom-label">
+                  <span>Số điện thoại</span>
+                  <div>
+                    <input formControlName="MST" type="text" maxlength="20" class="w-100" pInputText />
+                  </div>
+                </div>
+              </div>
+            </p-accordionTab>
+          </p-accordion>
+        </div>
+      </div>
+    </div>
+  </form>
+
+  <div class="actions">
+    <button type="button" class="btn-back">
+      <span class="text-black" (click)="close()">Thoát</span>
+    </button>
+    <button type="button" class="btn-edit">
+      <span class="text-white" (click)="quickCreateVendor()">Lưu</span>
+    </button>
+  </div>
+</p-dialog>
+
+
+
+<p-dialog header="Nhập file excel" [(visible)]="displayChooseFileImportDialog" [modal]="true" [responsive]="true"
+  [style]="{width: '550px', minWidth: '200px'}" [minY]="70" [baseZIndex]="10000" [closable]="true"
+  (onHide)="closeChooseFileImportDialog()">
+  <div class="employee-list" style="border:unset;">
+    <div class="col-md-4 mt-25">
+      <span>File mẫu</span>
+    </div>
+    <div class="col-md-8 mt-25" style="margin-bottom:15px;">
+      <button type="button" class="export-exel">
+        <a href="../../../../../../assets/templateExcel/TemplateImportVendorOption.xlsx" download
+          class="export-exel-text">Tải file mẫu</a>
+      </button>
+    </div>
+    <div class="col-md-4 mt-25">
+      <span>Chọn file</span>
+    </div>
+    <div class="col-md-8 mt-25" style="margin-bottom: 15px;">
+      <button class="btn btn-primary btn-file import-file">
+        <span class="text-import">Chọn file</span>
+        <input type="file" id="importFileProduct" (click)="onClickImportBtn($event)" (change)="chooseFile($event)"
+          accept=".xlsx, .xls">
+      </button>
+      <div>{{fileName}}</div>
+    </div>
+    <p-footer>
+      <button class="btn-create" type="button" #save (click)="importExcel()">
+        <span class="btn-create-text">Nhập</span>
+      </button>
+    </p-footer>
+  </div>
+</p-dialog>

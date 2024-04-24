@@ -1,0 +1,334 @@
+.bao-cao-nhan-vien {
+  width: 100%;
+  box-shadow: 0 1px 2px 0 rgba(18, 22, 25, 0.08);
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.bao-cao-nhan-vien .box-header {
+  width: 100%;
+  background-image: linear-gradient(to top, #f2f4f8, #dde1e6);
+}
+
+.bao-cao-nhan-vien .btn-create {
+  float: right;
+  width: 98px;
+  height: 31px;
+  border-radius: 4px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.bao-cao-nhan-vien .btn-create-text {
+  width: 50px;
+  height: 16px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: bold;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.15;
+  letter-spacing: normal;
+  text-align: center;
+  color: #ffffff;
+}
+
+.bao-cao-nhan-vien .box-header-group {
+  margin-top: 10px;
+}
+
+.bao-cao-nhan-vien .box-header-icon {
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  background-color: #0f62fe;
+  text-align: center;
+}
+
+.bao-cao-nhan-vien .Money-2 {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.bao-cao-nhan-vien .box-header-title {
+  width: auto;
+  height: auto;
+  font-family: 'Inter UI';
+  font-size: 20px;
+  font-weight: 600;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: left;
+  color: #121619;
+}
+
+.bao-cao-nhan-vien .noun-product {
+  width: 20.4px;
+  height: 18.5px;
+  object-fit: contain;
+  margin-top: 10px;
+}
+
+.bao-cao-nhan-vien .box-header-subtitle {
+  font-family: 'Inter UI';
+  font-size: 11px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.36;
+  letter-spacing: normal;
+  text-align: left;
+  color: #4d5358;
+}
+
+.bao-cao-nhan-vien .box-header-group-btn {
+  text-align: right;
+  padding-top: 5px;
+}
+
+.bao-cao-nhan-vien .btn-refresh {
+  width: 32px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+}
+
+.bao-cao-nhan-vien .ios-refresh {
+  width: 12px;
+  height: 14px;
+  object-fit: contain;
+}
+
+.bao-cao-nhan-vien .btn-filter {
+  width: 104px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #007aff;
+  background-color: #007aff;
+  margin-left: 5px;
+}
+
+.bao-cao-nhan-vien .ios-funnel {
+  width: 12.3px;
+  height: 11.3px;
+  object-fit: contain;
+  margin-right: 5px;
+}
+
+.bao-cao-nhan-vien .btn-filter-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+.bao-cao-nhan-vien .iput-text {
+  width: 248px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+
+.bao-cao-nhan-vien .box-filter {
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding: 10px 0px;
+}
+
+.bao-cao-nhan-vien .code-text {
+  width: 100%;
+  height: 32px;
+  font-family: 'Inter UI';
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #ffffff;
+  padding-left: 5px;
+}
+
+.bao-cao-nhan-vien .mt-5 {
+  margin-top: 5px;
+}
+
+.bao-cao-nhan-vien .btn-search {
+  width: 72px;
+  height: 32px;
+  border: solid 1px #cccccc;
+  border-radius: 4px;
+  box-shadow: 0 1px 1px 0 rgba(18, 22, 25, 0.08);
+  background-color: #0f62fe;
+}
+
+.bao-cao-nhan-vien .btn-search:focus {
+  border-color: #007ad9;
+  outline: 0 none;
+}
+
+.bao-cao-nhan-vien .btn-search-text {
+  width: 36px;
+  height: 13px;
+  font-family: 'Inter UI';
+  font-size: 13px;
+  font-weight: normal;
+  font-stretch: normal;
+  font-style: normal;
+  line-height: 1.46;
+  letter-spacing: normal;
+  text-align: left;
+  color: #ffffff;
+}
+
+/* Config rows Per Page Options */
+::ng-deep .bao-cao-nhan-vien .ui-inputtext {
+  padding: 0.3em;
+}
+
+.bao-cao-nhan-vien .link {
+  font-family: 'Inter UI';
+  color: #007ad9;
+  cursor: pointer;
+  font-size: 13px;
+}
+
+.bao-cao-nhan-vien .no-data {
+  height: 435px;
+  border: solid 1px #d7dbe0;
+  background-color: #f2f4f8;
+  text-align: center;
+}
+
+.bao-cao-nhan-vien .box-no-data {
+  position: relative; 
+  top: 25%;
+}
+
+.bao-cao-nhan-vien .box-icon {
+  width: 57.1px;
+  height: 58px;
+  object-fit: contain;
+}
+
+::ng-deep .bao-cao-nhan-vien .ui-datepicker {
+  /* top: 28px !important; */
+  margin-top: 20%;
+}
+
+/* ::ng-deep .bao-cao-nhan-vien .ui-multiselect .ui-multiselect-panel {
+  display: contents;
+} */
+
+/* Máy để bàn */
+@media only screen and (min-width: 1025px) and (max-width: 1423px)  {
+  
+}
+
+/* Ipad Pro */
+@media only screen and (min-width: 769px) and (max-width: 1024px)  {
+  .bao-cao-nhan-vien .box-header-icon {
+    width: 40px;
+    height: 40px;
+    padding-right: -5px;
+  }
+
+  .bao-cao-nhan-vien .Money-2 {
+    width: 15.4px;
+    height: 11.5px;
+    margin-top: 7px;
+  }
+
+  .bao-cao-nhan-vien .iput-text {
+    margin-top: 5px;
+  }
+
+  .bao-cao-nhan-vien .purchase-order-list {
+    padding-left: 25px;
+    margin-top: 5px;
+  }
+
+  .bao-cao-nhan-vien .box-header-group .box-header-title {
+    font-size: 16px;
+    margin-bottom: 5px;
+  }
+
+  .bao-cao-nhan-vien .btn-create {
+    margin-top: 10px;
+  }
+
+}
+
+/* Ipad */
+@media only screen and (min-width: 415px) and (max-width: 768px) {
+  .bao-cao-nhan-vien .btn-create {
+    margin-top: 5px;
+  }
+
+  .bao-cao-nhan-vien .box-header-title {
+    margin-left: -30px;
+    margin-top: 5px;
+  }
+
+  .bao-cao-nhan-vien .box-header-subtitle {
+    margin-left: -30px;
+    margin-bottom: 10px;
+  }
+}
+
+/* Iphone 6/7/8 Plus */
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+  .bao-cao-nhan-vien .box-header-subtitle {
+    margin: 10px 0px;
+    font-size: 14px;
+  }
+
+  .bao-cao-nhan-vien span.ui-column-title {
+    width: 150px;
+  }
+
+  .bao-cao-nhan-vien .btn-filter {
+    width: auto;
+  }
+
+  /* .bao-cao-nhan-vien .purchase-order-list {
+    margin-left: 10px;
+  } */
+}
+
+/* Iphone 6/7/8/X */
+@media only screen and (max-width: 375px) {
+  .bao-cao-nhan-vien tr {
+    margin-top: 5px;
+    margin-bottom: 5px;
+  }
+
+  .bao-cao-nhan-vien .box-header-subtitle {
+    margin: 5px 0px;
+    font-size: 12px;
+  }
+
+  .bao-cao-nhan-vien span.ui-column-title {
+    width: 150px;
+  }
+
+  .bao-cao-nhan-vien .btn-filter {
+    width: auto;
+  }
+
+  .bao-cao-nhan-vien .iput-text {
+    width: 210px;
+  }
+}

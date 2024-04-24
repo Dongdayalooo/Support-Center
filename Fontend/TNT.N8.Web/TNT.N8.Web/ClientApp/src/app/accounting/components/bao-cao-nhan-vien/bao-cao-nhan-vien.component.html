@@ -1,0 +1,220 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+
+<div class="bao-cao-nhan-vien">
+  <div class="row no-margin">
+    <div class="box-header">
+      <div class="col-md-6">
+        <div class="box-header-title" style="line-height: 40px!important;">Báo cáo nhân viên</div>
+      </div>
+      <div class="col-md-6">
+        <div class="box-header-group-btn">
+
+          <p-radioButton name="groupname" value="1" [(ngModel)]="employeeType" label="Nhân viên" class="mr-5"
+            (onClick)="searchData()"></p-radioButton>
+
+          <p-radioButton name="groupname" value="2" [(ngModel)]="employeeType" label="Cộng tác viên" class="mr-5"
+            (onClick)="searchData()"></p-radioButton>
+
+
+          <button type="button" class="btn-refresh" (click)="refreshFilter()">
+            <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
+          </button>
+          <button type="button" class="btn-filter" (click)="showFilter()">
+            <img src="/assets/icons/components/ios-funnel.svg" class="ios-funnel">
+            <span class="btn-filter-text">Bộ lọc</span>
+          </button>
+          <input type="text" [(ngModel)]="filterGlobal" class="iput-text" placeholder="Tìm kiếm trong danh sách"
+            (input)="myTable.filterGlobal($event.target.value.trim(), 'contains')">
+
+          <button type="button" class="btn-create"><span class="btn-create-text ml-5" (click)="exportExcel()">Xuất
+              Excel</span>
+          </button>
+          <div style="clear: both;"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row no-margin" style="background-color: #0e52d8;">
+    <!-- <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+      <div class="box-filter">
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Chọn nhân viên</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listAllEmp" [(ngModel)]="listEmpSelected" itemSize="30" [virtualScroll]="true"
+              defaultLabel="Chọn nhân viên" optionLabel="employeeName" [style]="{'width': '100%'}"
+              [resetFilterOnHide]="true" selectedItemsLabel="{0} nhân viên được chọn" [filter]="true">
+            </p-multiSelect>
+          </div>
+        </div>
+
+
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Từ ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="tuNgay" [yearNavigator]="true" view="month" yearRange="2000:2050"
+              dateFormat="mm/yy" [style]="{'width':'100%'}" showButtonBar="true" [inputStyle]="{'width':'100%'}"
+              [baseZIndex]="9999">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Đến ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="denNgay" [yearNavigator]="true" view="month" yearRange="2000:2050"
+              dateFormat="mm/yy" [style]="{'width':'100%'}" showButtonBar="true" [inputStyle]="{'width':'100%'}"
+              [baseZIndex]="9999">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Ngày sinh nhật từ</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [yearNavigator]="true" dateFormat="dd/mm/yy" [style]="{'width':'100%'}" placeholder="dd/mm/yy"
+              showButtonBar="true" [inputStyle]="{'width':'100%'}" [baseZIndex]="9999">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-10" style="text-align: right">
+            <button type="button" class="btn-search" (click)="searchData()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div> -->
+
+    <!-- bảng dữ liệu  -->
+    <div *ngIf="listEmp.length > 0" class="col-md-{{leftColNumber}}">
+      <p-table #myTable [columns]="listColRow" [value]="listEmp"  [resizableColumns]="true"
+        columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
+        class="table-border">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th *ngFor="let col of listColRow1" [colSpan]="col.colSpan" [rowSpan]="col.rowSpan"
+              [ngStyle]="{ 'text-align': 'center', display: 'table-cell' , width: col.width }">
+              {{col.name}}
+            </th>
+          </tr>
+
+          <tr>
+            <th *ngFor="let col of listColRow2" [colSpan]="1" [rowSpan]="1"
+              [ngStyle]="{ 'text-align': 'center', display: 'table-cell' , width: '180px' }">
+              {{col.name}}
+            </th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-rowData let-columns="columns">
+          <tr>
+            <td *ngFor="let col of columns"
+              [ngStyle]="{ 'text-align': col.textAlign, display: 'table-cell', width: col.width }">
+              <span class="ui-column-title">{{col.name}}</span>
+
+              <span *ngIf="col.key =='employeeName'" (click)="onViewDetail(rowData)" class="link" style="display: inline-block;
+              padding: 2px 2px;">
+                {{ rowData[col.key] }}
+              </span>
+
+              <span *ngIf="col.key =='positionName'">
+                {{ rowData[col.key] }}
+              </span>
+
+              <span *ngIf="
+              col.key =='soDichVuThucHien' || col.key =='soDichVuChoXacNhan' ||
+              col.key =='soDichVuTuChoi' || col.key =='tongDoanhThuKH' ||
+              col.key =='thuongTheoDichVu' || col.key =='thuongKhuyenKhich' || 
+              col.key =='tuyetVoi' || col.key =='haiLong' ||  
+              col.key =='binhThuong' ||  col.key =='chuaHaiLong' ||  
+              col.key =='te' ||  col.key.includes('khuyenKhich') ||  
+              col.key.includes('mucThuong') || 
+              col.key.includes('tongDoanhThuKH')">
+                {{ rowData[col.key] | number : 0}}
+              </span>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </div>
+
+    <div *ngIf="!(listEmp.length > 0)" class="col-md-{{leftColNumber}} no-padding no-data">
+      <div class="box-no-data">
+        <img src="/assets/icons/components/box.svg" class="box-icon">
+        <div>
+          <span>Hiện tại không có dữ liệu</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- bộ lọc -->
+    <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
+      <div class="box-filter">
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Chọn nhân viên</span>
+          </div>
+          <div class="col-md-12">
+            <p-multiSelect [options]="listAllEmp" [(ngModel)]="listEmpSelected" itemSize="30" [virtualScroll]="true"
+              defaultLabel="Chọn nhân viên" optionLabel="employeeName" [style]="{'width': '100%'}"
+              [resetFilterOnHide]="true" selectedItemsLabel="{0} nhân viên được chọn" [filter]="true">
+            </p-multiSelect>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Từ ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="tuNgay" [yearNavigator]="true" view="month" yearRange="2000:2050"
+              dateFormat="mm/yy" [style]="{'width':'100%'}" showButtonBar="true" [inputStyle]="{'width':'100%'}"
+              [baseZIndex]="9999">
+            </p-calendar>
+          </div>
+        </div>
+
+        <div class="row no-margin">
+          <div class="col-md-12 mt-10">
+            <span>Đến ngày</span>
+          </div>
+          <div class="col-md-12">
+            <p-calendar [(ngModel)]="denNgay" [yearNavigator]="true" view="month" yearRange="2000:2050"
+              dateFormat="mm/yy" [style]="{'width':'100%'}" showButtonBar="true" [inputStyle]="{'width':'100%'}"
+              [baseZIndex]="9999">
+            </p-calendar>
+          </div>
+        </div>
+
+
+        <div class="row no-margin pb-1">
+          <div class="col-md-12 mt-10" style="text-align: right">
+            <button type="button" class="btn-search" (click)="searchData()">
+              <span class="btn-search-text">Tìm kiếm</span>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

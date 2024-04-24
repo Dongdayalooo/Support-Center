@@ -1,0 +1,98 @@
+
+
+ .iput-text {
+  width: 248px;
+  height: 32px;
+  border-radius: 4px;
+  border: solid 1px #c1c7cd;
+  background-color: #f2f4f8;
+  padding-left: 5px;
+  margin-left: 5px;
+}
+/* Máy để bàn */
+
+@media only screen and (min-width: 1025px) and (max-width: 1423px) {}
+
+/* Ipad Pro */
+
+@media only screen and (min-width: 769px) and (max-width: 1024px) {
+   .box-header-icon {
+    width: 40px;
+    height: 40px;
+  }
+   .Money-2 {
+    width: 20.4px;
+    height: 19.5px;
+    margin-top: 10px;
+  }
+   .iput-text {
+    margin-top: 5px;
+  }
+
+   .supplier-directory {
+    padding-left: 25px;
+    margin-top: 5px;
+  }
+
+   .supplier-directory .box-header-subtitle {
+    font-size: 12px;
+  }
+}
+
+/* Ipad */
+
+@media only screen and (min-width: 415px) and (max-width: 768px) {
+   .btn-create {
+    margin-top: 5px;
+  }
+  [_ngcontent-ng-cli-universal-c16] .box-header-title[_ngcontent-ng-cli-universal-c16]{
+    height: auto;
+  }
+
+   .box-header-title {
+    margin-left: -20px;
+  }
+
+   .box-header-subtitle {
+    margin-left: -20px;
+  }
+}
+
+/* Iphone 6/7/8 Plus */
+
+@media only screen and (min-width: 376px) and (max-width: 414px) {
+   .box-header-subtitle {
+    margin-bottom: 10px;
+    font-size: 12px;
+  }
+
+   .btn-filter {
+    width: auto;
+  }
+
+   span.ui-column-title {
+    width: 200px;
+  }
+
+}
+
+/* Iphone 6/7/8/X */
+
+@media only screen and (max-width: 375px) {
+
+   .box-header-subtitle {
+    margin: 10px 0px;
+  }
+
+   span.ui-column-title {
+    width: 180px;
+  }
+
+   .btn-filter {
+    width: auto;
+  }
+
+   .iput-text {
+    width: 210px;
+  }
+}

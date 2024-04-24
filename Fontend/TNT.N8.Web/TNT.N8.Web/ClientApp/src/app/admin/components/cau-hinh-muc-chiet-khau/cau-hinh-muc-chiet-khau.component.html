@@ -1,0 +1,258 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<div class="row">
+  <div class="col-md-12 mt-10 text-end">
+    <button pButton type="button" class="ui-button ui-button-raised" label="Thêm mới"
+      (click)="addEditCauHinhKhuyenKhich(null, 0, false)"></button>
+  </div>
+
+  <div class="col-md-12 mt-10">
+    <p-treeTable [value]="listCauHinhChietKhauTree">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>Mức chiết khấu</th>
+          <th>Điều kiện</th>
+          <th>Khoảng xét hạng</th>
+          <th style="width: 180px;text-align: center;">Thao tác</th>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="body" let-rowNode let-rowData="rowData">
+        <tr [ttRow]="rowNode">
+          <td>
+            <p-treeTableToggler [rowNode]="rowNode"></p-treeTableToggler>
+            <span *ngIf="rowData?.parentId == null || rowData?.parentId == emptyGuid">
+              {{ rowData.phanHang + " - Mức chiết khấu" + (rowData.loaiChietKhauId == 2 ? (" theo số tiền: " + ( rowData.giaTri | number : 0)) :
+              (" theo: " + (rowData.giaTri | number : 0)) + "% giá trị đơn đặt") }}
+            </span>
+          </td>
+
+          <td>
+            <span *ngIf="rowData?.parentId != null && rowData?.parentId != emptyGuid">
+              {{rowData.dieuKien}}
+            </span>
+          </td>
+
+          <td>
+            <span
+              *ngIf="rowData?.parentId != null && rowData?.parentId != emptyGuid && [1, 2, 3, 4, 5, 6, 7, 10, 12].includes(rowData.dieuKienId)">
+              {{(rowData.giaTriTu != null ? (rowData.giaTriTu | number: 0) : "") + " - " + (rowData.giaTriDen != null ?
+              (rowData.giaTriDen | number: 0) : "")}}
+            </span>
+
+            <span
+              *ngIf="rowData?.parentId != null && rowData?.parentId != emptyGuid && [11].includes(rowData.dieuKienId)">
+              {{(rowData.giaTriTu == 0 ? "Nam" : (rowData.giaTriTu == 1 ? "Nữ" : "" ))}}
+            </span>
+
+
+            <span
+              *ngIf="rowData?.parentId != null && rowData?.parentId != emptyGuid && [9].includes(rowData.dieuKienId)">
+              {{(rowData.thoiGianTu != null ? (rowData.thoiGianTu | date: "dd/MM/yyyy" ) : "") + " - " +
+              (rowData.thoiGianDen != null ?
+              (rowData.thoiGianDen | date: "dd/MM/yyyy") : "")}}
+            </span>
+
+
+          </td>
+
+          <td style="width: 180px;text-align: center;">
+            <button pButton (click)="addEditCauHinhKhuyenKhich(rowData, 1, false)" icon="pi pi-plus"
+              [disabled]="rowData?.parentId != null && rowData?.parentId != emptyGuid"
+              style="margin-right: 5px;"></button>
+
+            <button pButton icon="pi pi-pencil" class="ui-button" style="margin-right: 5px;"
+              (click)="addEditCauHinhKhuyenKhich(rowData, rowData?.parentId != null && rowData?.parentId != emptyGuid ? 1 : 0, true)"></button>
+
+            <button pButton icon="pi pi-trash" class="ui-button-danger"
+              (click)="deleteCauHinhChietKhau(rowData.id)"></button>
+          </td>
+
+        </tr>
+      </ng-template>
+
+    </p-treeTable>
+  </div>
+
+</div>
+
+<p-dialog header='{{ level == 0 ? "Cấu hình phân hạng khách hàng" : "Cấu hình điều kiện phân hạng" }}'  [modal]="true"
+  [(visible)]="dialogCauHinh" [contentStyle]="{'max-width': '900px', 'overflow': 'visible'}">
+  <form [formGroup]="cauHinhForm">
+    <!-- Nếu là lv 0 -->
+    <div class="row no-padding" *ngIf="level == 0">
+      <!-- Hàng 1 -->
+      <div class="col-md-12 ">
+        <span>Phân hạng<span class="required">*</span>:</span>
+      </div>
+      <div class="col-md-12 ">
+        <p-dropdown class="customer-dropdown" formControlName="phanHangControl" [options]="listPhanLoaiKh"
+          [baseZIndex]="99999" [style]="{'width': '100%'}" optionLabel="categoryName" [autoDisplayFirst]="false"
+          placeholder=""
+          [ngClass]="(cauHinhForm.get('phanHangControl').invalid && (cauHinhForm.get('phanHangControl').dirty || cauHinhForm.get('phanHangControl').touched)) ? 'error-border' : ''">>
+        </p-dropdown>
+        <div class="error-message-span"
+          *ngIf="cauHinhForm.get('phanHangControl').invalid && (cauHinhForm.get('phanHangControl').dirty || cauHinhForm.get('phanHangControl').touched)">
+          Phân hạng không được để trống!
+        </div>
+      </div>
+
+      <!-- Hàng 2 -->
+      <div class="col-md-6 ">
+        <span>Loại chiết khấu<span class="required">*</span>:</span>
+      </div>
+
+      <div class="col-md-6 ">
+        <span>Giá trị<span class="required">*</span>:</span>
+      </div>
+
+      <!-- Hàng 3 -->
+
+      <div class="col-md-6">
+        <p-dropdown class="customer-dropdown" formControlName="loaiChietKhauControl" [options]="listKieuThuong"
+          [baseZIndex]="99999" [style]="{'width': '100%'}" optionLabel="name" [autoDisplayFirst]="false" placeholder=""
+          [ngClass]="(cauHinhForm.get('loaiChietKhauControl').invalid && (cauHinhForm.get('loaiChietKhauControl').dirty || cauHinhForm.get('loaiChietKhauControl').touched)) ? 'error-border' : ''">>
+        </p-dropdown>
+        <div class="error-message-span"
+          *ngIf="cauHinhForm.get('loaiChietKhauControl').invalid && (cauHinhForm.get('loaiChietKhauControl').dirty || cauHinhForm.get('loaiChietKhauControl').touched)">
+          Loại chiết khấu không được để trống!
+        </div>
+      </div>
+
+      <div class="col-md-6">
+        <p-inputNumber [min]="0" class="w-100" formControlName="giaTriControl" mode="decimal" [minFractionDigits]="2"
+          [ngClass]="(cauHinhForm.get('giaTriControl').invalid && (cauHinhForm.get('giaTriControl').dirty || cauHinhForm.get('giaTriControl').touched)) ? 'error-border' : ''">
+        </p-inputNumber>
+        <div class="error-message-span"
+          *ngIf="cauHinhForm.get('giaTriControl').invalid && (cauHinhForm.get('giaTriControl').dirty || cauHinhForm.get('giaTriControl').touched)">
+          Giá trị không được để trống!
+        </div>
+      </div>
+
+
+    </div>
+
+
+    <!-- Nếu là lv1 -->
+    <div class="row mt-10 no-padding" *ngIf="level == 1">
+      <div class="col-md-12 mt-10">
+        <div class="col-md-12 no-margin no-padding">
+          <span>Phân hạng: <b>{{ parentCauHinh?.phanHang}}</b></span>
+        </div>
+      </div>
+
+      <div class="col-md-12 mt-10">
+        <div class="col-md-12 no-margin no-padding">
+          <span>Mức chiết khấu: <b>{{ parentCauHinh?.loaiChietKhauId == 2 ? (parentCauHinh?.giaTri | number: 0) :
+              (parentCauHinh?.giaTri + "%")}}</b></span>
+        </div>
+      </div>
+
+
+      <div class="col-md-12 mt-10">
+        <div class="col-md-12 no-margin no-padding">
+          <span>Chọn điều kiện<span class="required">*</span>:</span>
+        </div>
+        <div class="col-md-12 no-margin no-padding">
+          <p-dropdown class="customer-dropdown" formControlName="dieuKienControl" [options]="listDieuKienChietKhau"
+            [baseZIndex]="99999" [style]="{'width': '100%'}" optionLabel="name" [autoDisplayFirst]="false"
+            placeholder="Chọn điều kiện" (onChange)="changeDieuKien()"
+            [ngClass]="(cauHinhForm.get('dieuKienControl').invalid && (cauHinhForm.get('dieuKienControl').dirty || cauHinhForm.get('dieuKienControl').touched)) ? 'error-border' : ''">>
+          </p-dropdown>
+          <div class="error-message-span"
+            *ngIf="cauHinhForm.get('dieuKienControl').invalid && (cauHinhForm.get('dieuKienControl').dirty || cauHinhForm.get('dieuKienControl').touched)">
+            Điều kiện không được để trống!
+          </div>
+        </div>
+      </div>
+
+      <!-- Cho điều kiện cho giá trị số từ đến [1,2,3,4,5,6,7,10,11,12] -->
+      <div class="col-md-6 mt-10" *ngIf="[1,2,3,4,5,6,7,10,11,12].includes(dieuKienControl.value?.value)">
+        <div class="col-md-12 no-margin no-padding">
+          <span *ngIf="dieuKienControl.value?.value != 11">Giá trị từ<span class="required">*</span>:</span>
+          <span *ngIf="dieuKienControl.value?.value == 11">Giới tính<span class="required">*</span>:</span>
+        </div>
+        <div class="col-md-12 no-margin no-padding">
+          <p-inputNumber [min]="0" class="w-100" formControlName="giaTriTuControl" mode="decimal"
+            [minFractionDigits]="2"
+            [ngClass]="(cauHinhForm.get('giaTriTuControl').invalid && (cauHinhForm.get('giaTriTuControl').dirty || cauHinhForm.get('giaTriTuControl').touched)) ? 'error-border' : ''">
+          </p-inputNumber>
+          <div class="error-message-span"
+            *ngIf="cauHinhForm.get('giaTriTuControl').invalid && (cauHinhForm.get('giaTriTuControl').dirty || cauHinhForm.get('giaTriTuControl').touched)">
+            Giá trị không được để trống!
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mt-10" *ngIf="[1,2,3,4,5,6,7,10,11,12].includes(dieuKienControl.value?.value)">
+        <div class="col-md-12 no-margin no-padding">
+          <span *ngIf="dieuKienControl.value?.value != 11">Giá trị đến<span class="required">*</span>:</span>
+          <span *ngIf="dieuKienControl.value?.value == 11">Ghi chú</span>
+        </div>
+        <div class="col-md-12 no-margin no-padding" *ngIf="dieuKienControl.value?.value != 11">
+          <p-inputNumber [min]="0" class="w-100" formControlName="giaTriDenControl" mode="decimal"
+            [minFractionDigits]="2"
+            [ngClass]="(cauHinhForm.get('giaTriDenControl').invalid && (cauHinhForm.get('giaTriDenControl').dirty || cauHinhForm.get('giaTriDenControl').touched)) ? 'error-border' : ''">
+          </p-inputNumber>
+          <div class="error-message-span"
+            *ngIf="cauHinhForm.get('giaTriDenControl').invalid && (cauHinhForm.get('giaTriDenControl').dirty || cauHinhForm.get('giaTriDenControl').touched)">
+            Giá trị không được để trống!
+          </div>
+        </div>
+
+        <div class="col-md-12 no-margin no-padding" *ngIf="dieuKienControl.value?.value == 11">
+          <span style="line-height: 30px;">0: Nam , 1: Nữ</span>
+        </div>
+      </div>
+
+
+      <!-- Cho điều kiện cho giá trị ngày từ đến [9] -->
+      <div class="col-md-6 mt-10" *ngIf="[9].includes(dieuKienControl.value?.value)">
+        <div class="col-md-12 no-margin no-padding">
+          <span>Thời gian từ<span class="required">*</span>:</span>
+        </div>
+        <div class="col-md-12 no-margin no-padding">
+          <p-calendar formControlName="thoiGianTuControl"
+            [styleClass]="(thoiGianTuControl.invalid  && (thoiGianTuControl.dirty ||  thoiGianTuControl.touched)) ? 'error-pcalendar': ''"
+            dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+            [baseZIndex]="999"></p-calendar>
+
+          <div class="error-message-span"
+            *ngIf="cauHinhForm.get('thoiGianTuControl').invalid && (cauHinhForm.get('thoiGianTuControl').dirty || cauHinhForm.get('thoiGianTuControl').touched)">
+            Thời gian không được để trống!
+          </div>
+        </div>
+      </div>
+
+      <div class="col-md-6 mt-10" *ngIf="[9].includes(dieuKienControl.value?.value)">
+        <div class="col-md-12 no-margin no-padding">
+          <span>Thời gian đến<span class="required">*</span>:</span>
+        </div>
+        <div class="col-md-12 no-margin no-padding">
+          <p-calendar formControlName="thoiGianDenControl"
+            [styleClass]="(thoiGianDenControl.invalid  && (thoiGianDenControl.dirty ||  thoiGianDenControl.touched)) ? 'error-pcalendar': ''"
+            dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+            [baseZIndex]="999"></p-calendar>
+          <div class="error-message-span"
+            *ngIf="cauHinhForm.get('thoiGianDenControl').invalid && (cauHinhForm.get('thoiGianDenControl').dirty || cauHinhForm.get('thoiGianDenControl').touched)">
+            Thời gian không được để trống!
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="row mt-10 no-padding">
+      <div class="col-md-12 no-margin no-padding">
+        <div class="col-md-12 text-end">
+          <button pButton type="button" class="ui-button ui-button-raised" style="margin-right: 8px;"
+            (click)="closeCauHinhKhuyenKhich()" label="Hủy"></button>
+          <button pButton type="button" class="ui-button ui-button-raised" (click)="saveCauHinh()" label="Lưu"></button>
+        </div>
+      </div>
+    </div>
+
+  </form>
+</p-dialog>

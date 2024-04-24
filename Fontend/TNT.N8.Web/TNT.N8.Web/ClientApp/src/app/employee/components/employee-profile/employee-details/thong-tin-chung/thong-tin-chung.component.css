@@ -1,0 +1,40 @@
+.emp-ttc .mt-10 {
+  margin-top: 10px;
+}
+
+.emp-ttc .mb-20 {
+  margin-bottom: 20px;
+}
+
+.emp-ttc .emp-avatar {
+  width: 115px;
+  border-radius: 50%;
+}
+
+.emp-ttc .box-define {
+  border: solid 1px #dde1e6;
+  padding: 25px 60px;
+}
+
+.evaluate {
+  border-top: 1px solid #000;
+}
+
+.font-weight-bold {
+  font-weight: bold;
+}
+
+.rate-content {
+  background: #dde1e6;
+  border-radius: 10px;
+  padding: 15px;
+  width: fit-content;
+}
+
+.p-5 {
+  padding: 15px;
+}
+
+.pt-2 {
+  padding-top: 3px;
+}

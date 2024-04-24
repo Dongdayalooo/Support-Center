@@ -1,0 +1,701 @@
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{ width: '50px', height: '50px' }" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<p-toast position="bottom-right"></p-toast>
+
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="create-customer col-md-12">
+  <div class="header-top">
+    <div class="row bottom-buffer">
+      <div class="col-md-6">
+        <div class="row">
+          <div class="col-md-12 more-customers">
+            <img src="/assets/icons/components/create_lead.svg" class="header-icon">
+            <div class="header">{{ customerId ? ("Khách hàng: " + customerName + " - " + customerCodeControl.value):
+              "Tạo mới khách hàng"}}</div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6 header-botton">
+        <div class="row" style="display: flex; justify-content: flex-end; margin-right: 0px;">
+
+          <button (click)="onCancel()" pButton type="button" class="cancel-cus-btn" style="margin-right: 1rem;"><span
+              class="cancel-cus-btn-text">Thoát</span>
+          </button>
+
+          <button *ngIf="actionAdd" #save (click)="onSaveCustomer()" pButton type="button" class="save-cus-btn"><span
+              class="save-cus-btn-text">Lưu</span>
+          </button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-top" style="margin-top:10px;" *ngIf="customerId">
+    <div class="flex-container">
+      <div class="box1">
+        <div class="text-center">
+          <span>Tổng đơn đặt dịch vụ</span>
+          <div class="mt-10">{{tongDonDatDichVu | number}}</div>
+        </div>
+      </div>
+
+
+      <div class="box2">
+        <div class="text-center">
+          <span>Tổng doanh thu cho công ty (VND)</span>
+          <div class="mt-10">{{tongDoanhThu | number}}</div>
+        </div>
+      </div>
+
+
+      <div class="box2">
+        <div class="text-center">
+          <span>Tổng doanh thu cho NCC (VND)</span>
+          <div class="mt-10">{{tongDoanhThuNcc | number}}</div>
+        </div>
+      </div>
+
+
+      <div class="box3">
+        <div class="text-center">
+          <span>Doanh thu chờ thanh toán (VND)</span>
+          <div class="mt-10">{{tongDoanhThuChoThanhToan | number}}</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <div class="header-top" style="margin-top:10px;">
+    <div class="row bottom-buffer" id="parent">
+      <div class="col-md-3" style="text-align: center;">
+        <img class="cus-avatar" [src]="AvatarUrl" />
+      </div>
+      <div class="col-md-9">
+        <p-accordion [multiple]="true" expandIcon="pi pi-fw pi-chevron-circle-right"
+          collapseIcon="pi pi-fw pi-chevron-circle-down">
+          <p-accordionTab header="Thông tin khách hàng" [selected]="true">
+            <form [formGroup]="customerInforForm">
+
+
+              <div class="row bottom-buffer">
+                <div class="col-md-3">
+                  <p-radioButton name="CustomerTypeCompanyForm" value="2" formControlName="customerTypeControl"
+                    (onClick)="setValidation()" label="Cá nhân">
+                  </p-radioButton>
+                </div>
+
+                <div class="col-md-3">
+                  <p-radioButton name="CustomerTypeCompanyForm" value="1" formControlName="customerTypeControl"
+                    (onClick)="setValidation()" label="Doanh nghiệp">
+                  </p-radioButton>
+                </div>
+
+                <div class="col-md-3">
+                  <label class="isActive font-weight-bold">
+                    <p-checkbox [formControl]="khachHangReviewControl" [binary]="true"
+                      label="Khách hàng Review"></p-checkbox>
+                  </label>
+                </div>
+
+                <div class="col-md-3">
+                  <label class="isActive font-weight-bold">
+                    Phân hạng: <strong class="mr-5"> {{phanHang}}</strong>
+                  </label>
+                </div>
+
+              </div>
+
+              <!-- Nếu là KH cá nhân -->
+              <div class="row bottom-buffer" *ngIf="customerTypeControl.value == 2">
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Họ và tên đệm<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="firstNameControl" type="text" pInputText
+                        placeholder="Họ và tên đệm"
+                        [ngClass]="(customerInforForm.get('firstNameControl').invalid && (customerInforForm.get('firstNameControl').dirty || customerInforForm.get('firstNameControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('firstNameControl').invalid && (customerInforForm.get('firstNameControl').dirty || customerInforForm.get('firstNameControl').touched)">
+                      Họ tên đệm không được để trống!
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Tên<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="32" formControlName="lastNameControl" type="text" pInputText placeholder="Tên"
+                        [ngClass]="(customerInforForm.get('lastNameControl').invalid && (customerInforForm.get('lastNameControl').dirty || customerInforForm.get('lastNameControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('lastNameControl').invalid && (customerInforForm.get('lastNameControl').dirty || customerInforForm.get('lastNameControl').touched)">
+                      Tên không được để trống!
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Giới tính
+                    </div>
+                    <div class="col-md-12">
+                      <p-dropdown class="customer-dropdown" formControlName="genderControl" [options]="listGenders"
+                        optionLabel="name" [autoDisplayFirst]="true" placeholder="">
+                      </p-dropdown>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Ngày sinh
+                    </div>
+                    <div class="col-md-12">
+                      <p-calendar formControlName="dateOfBirthControl" [yearNavigator]="true" yearRange="1960:2020"
+                        dateFormat="dd/mm/yy" [style]="{'width':'100%'}" [inputStyle]="{'width':'100%'}"
+                        [baseZIndex]="999" showButtonBar="true"></p-calendar>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Số điện thoại<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="32" formControlName="phoneControl" type="text" pInputText placeholder="Cá nhân"
+                        [ngClass]="(customerInforForm.get('phoneControl').invalid && (customerInforForm.get('phoneControl').dirty || customerInforForm.get('phoneControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('phoneControl').invalid && (customerInforForm.get('phoneControl').dirty || customerInforForm.get('phoneControl').touched)">
+                      Vui lòng nhập số điện thoại
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Email<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="emailControl" type="text" pInputText placeholder="Cá nhân"
+                        [ngClass]="(customerInforForm.get('emailControl').invalid && (customerInforForm.get('emailControl').dirty || customerInforForm.get('emailControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('emailControl').invalid && (customerInforForm.get('emailControl').dirty || customerInforForm.get('emailControl').touched)">
+                      Vui lòng nhập email
+                    </div>
+
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('emailControl').invalid &&  (customerInforForm.get('emailControl').validator && customerInforForm.get('emailControl').touched)">
+                      Địa chỉ email không phù hợp
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-md-2">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Tỉnh/Thành phố<span class="required">*</span>
+                    </div>
+                  </div>
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12">
+                      <p-dropdown class="customer-dropdown" formControlName="tinhThanhPhoControl"
+                        [options]="listProvince"
+                        [styleClass]="(customerInforForm.get('tinhThanhPhoControl').invalid && (customerInforForm.get('tinhThanhPhoControl').dirty || customerInforForm.get('tinhThanhPhoControl').touched)) ? 'error-border' : ''"
+                        optionLabel="provinceName" [autoDisplayFirst]="false" placeholder="Tỉnh/Thành phố"
+                        [showClear]="true" [filter]="true" [resetFilterOnHide]="true">
+                      </p-dropdown>
+                    </div>
+                    <div class="col-md-12 error-message-span" *ngIf="customerInforForm.get('tinhThanhPhoControl').invalid &&
+                        (customerInforForm.get('tinhThanhPhoControl').dirty ||
+                        customerInforForm.get('tinhThanhPhoControl').touched)">
+                      Vui lòng chọn tỉnh/ thành phố
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-4">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Địa chỉ cụ thể
+                    </div>
+                  </div>
+
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="diaChiCuTheControl" type="text" pInputText
+                        placeholder="Địa chỉ"
+                        [ngClass]="(customerInforForm.get('diaChiCuTheControl').invalid && (customerInforForm.get('diaChiCuTheControl').dirty || customerInforForm.get('diaChiCuTheControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span" *ngIf="customerInforForm.get('diaChiCuTheControl').invalid &&
+                      (customerInforForm.get('diaChiCuTheControl').dirty ||
+                      customerInforForm.get('diaChiCuTheControl').touched)">
+                      Vui lòng nhập địa chỉ cụ thể
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Nhóm khách hàng
+                    </div>
+                    <div class="col-md-12">
+                      <p-dropdown class="customer-dropdown" (onChange)="changeCustomerGroup($event.value)"
+                        formControlName="customerGroupControl" [(ngModel)]="customerGroupModel"
+                        [options]="listCustomerGroup" optionLabel="categoryName" placeholder="Nhóm khách hàng"
+                        [showClear]="true" [filter]="true">
+                      </p-dropdown>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Nhân viên phụ trách
+                    </div>
+                    <div class="col-md-12">
+                      <p-multiSelect [options]="listStaffCharge" [(ngModel)]="listStaffChargeModel"
+                        formControlName="nhanVienPhuTrachControl" [style]="{'width': '100%'}" [id]="'EmployeeName'"
+                        [name]="'EmployeeName'" optionLabel="employeeName" selectedItemsLabel="{0} cột được chọn"
+                        itemSize="30" defaultLabel="Chọn nhân viên phụ trách">
+                      </p-multiSelect>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Nếu là KH doanh nghiệp -->
+              <div class="row bottom-buffer" *ngIf="customerTypeControl.value == 1">
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Tên công ty<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="firstNameControl" type="text" pInputText
+                        placeholder="Tên công ty"
+                        [ngClass]="(customerInforForm.get('firstNameControl').invalid && (customerInforForm.get('firstNameControl').dirty || customerInforForm.get('firstNameControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('firstNameControl').invalid && (customerInforForm.get('firstNameControl').dirty || customerInforForm.get('firstNameControl').touched)">
+                      Tên công ty không được để trống!
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Mã số thuế<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="32" formControlName="maSoThueControl" type="text" pInputText
+                        placeholder="Mã số thuế"
+                        [ngClass]="(customerInforForm.get('maSoThueControl').invalid && (customerInforForm.get('maSoThueControl').dirty || customerInforForm.get('maSoThueControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('maSoThueControl').invalid && (customerInforForm.get('maSoThueControl').dirty || customerInforForm.get('maSoThueControl').touched)">
+                      Mã số thuế không được để trống!
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Số điện thoại<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="32" formControlName="phoneControl" type="text" pInputText placeholder="Cá nhân"
+                        [ngClass]="(customerInforForm.get('phoneControl').invalid && (customerInforForm.get('phoneControl').dirty || customerInforForm.get('phoneControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('phoneControl').invalid && (customerInforForm.get('phoneControl').dirty || customerInforForm.get('phoneControl').touched)">
+                      Vui lòng nhập số điện thoại
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Website<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="websiteControl" type="text" pInputText
+                        placeholder="Website"
+                        [ngClass]="(customerInforForm.get('websiteControl').invalid && (customerInforForm.get('websiteControl').dirty || customerInforForm.get('websiteControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('websiteControl').invalid && (customerInforForm.get('websiteControl').dirty || customerInforForm.get('websiteControl').touched)">
+                      Vui lòng nhập Website
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Email<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="emailControl" type="text" pInputText placeholder="Cá nhân"
+                        [ngClass]="(customerInforForm.get('emailControl').invalid && (customerInforForm.get('emailControl').dirty || customerInforForm.get('emailControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('emailControl').invalid && (customerInforForm.get('emailControl').dirty || customerInforForm.get('emailControl').touched)">
+                      Vui lòng nhập email
+                    </div>
+
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('emailControl').invalid &&  (customerInforForm.get('emailControl').validator && customerInforForm.get('emailControl').touched)">
+                      Địa chỉ email không phù hợp
+                    </div>
+
+                  </div>
+                </div>
+
+
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Ngành nghề kinh doanh<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="nganhNgheKinhDoanhControl" type="text" pInputText
+                        placeholder="Nhập ngành nghề kinh doanh"
+                        [ngClass]="(customerInforForm.get('nganhNgheKinhDoanhControl').invalid && (customerInforForm.get('nganhNgheKinhDoanhControl').dirty || customerInforForm.get('nganhNgheKinhDoanhControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="customerInforForm.get('nganhNgheKinhDoanhControl').invalid && (customerInforForm.get('nganhNgheKinhDoanhControl').dirty || customerInforForm.get('nganhNgheKinhDoanhControl').touched)">
+                      Vui lòng nhập ngành nghề kinh doanh
+                    </div>
+                  </div>
+                </div>
+
+
+                <div class="col-md-6">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Địa chỉ cụ thể<span class="required">*</span>
+                    </div>
+                  </div>
+
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="diaChiCuTheControl" type="text" pInputText
+                        placeholder="Địa chỉ"
+                        [ngClass]="(customerInforForm.get('diaChiCuTheControl').invalid && (customerInforForm.get('diaChiCuTheControl').dirty || customerInforForm.get('diaChiCuTheControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span" *ngIf="customerInforForm.get('diaChiCuTheControl').invalid &&
+                          (customerInforForm.get('diaChiCuTheControl').dirty ||
+                          customerInforForm.get('diaChiCuTheControl').touched)">
+                      Vui lòng nhập địa chỉ cụ thể
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+          </p-accordionTab>
+
+          <!-- Nếu là KH doanh nghiệp -->
+          <p-accordionTab header="Thông tin liên hệ" [selected]="true"
+            *ngIf="customerTypeControl.value == 1 && customerId">
+            <form [formGroup]="contactForm">
+              <div class="row bottom-buffer">
+                <div class="col-md-12">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label  text-end">
+                      <button *ngIf="actionAdd" (click)="addContactCus()" pButton type="button"
+                        class="save-cus-btn"><span class="save-cus-btn-text">Thêm</span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row bottom-buffer">
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Họ tên người liên hệ<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="100" formControlName="contactNameControl" type="text" pInputText
+                        placeholder="Họ tên người liên hệ"
+                        [ngClass]="(contactForm.get('contactNameControl').invalid && (contactForm.get('contactNameControl').dirty || contactForm.get('contactNameControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="contactForm.get('contactNameControl').invalid && (contactForm.get('contactNameControl').dirty || contactForm.get('contactNameControl').touched)">
+                      Tên công ty không được để trống!
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Giới tính<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <p-dropdown class="customer-dropdown" formControlName="contactGenderControl"
+                        [options]="listGenders" optionLabel="name" [autoDisplayFirst]="true" placeholder=""
+                        [ngClass]="(contactForm.get('contactGenderControl').invalid && (contactForm.get('contactGenderControl').dirty || contactForm.get('contactGenderControl').touched)) ? 'error-border' : ''">
+                      </p-dropdown>
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="contactForm.get('contactGenderControl').invalid && (contactForm.get('contactGenderControl').dirty || contactForm.get('contactGenderControl').touched)">
+                      Giới tính không được để trống!
+                    </div>
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Email<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12">
+                      <input maxlength="32" formControlName="contactEmailControl" type="text" pInputText
+                        placeholder="Email"
+                        [ngClass]="(contactForm.get('contactEmailControl').invalid && (contactForm.get('contactEmailControl').dirty || contactForm.get('contactEmailControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="contactForm.get('contactEmailControl').invalid && (contactForm.get('contactEmailControl').dirty || contactForm.get('contactEmailControl').touched)">
+                      Vui lòng nhập email
+                    </div>
+
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="contactForm.get('contactEmailControl').invalid &&  (contactForm.get('contactEmailControl').validator && contactForm.get('contactEmailControl').touched)">
+                      Địa chỉ email không phù hợp
+                    </div>
+
+                  </div>
+                </div>
+
+                <div class="col-md-3">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      Số điện thoại<span class="required">*</span>
+                    </div>
+                    <div class="col-md-12 error-message-span">
+                      <input maxlength="100" formControlName="contactPhoneControl" type="text" pInputText
+                        placeholder="Số điện thoại"
+                        [ngClass]="(contactForm.get('contactPhoneControl').invalid && (contactForm.get('contactPhoneControl').dirty || contactForm.get('contactPhoneControl').touched)) ? 'error-border' : ''" />
+                    </div>
+                    <div class="col-md-12 error-message-span"
+                      *ngIf="contactForm.get('contactPhoneControl').invalid && (contactForm.get('contactPhoneControl').dirty || contactForm.get('contactPhoneControl').touched)">
+                      Vui lòng nhập số điện thoại
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row top-buffer bottom-buffer">
+                <div class="col-md-12">
+                  <div class="row bottom-buffer">
+                    <div class="col-md-12 buffer-bottom-label">
+                      <p-table #table [columns]="columnsContact" [value]="listContact" [resizableColumns]="true"
+                        [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
+                        <ng-template pTemplate="header" let-columns>
+                          <tr>
+                            <th style="width: 3.5em; text-align: center;">
+                              Stt
+                            </th>
+                            <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                              [ngStyle]="{'text-align': 'center', 'display': col.display, 'width': col.width}">
+                              <span>
+                                {{col.header}}
+                              </span>
+                            </th>
+                          </tr>
+                        </ng-template>
+                        <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                          <tr>
+                            <td style="text-align: center;">
+                              {{i + 1}}
+                            </td>
+                            <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                              [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+                              <span class="ui-column-title">{{col.header}}</span>
+
+                              <span *ngSwitchCase="'orderCode'" (click)="goToDetailCustomerOrder(rowData)" class="link"
+                                style="display: inline-block;
+                          padding: 3px 3px; color: #007ad9; cursor: pointer;">
+                                {{rowData[col.field]}}
+                              </span>
+
+                           
+
+                              <span *ngSwitchCase="'action'">
+                                <button pButton icon="pi pi-trash" (click)="deleteCustomerContact(rowData.contactId)"
+                                  class="ui-button-danger"></button>
+                              </span>
+
+                              <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                            </td>
+                          </tr>
+                        </ng-template>
+                      </p-table>
+
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+            </form>
+
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+    </div>
+  </div>
+
+  <div class="header-top" style="margin-top:10px;" *ngIf="customerId">
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12">
+        <p-accordion [multiple]="true" expandIcon="pi pi-fw pi-chevron-circle-right"
+          collapseIcon="pi pi-fw pi-chevron-circle-down">
+
+          <p-accordionTab header="Thông tin dịch vụ khách hàng" [selected]="true">
+            <p-tabView>
+              <p-tabPanel header="Danh sách đơn hàng">
+                <p-table #table [columns]="columnsCustomerOrder" [value]="listCustomerOrder" [resizableColumns]="true"
+                  [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th style="width: 3.5em; text-align: center;">
+                        Stt
+                      </th>
+                      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                        [ngStyle]="{'text-align': 'center', 'display': col.display, 'width': col.width}">
+                        <span>
+                          {{col.header}}
+                        </span>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                    <tr>
+                      <td style="text-align: center;">
+                        {{i + 1}}
+                      </td>
+                      <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        <span *ngSwitchCase="'orderCode'" (click)="goToDetailCustomerOrder(rowData)" class="link" style="display: inline-block;
+                      padding: 3px 3px; color: #007ad9; cursor: pointer;">
+                          {{rowData[col.field]}}
+                        </span>
+
+
+
+                        <span *ngSwitchCase="'amount'">
+                          {{rowData[col.field] | number:0}}
+                        </span>
+
+                        <span *ngSwitchCase="'createdDate'">
+                          {{rowData[col.field] | date:"dd/MM/yyyy"}}
+                        </span>
+
+                        <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </p-tabPanel>
+
+              <p-tabPanel header="Danh sách đánh giá">
+
+                <p-table #table [columns]="columnsRating" [value]="listRating" [resizableColumns]="true"
+                  [paginator]="true" [rows]="rows" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
+                  <ng-template pTemplate="header" let-columns>
+                    <tr>
+                      <th style="width: 3.5em; text-align: center;">
+                        Stt
+                      </th>
+                      <th *ngFor="let col of columns" pResizableColumn [pSortableColumn]="col.field"
+                        [ngStyle]="{'text-align': 'center', 'display': col.display, 'width': col.width}">
+                        <span>
+                          {{col.header}}
+                        </span>
+                      </th>
+                    </tr>
+                  </ng-template>
+                  <ng-template pTemplate="body" let-rowData let-columns="columns" let-i="rowIndex">
+                    <tr>
+                      <td style="text-align: center;">
+                        {{i + 1}}
+                      </td>
+                      <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
+                        [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width' : col.width}">
+                        <span class="ui-column-title">{{col.header}}</span>
+                        <span *ngSwitchCase="'orderCode'" (click)="goToDetailCustomerOrder(rowData)" class="link" style="display: inline-block;
+                    padding: 3px 3px; color: #007ad9; cursor: pointer;">
+                          {{rowData[col.field]}}
+                        </span>
+
+                        <span *ngSwitchCase="'orderActionCode'" class="link" (click)="viewOrder(rowData.orderId)"
+                          style="display: inline-block; padding: 2px 2px;">
+                          {{ rowData[col.field] }}
+                        </span>
+
+
+                        <span *ngSwitchCase="'createdDate'">
+                          {{rowData[col.field] | date:"dd/MM/yyyy"}}
+                        </span>
+
+                        <span *ngSwitchDefault>{{rowData[col.field]}}</span>
+                      </td>
+                    </tr>
+                  </ng-template>
+                </p-table>
+              </p-tabPanel>
+            </p-tabView>
+
+
+          </p-accordionTab>
+        </p-accordion>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="header-top" style="margin-top:10px;" *ngIf="customerId">
+    <div class="row no-margin" style="padding-top: 10px;padding-bottom: 10px;">
+      <div class="col-md-12">
+        <app-note-time-line [viewNote]="true" [viewTimeline]="true" objectType="CUS" [objectId]="customerId"
+          style="width: 100%;" [actionAdd]="true" [actionEdit]="true" [actionDelete]="true" [pageSize]="10"
+          [refresh]="refreshNote">
+        </app-note-time-line>
+      </div>
+    </div>
+  </div>
+
+</div>

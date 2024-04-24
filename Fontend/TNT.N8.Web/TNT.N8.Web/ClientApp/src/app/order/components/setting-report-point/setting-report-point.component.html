@@ -1,0 +1,149 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Message Response... -->
+<p-toast position="bottom-right" key="popup"></p-toast>
+
+<div class="order-detail-dialog">
+  <div class="col-md-12" style="margin-bottom:13px">
+
+    <div class="row form-input">
+
+
+      <form #requestForm="ngForm" novalidate autocomplete="off">
+        <div class="col-md-12 form-input">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Tên điểm báo cáo:</label><span class="required">*</span>
+            </div>
+            <div class="col-md-9">
+              <input class="w100" #name class="form-control" type="text" name="Name" [(ngModel)]="newReportPoint.name"
+                required>
+              <validation-messages [formCtrl]="name"
+                [customMessage]="[{error:'required', message:('Tên điểm báo cáo không được để trống')}]">
+              </validation-messages>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Thuộc dịch vụ:</label>
+            </div>
+
+            <div class="col-md-9">
+              <p-dropdown [options]="listOption" name="Option" [virtualScroll]="true" itemSize="30" [filter]="true"
+                [(ngModel)]="option" [showClear]="true" [resetFilterOnHide]="true" appendTo="body" [baseZIndex]="99999"
+                (onChange)="changeOption($event.value)" placeholder="Chọn dịch vụ" optionLabel="path"
+                [style]="{'width': '100%'}">
+              </p-dropdown>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Thứ tự:</label><span class="required">*</span>
+            </div>
+
+            <div class="col-md-3">
+
+              <input type="text" #order class="number-input" name="Order" [(ngModel)]="newReportPoint.order"
+                [cleave]="{numeral: true, numeralPositiveOnly: true, numeralDecimalScale: '0'}" required />
+            </div>
+
+
+            <!-- Nếu là nhà cung cấp -->
+            <div class="col-md-6 mt-10" *ngIf="option?.nguoiThucHienType == 1">
+              <label>Nhà cung cấp báo cáo:<b style="margin-left:5px">{{ option?.vendorName }}</b></label>
+            </div>
+
+            <!-- Nếu là nhân viên -->
+            <div class="col-md-3" *ngIf="option?.nguoiThucHienType == 2">
+              <label>Nhân viên báo cáo:</label><span class="required">*</span>
+            </div>
+
+            <div class="col-md-3" *ngIf="option?.nguoiThucHienType == 2">
+              <select name="Employee" class="form-control" required #Employee [(ngModel)]="newReportPoint.empId">
+                <option [value]="null"> Chọn nhân viên</option>
+                <option *ngFor="let item of listSupporter" [value]="item.employeeId"
+                  [disabled]="item.isDisable ? true : false">
+                  {{item.employeeName}}
+                </option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+
+            <div class="col-md-3">
+              <label>Hạn báo cáo:</label>
+            </div>
+            <div class="col-md-3">
+              <p-calendar name="Deadline" [(ngModel)]="newReportPoint.deadline" [yearNavigator]="true"
+                dateFormat="dd/mm/yy" showTime="true" hourFormat="24" [style]="{'width':'100%'}"
+                placeholder="dd/mm/yy hh:mm" showButtonBar="true" appendTo="body" [inputStyle]="{'width':'100%'}"
+                [baseZIndex]="99999">
+              </p-calendar>
+            </div>
+
+            <div class="col-md-6">
+              <p-checkbox [(ngModel)]="newReportPoint.isCusView" name="IsCusViewControl" [binary]="true"
+                label="Khách hàng được xem nội dung điểm báo cáo">
+              </p-checkbox>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input" *ngIf="option?.nguoiThucHienType == 1">
+          <div class="row">
+            <div class="col-md-3">
+            </div>
+            <div class="col-md-9">
+              <p-checkbox [(ngModel)]="newReportPoint.baoCaoDoanhThu" name="baoCaoDoanhThu" [binary]="true"
+                [disabled]="!option?.enableBaoCaoDoanhThu" label="Báo cáo doanh thu">
+              </p-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 form-input">
+          <div class="row">
+            <div class="col-md-3">
+              <label>Nội dung báo cáo:</label>
+            </div>
+            <div class="col-md-9">
+              <textarea #content rows="4" name="Content" class="w-100" [(ngModel)]="newReportPoint.content">
+              </textarea>
+            </div>
+          </div>
+        </div>
+
+      </form>
+
+    </div>
+
+  </div>
+
+  <div class="col-md-12 mt-5">
+    <div class="group-button-footer">
+      <button type="button" class="cancel" (click)="cancel()"><span class="cancel-label">Hủy</span></button>
+      <button type="button" class="save btn-primary"
+        [disabled]="!requestForm.form.valid || newReportPoint.empId == emptyGuid" (click)="save()"><span
+          class="save-label">Lưu</span></button>
+    </div>
+  </div>
+
+</div>

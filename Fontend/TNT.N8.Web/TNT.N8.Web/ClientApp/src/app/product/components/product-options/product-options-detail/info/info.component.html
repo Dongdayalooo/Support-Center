@@ -1,0 +1,100 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+    </p-progressSpinner>
+</div>
+
+<form [formGroup]="optionForm">
+    <div class="row " style="display: contents;">
+        <div class="actions">
+            <button type="button" class="btn-edit-show" (click)="save()">
+                <span class="text-white">Lưu</span>
+            </button>
+        </div>
+    </div>
+
+    <div class="row no-margin row-dialog">
+        <div class="col-md-6">
+            <p class="font-weight-bold">Loại dịch vụ <span class="text-danger">*</span></p>
+            <p-dropdown [options]="listOptionCategory" [filter]="true" formControlName="typeControl"
+                [style]="{'width': '100%'}" optionLabel="categoryName" placeholder="Chọn loại dịch vụ"
+                [ngClass]="(optionForm.get('typeControl').invalid && (optionForm.get('typeControl').dirty || optionForm.get('typeControl').touched)) ? 'error-border' : ''">
+            </p-dropdown>
+
+            <div class="error-message-span"
+                *ngIf="optionForm.get('typeControl').invalid &&   (optionForm.get('typeControl').dirty ||    optionForm.get('typeControl').touched)">
+                Loại dịch vụ không được để trống!
+            </div>
+
+        </div>
+
+        <div class="col-md-6">
+            <p class="font-weight-bold">Tên tùy chọn dịch vụ <span class="text-danger">*</span></p>
+            <input type="text" class="form-control" formControlName="nameControl"
+                [ngClass]="(optionForm.get('nameControl').invalid && (optionForm.get('nameControl').dirty || optionForm.get('nameControl').touched)) ? 'error-border' : ''">
+
+            <div class="error-message-span"
+                *ngIf="optionForm.get('nameControl').invalid &&   (optionForm.get('nameControl').dirty ||    optionForm.get('nameControl').touched)">
+                Tên tùy chọn dịch vụ không được để trống!
+            </div>
+
+        </div>
+    </div>
+
+    <div class="row no-margin row-dialog">
+        <div class="col-md-3">
+            <p class="font-weight-bold">Đơn vị tính </p>
+            <p-dropdown [options]="listOptionCategoryUnit" [filter]="true" formControlName="unitControl"
+                placeholder="Chọn loại đơn vị" [style]="{'width': '100%'}" optionLabel="categoryName">
+            </p-dropdown>
+        </div>
+
+        <div class="col-md-3">
+            <p class="font-weight-bold">Địa bàn áp dụng<span class="required">*</span> </p>
+            <p-dropdown [options]="listProvince" [filter]="true" (onChange)="changeProvince()"
+                formControlName="provinceControl"
+                [ngClass]="(optionForm.get('provinceControl').invalid && (optionForm.get('provinceControl').dirty || optionForm.get('provinceControl').touched)) ? 'error-border' : ''"
+                [style]="{'width': '100%'}" optionLabel="provinceName" placeholder="Chọn tỉnh">
+            </p-dropdown>
+
+            <div class="error-message-span"
+                *ngIf="optionForm.get('provinceControl').invalid &&   (optionForm.get('provinceControl').dirty ||    optionForm.get('provinceControl').touched)">
+                Loại dịch vụ không được để trống!
+            </div>
+
+        </div>
+
+        <div class="col-md-3">
+            <p class="font-weight-bold">Quận/Huyện</p>
+            <p-dropdown [options]="listDistrict" [filter]="true" [showClear]="true" formControlName="districtControl"
+                (onChange)="changeDistrict()" [style]="{'width': '100%'}" optionLabel="districtName"
+                placeholder="Chọn quận/huyện">
+            </p-dropdown>
+        </div>
+
+        <div class="col-md-3">
+            <p class="font-weight-bold">Xã/Phường</p>
+            <p-dropdown [options]="listWard" [filter]="true" [showClear]="true" formControlName="wardControl"
+                [style]="{'width': '100%'}" optionLabel="wardName" placeholder="Chọn xã/phường">
+            </p-dropdown>
+        </div>
+
+    </div>
+
+    <div class="row no-margin row-dialog">
+        <div class="col-md-12">
+            <p-checkbox [binary]="true" formControlName="thanhToanTruocControl" label="Dịch vụ cần thanh toán
+            trước"></p-checkbox>
+        </div>
+    </div>
+
+
+    <div class="row no-margin row-dialog">
+        <div class="col-md-12">
+            <p class="font-weight-bold">Mô tả</p>
+            <p-editor innerHTML type="text" formControlName="descriptionControl"
+                [style]="{'height':'180px', 'width': '100%'}">
+            </p-editor>
+        </div>
+    </div>
+</form>

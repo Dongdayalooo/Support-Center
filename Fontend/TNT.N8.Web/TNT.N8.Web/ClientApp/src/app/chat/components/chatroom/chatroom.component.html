@@ -1,0 +1,46 @@
+<main *ngIf="!_activatedRoute.snapshot.params.id" class="main" style="padding-top: 150px;">
+    <img src="/assets/logo.png" alt="" style="max-height: 500px!important;max-width: 500px!important">
+</main>
+
+<main class="border-top" *ngIf="_activatedRoute.snapshot.params.id">
+    <div class="w-100 no-padding ">
+        <ul (scroll)="scroll()" [scrollTop]="scrolltop" id="chat" #chatcontent
+            [ngClass]="roomName ? 'chat-scroll' : ''">
+            <ng-container *ngIf="chats.length > 0">
+                <ng-container *ngFor="let chat of chats; let last = last">
+                    <li *ngIf="chat != undefined"
+                        [ngClass]="chat.nickname ?  (chat.nickname === nickname ? 'me' : 'you' ): ''">
+                        <div class="entete">
+                            <span class="status green"></span>
+                            <h2 class="pr-2">{{chat.nickname}}</h2>
+                            <h3>{{chat.date | date : 'hh:mm:ss dd/MM/yyyy'}}</h3>
+                        </div>
+                        <div class="message">
+                            <!-- {{chat.message}} -->
+                            <div class="inner-html" *ngIf="!chat.message.includes('data:image/')"
+                                [innerHTML]="chat.message"></div>
+                            <div class="inner-html" *ngIf="chat.message.includes('data:image/')">
+                                <img [src]="chat.message" alt=""
+                                    style="max-height: 300px!important;max-width: 300px!important">
+                            </div>
+                        </div>
+                        <ng-container *ngIf="last">{{getScroll()}}</ng-container>
+                    </li>
+                </ng-container>
+            </ng-container>
+        </ul>
+    </div>
+
+    <div class="w-100" style="height:123!important;">
+        <div class="col-md-12 no-padding">
+            <p-editor #myEditor [(ngModel)]="message" [style]="{'height':'80px'}" (keydown.enter)='chat(message)'>
+                <p-header>
+                    <span class="ql-formats">
+                        <button type="button" class="ql-image" aria-label="Image">
+                        </button>
+                    </span>
+                </p-header>
+            </p-editor>
+        </div>
+    </div>
+</main>

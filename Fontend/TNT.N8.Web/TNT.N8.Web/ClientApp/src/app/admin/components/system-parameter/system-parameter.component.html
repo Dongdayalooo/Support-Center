@@ -1,0 +1,167 @@
+<p-toast position="bottom-right"></p-toast>
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+  <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE" animationDuration=".5s">
+  </p-progressSpinner>
+</div>
+
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận" rejectLabel="Không">
+</p-confirmDialog>
+
+<div class="system-parameter">
+  <div class="row no-margin bg-white shadow">
+    <div class="col-md-12 pd-10">
+      <span class="title">Tham số hệ thống</span>
+    </div>
+  </div>
+  <div class="row no-margin mt-10">
+    <div class="col-md-12 no-padding">
+      <p-tabView [(activeIndex)]="tabIndex" (onChange)="changeTab($event.index)">
+        <p-tabPanel header="Tham số hệ thống" [headerStyle]="{width: '145px', 'text-align': 'center'}">
+          <div class="row">
+            <div class="col-md-12">
+              <p-table [columns]="colHeader" [value]="listGroupSystem" [responsive]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" pResizableColumn
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      <span class="ui-column-title">{{col.header}}</span>
+                      <span *ngSwitchCase="'loaiThamSo'">
+                        {{rowData.systemDescription}}
+                      </span>
+
+                      <span *ngSwitchCase="'giaTri'">
+
+                        <span *ngIf="rowData.systemValue != null && rowData.systemKey != 'ThongBaoKhanCap'">
+                          <p-inputSwitch [(ngModel)]="rowData.systemValue" [disabled]="!rowData.isEdit"
+                            (onChange)="changeParameter(rowData)">
+                          </p-inputSwitch>
+                        </span>
+                        <span *ngIf="rowData.systemValue == null && rowData.systemKey != 'ThongBaoKhanCap'">
+                          <input pInputText class="item" style="width: 100%;" [disabled]="!rowData.isEdit" type="text"
+                            [(ngModel)]="rowData.systemValueString" />
+                        </span>
+
+                        <span *ngIf="rowData.systemValue == null && rowData.systemKey == 'ThongBaoKhanCap'">
+                          <p-multiSelect [options]="listEmployee" [(ngModel)]="listEmpSelected"
+                            defaultLabel="Chọn người nhận thông báo" optionLabel="employeeCodeName"
+                            [disabled]="!rowData.isEdit" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
+                            selectedItemsLabel="{0} người được chọn"></p-multiSelect>
+                        </span>
+                      </span>
+
+                      <span *ngSwitchCase="'moTa'">
+                        <textarea [rows]="2" style="width: 100%;" [(ngModel)]="rowData.description" pInputTextarea
+                          autoResize="autoResize" [disabled]="!rowData.isEdit"></textarea>
+                      </span>
+                      <span *ngSwitchCase="'chucNang'">
+                        <div>
+                          <div *ngIf="rowData.isEdit">
+                            <button pButton icon="pi pi-save" class="ui-button" style="margin-right: 3%;"
+                              (click)="changeParameter(rowData)"></button>
+                            <button pButton icon="pi pi-times" class="ui-button" (click)="cancelEdit(rowData)"></button>
+                          </div>
+                          <div *ngIf="!rowData.isEdit && actionEdit">
+                            <button pButton icon="pi pi-pencil" class="ui-button" (click)="onEdit(rowData)"></button>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
+
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-tabPanel>
+        <p-tabPanel header="Email" [headerStyle]="{width: '145px', 'text-align': 'center'}">
+          <div class="row">
+            <div class="col-md-12">
+              <p-table [columns]="colHeader" [value]="listGroupEmail" [responsive]="true">
+                <ng-template pTemplate="header" let-columns>
+                  <tr>
+                    <th *ngFor="let col of columns" pResizableColumn
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      {{col.header}}
+                    </th>
+                  </tr>
+                </ng-template>
+                <ng-template pTemplate="body" let-rowData let-columns="columns">
+                  <tr>
+                    <td *ngFor="let col of columns" [ngSwitch]="col.field"
+                      [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.colWith}">
+                      <span class="ui-column-title">{{col.header}}</span>
+                      <span *ngSwitchCase="'loaiThamSo'">
+                        {{rowData.systemDescription}}
+                      </span>
+                      <span *ngSwitchCase="'giaTri'">
+                        <span *ngIf="rowData.systemValue != null">
+                          <p-inputSwitch [(ngModel)]="rowData.systemValue" [disabled]="!rowData.isEdit"
+                            (onChange)="changeParameter(rowData)">
+                          </p-inputSwitch>
+                        </span>
+                        <span *ngIf="rowData.systemValue == null">
+                          <input pInputText class="item" style="width: 100%;" [disabled]="!rowData.isEdit" type="text"
+                            [(ngModel)]="rowData.systemValueString" />
+                        </span>
+                      </span>
+                      <span *ngSwitchCase="'moTa'">
+                        <textarea [rows]="2" style="width: 100%;" [(ngModel)]="rowData.description" pInputTextarea
+                          autoResize="autoResize" [disabled]="!rowData.isEdit"></textarea>
+                      </span>
+                      <span *ngSwitchCase="'chucNang'">
+                        <div>
+                          <div *ngIf="rowData.isEdit">
+                            <button pButton icon="pi pi-save" class="ui-button" style="margin-right: 3%;"
+                              (click)="changeParameter(rowData)"></button>
+                            <button pButton icon="pi pi-times" class="ui-button" (click)="cancelEdit(rowData)"></button>
+                          </div>
+                          <div *ngIf="!rowData.isEdit && actionEdit">
+                            <button pButton icon="pi pi-pencil" class="ui-button" (click)="onEdit(rowData)"></button>
+                          </div>
+                        </div>
+                      </span>
+                    </td>
+                  </tr>
+                </ng-template>
+              </p-table>
+            </div>
+          </div>
+        </p-tabPanel>
+
+        <p-tabPanel header="Cấu hình mức thưởng" [headerStyle]="{width: '160px', 'text-align': 'center'}">
+          <ng-container *ngIf="tabIndex == 2">
+            <app-cau-hinh-he-so-khuyen-khich [type]="1"></app-cau-hinh-he-so-khuyen-khich>
+          </ng-container>
+        </p-tabPanel>
+
+        <p-tabPanel header="Cấu hình hệ số khuyến khích" [headerStyle]="{width: '200px', 'text-align': 'center'}">
+          <ng-container *ngIf="tabIndex == 3">
+            <app-cau-hinh-he-so-khuyen-khich [type]="2"></app-cau-hinh-he-so-khuyen-khich>
+          </ng-container>
+        </p-tabPanel>
+
+        <p-tabPanel header="Cấu hình phân hạng KH" [headerStyle]="{width: '200px', 'text-align': 'center'}">
+          <ng-container *ngIf="tabIndex == 4">
+            <app-cau-hinh-phan-hang-kh></app-cau-hinh-phan-hang-kh>
+          </ng-container>
+        </p-tabPanel>
+
+        <p-tabPanel header="Cấu hình mức chiết khấu" [headerStyle]="{width: '200px', 'text-align': 'center'}">
+          <ng-container *ngIf="tabIndex == 5">
+            <app-cau-hinh-muc-chiet-khau></app-cau-hinh-muc-chiet-khau>
+          </ng-container>
+        </p-tabPanel>
+      </p-tabView>
+    </div>
+  </div>
+</div>

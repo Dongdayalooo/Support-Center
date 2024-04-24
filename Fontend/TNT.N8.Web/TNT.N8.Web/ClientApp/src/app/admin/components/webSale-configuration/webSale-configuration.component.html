@@ -1,0 +1,487 @@
+<!-- Loading... -->
+<div class="loading-indicator" *ngIf="loading">
+    <p-progressSpinner [style]="{width: '50px', height: '50px'}" strokeWidth="8" fill="#EEEEEE"
+        animationDuration=".5s"></p-progressSpinner>
+</div>
+<!-- Message Response... -->
+<p-toast position="bottom-right"></p-toast>
+<!-- Confirm... -->
+<p-confirmDialog header="Xác nhận" icon="pi pi-exclamation-triangle" acceptLabel="Chấp nhận"
+    rejectLabel="Không"></p-confirmDialog>
+
+<div class="mobile-app-configuration">
+    <div class="row">
+        <div class="col-md-6">
+            <span style="font-size: 24px">Cấu hình Website </span>
+        </div>
+        <div class="col-md-6">
+            <div class="actions">
+                <button type="button" class="btn-primary btn-save" (click)="save()">
+                    <span class="text-white">Lưu</span>
+                </button>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <p-tabView class="w-100">
+                <p-tabPanel header="Trang chủ" [selected]="true">
+                    <div class="row" style="padding: 10px;">
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Hotline</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.hotLine" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Bản đồ</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.banDo" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Email</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.email" />
+                            </div>
+                        </div>
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Địa chỉ</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.diaChi" />
+                            </div>
+                        </div>
+
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <h5><strong>Đường dẫn video</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-100" pInputText [(ngModel)]="cauHinhWeb.linkVideo" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Hoạt động trên số tỉnh:</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.thongTinVideo1" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Cung cấp số dịch vụ:</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.thongTinVideo2" />
+
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Phục vụ số khách hàng:</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.thongTinVideo3" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="row">
+                                <h5><strong>Hỗ trợ số lượt yêu cầu:</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <input type="text" class="w-90" pInputText [(ngModel)]="cauHinhWeb.thongTinVideo4" />
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <h5><strong>Giới thiệu</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <p-editor [(ngModel)]="cauHinhWeb.thongTinLienHe" class="w-100"
+                                    [style]="{'height':'220px'}"></p-editor>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12 mt-10">
+                            <div class="row">
+                                <h5><strong>Liên hệ</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <p-editor [(ngModel)]="cauHinhWeb.gioiThieu" class="w-100" [style]="{'height':'220px'}">
+                                </p-editor>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <div class="row">
+                                <h5><strong>Footer mô tả</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <p-editor [(ngModel)]="cauHinhWeb.footerMoTa" class="w-90" [style]="{'height':'220px'}">
+                                </p-editor>
+                            </div>
+                        </div>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Cấu hình đánh giá">
+                    <div class="row" style="padding: 10px;">
+                        <p-table #myTable [columns]="[]" [value]="listCauHinhDanhGia" [resizableColumns]="true"
+                            columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
+                            [responsive]="true">
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">Stt</th>
+                                    <th style="width: 30%;text-align: center;">Ảnh đại diện</th>
+                                    <th style="width: 15%;">Tên khách hàng</th>
+                                    <th style="width: 30%;">Nội dung</th>
+                                    <th style="width: 10%;">Sao</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{rowIndex + 1}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img class="w-200px"
+                                            style="max-width: 200px;max-height: 200px;margin-bottom: 10px;"
+                                            [src]="rowData.anh ? rowData.anh: '/assets/images/no-product-image.jpg'">
+
+                                        <p-fileUpload customUpload="true" [showCancelButton]="false"
+                                            (onSelect)="uploadImageAdvertisement($event, rowData)"
+                                            (onRemove)="removeImageAdvertisement(rowData)" chooseLabel="Chọn file"
+                                            cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                            maxFileSize="10000000">
+                                        </p-fileUpload>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="w-100" pInputText
+                                            [(ngModel)]="rowData.tenKhachHang" />
+                                    </td>
+                                    <td>
+                                        <textarea class="w100" rows="5" cols="30" [(ngModel)]="rowData.noiDung"
+                                        class="w-100" pInputTextarea></textarea>
+                                    </td>
+                                    <td>
+                                        <input type="text" placeholder="Nhập số sao" pInputText
+                                            [(ngModel)]="rowData.sao">
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Cấu hình ưu thế của HDTL">
+                    <div class="row" style="padding: 10px;">
+                        <div class="col-md-12 mt-10">
+                            <div class="row">
+                                <h5><strong>Mô tả</strong></h5>
+                            </div>
+                            <div class="row mt-10">
+                                <textarea class="w100" rows="5" cols="30" [(ngModel)]="cauHinhWeb.trangChu"
+                                class="w-100" pInputTextarea></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row" style="padding: 10px;">
+                        <p-table #myTable [columns]="[]" [value]="listCauHinhGioiThieu" [resizableColumns]="true"
+                            columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
+                            [responsive]="true">
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">Stt</th>
+                                    <th style="width: 30%;">Tiêu đề</th>
+                                    <th style="width: 30%;">Nội dung</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{rowIndex + 1}}
+                                    </td>
+                                    <td>
+                                        <textarea class="w100" rows="5" cols="30" [(ngModel)]="rowData.tieuDe"
+                                            class="w-100" pInputTextarea></textarea>
+                                    </td>
+                                    <td>
+                                        <textarea class="w100" rows="5" cols="30" [(ngModel)]="rowData.noiDung"
+                                            class="w-100" pInputTextarea></textarea>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Quảng cáo đối tác">
+                    <div class="col-md-12 text-end">
+                        <button pButton type="button" class="ui-button ui-button-raised" label="Thêm mới"
+                            (click)="themQuangCaoDoiTac()"></button>
+                    </div>
+
+                    <div class="row" style="padding: 10px;">
+                        <p-table #myTable [columns]="[]" [value]="listCauHinhQuangCaoDoiTac" [resizableColumns]="true"
+                            columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
+                            [responsive]="true">
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">Stt</th>
+                                    <th style="width: 25%;">Ảnh</th>
+                                    <th style="width: 25%;">Link</th>
+                                    <th style="width: 30%;">Nội dung</th>
+                                    <th style="width: 7%;">Thao tác</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{rowIndex + 1}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img class="w-200px"
+                                            style="max-width: 200px;max-height: 200px;margin-bottom: 10px;"
+                                            [src]="rowData.anh ? rowData.anh: '/assets/images/no-product-image.jpg'">
+
+                                        <p-fileUpload customUpload="true" [showCancelButton]="false"
+                                            (onSelect)="uploadImageAdvertisement($event, rowData)"
+                                            (onRemove)="removeImageAdvertisement(rowData)" chooseLabel="Chọn file"
+                                            cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                            maxFileSize="10000000">
+                                        </p-fileUpload>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="w-100" pInputText [(ngModel)]="rowData.link" />
+                                    </td>
+                                    <td>
+                                        <p-editor [(ngModel)]="rowData.noiDung" class="w-100"
+                                            [style]="{'height':'150px'}"></p-editor>
+                                    </td>
+                                    <td>
+                                        <button pButton icon="pi pi-trash" class="ui-button-danger"
+                                            (click)="deleteCauHinhQuangCaoDoiTac(rowData)"></button>
+                                    </td>
+
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Cấu hình banner">
+                    <div class="col-md-12 text-end">
+                        <button pButton type="button" class="ui-button ui-button-raised" label="Thêm mới"
+                            (click)="themCauHinhAnhLink(1)"></button>
+                    </div>
+                    <div class="row mt-10" style="padding: 10px;"> <p-table #myTable [columns]="[]"
+                            [value]="listCauHinhBanner" [resizableColumns]="true" columnResizeMode="expand"
+                            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">Stt</th>
+                                    <th style="width: 25%;">Ảnh</th>
+                                    <th style="width: 25%;">Link</th>
+                                    <th style="width: 7%;">Thao tác</th>
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{rowIndex + 1}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img class="w-200px"
+                                            style="max-width: 200px;max-height: 200px;margin-bottom: 10px;"
+                                            [src]="rowData.anh ? rowData.anh: '/assets/images/no-product-image.jpg'">
+
+                                        <p-fileUpload customUpload="true" [showCancelButton]="false"
+                                            (onSelect)="uploadImageAdvertisement($event, rowData)"
+                                            (onRemove)="removeImageAdvertisement(rowData)" chooseLabel="Chọn file"
+                                            cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                            maxFileSize="10000000">
+                                        </p-fileUpload>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="w-100" pInputText [(ngModel)]="rowData.link" />
+                                    </td>
+                                    <td>
+                                        <button pButton icon="pi pi-trash" class="ui-button-danger"
+                                            (click)="deleteCauHinhAnhLink(1, rowData)"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Cấu hình ưu đãi">
+                    <div class="col-md-12 text-end">
+                        <button pButton type="button" class="ui-button ui-button-raised" label="Thêm mới"
+                            (click)="themCauHinhAnhLink(2)"></button>
+                    </div>
+                    <div class="row mt-10" style="padding: 10px;"> <p-table #myTable [columns]="[]"
+                            [value]="listCauHinhUuDai" [resizableColumns]="true" columnResizeMode="expand"
+                            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">Stt</th>
+                                    <th style="width: 25%;">Ảnh</th>
+                                    <th style="width: 25%;">Link</th>
+                                    <th style="width: 7%;">Thao tác</th>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{rowIndex + 1}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img class="w-200px"
+                                            style="max-width: 200px;max-height: 200px;margin-bottom: 10px;"
+                                            [src]="rowData.anh ? rowData.anh: '/assets/images/no-product-image.jpg'">
+
+                                        <p-fileUpload customUpload="true" [showCancelButton]="false"
+                                            (onSelect)="uploadImageAdvertisement($event, rowData)"
+                                            (onRemove)="removeImageAdvertisement(rowData)" chooseLabel="Chọn file"
+                                            cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                            maxFileSize="10000000">
+                                        </p-fileUpload>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="w-100" pInputText [(ngModel)]="rowData.link" />
+                                    </td>
+                                    <td>
+                                        <button pButton icon="pi pi-trash" class="ui-button-danger"
+                                            (click)="deleteCauHinhAnhLink(2, rowData)"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Cấu hình quảng cáo trái">
+                    <div class="col-md-12 text-end">
+                        <button pButton type="button" class="ui-button ui-button-raised" label="Thêm mới"
+                            (click)="themCauHinhAnhLink(3)"></button>
+                    </div>
+                    <div class="row mt-10" style="padding: 10px;"> <p-table #myTable [columns]="[]"
+                            [value]="listCauHinhQuangCaoTrai" [resizableColumns]="true" columnResizeMode="expand"
+                            [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">Stt</th>
+                                    <th style="width: 25%;">Ảnh</th>
+                                    <th style="width: 25%;">Link</th>
+                                    <th style="width: 7%;">Thao tác</th>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{rowIndex + 1}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img class="w-200px"
+                                            style="max-width: 200px;max-height: 200px;margin-bottom: 10px;"
+                                            [src]="rowData.anh ? rowData.anh: '/assets/images/no-product-image.jpg'">
+
+                                        <p-fileUpload customUpload="true" [showCancelButton]="false"
+                                            (onSelect)="uploadImageAdvertisement($event, rowData)"
+                                            (onRemove)="removeImageAdvertisement(rowData)" chooseLabel="Chọn file"
+                                            cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                            maxFileSize="10000000">
+                                        </p-fileUpload>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="w-100" pInputText [(ngModel)]="rowData.link" />
+                                    </td>
+                                    <td>
+                                        <button pButton icon="pi pi-trash" class="ui-button-danger"
+                                            (click)="deleteCauHinhAnhLink(3, rowData)"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-tabPanel>
+
+                <p-tabPanel header="Cấu hình quảng cáo phải">
+                    <div class="col-md-12 text-end">
+                        <button pButton type="button" class="ui-button ui-button-raised" label="Thêm mới"
+                            (click)="themCauHinhAnhLink(4)"></button>
+                    </div>
+                    <div class="row mt-10" style="padding: 10px;">
+                        <p-table #myTable [columns]="[]" [value]="listCauHinhQuangCaoPhai" [resizableColumns]="true"
+                            columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]"
+                            [responsive]="true">
+
+                            <ng-template pTemplate="header" let-columns>
+                                <tr>
+                                    <th style="width: 5%;text-align: center;">Stt</th>
+                                    <th style="width: 25%;">Ảnh</th>
+                                    <th style="width: 25%;">Link</th>
+                                    <th style="width: 7%;">Thao tác</th>
+
+                                </tr>
+                            </ng-template>
+                            <ng-template pTemplate="body" let-rowData let-columns="columns" let-rowIndex="rowIndex">
+                                <tr>
+                                    <td style="text-align: center;">
+                                        {{rowIndex + 1}}
+                                    </td>
+                                    <td style="text-align: center;">
+                                        <img class="w-200px"
+                                            style="max-width: 200px;max-height: 200px;margin-bottom: 10px;"
+                                            [src]="rowData.anh ? rowData.anh: '/assets/images/no-product-image.jpg'">
+
+                                        <p-fileUpload customUpload="true" [showCancelButton]="false"
+                                            (onSelect)="uploadImageAdvertisement($event, rowData)"
+                                            (onRemove)="removeImageAdvertisement(rowData)" chooseLabel="Chọn file"
+                                            cancelLabel="Hủy file" uploadLabel="Lưu" accept="image/*"
+                                            maxFileSize="10000000">
+                                        </p-fileUpload>
+                                    </td>
+                                    <td>
+                                        <input type="text" class="w-100" pInputText [(ngModel)]="rowData.link" />
+                                    </td>
+                                    <td>
+                                        <button pButton icon="pi pi-trash" class="ui-button-danger"
+                                            (click)="deleteCauHinhAnhLink(4, rowData)"></button>
+                                    </td>
+                                </tr>
+                            </ng-template>
+                        </p-table>
+                    </div>
+                </p-tabPanel>
+            </p-tabView>
+        </div>
+    </div>
+</div>
