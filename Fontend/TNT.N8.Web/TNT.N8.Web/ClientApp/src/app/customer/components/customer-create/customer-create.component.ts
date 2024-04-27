@@ -248,7 +248,7 @@ export class CustomerCreateComponent extends AbstractBase implements OnInit {
         this.customerTypeControl.setValue(result.customer.customerType);
 
         this.phanHang = result.customer.phanHang;
-         console.log("Giá trị của phanHang:", this.phanHang); // In giá trị phanHang ra console
+        //  console.log("Giá trị của phanHang:", this.phanHang); // In giá trị phanHang ra console
         this.tongDonDatDichVu = result.customer.tongDonDatDichVu;
         this.tongDoanhThu = result.customer.tongDoanhThu;
         this.tongDoanhThuNcc = result.customer.tongDoanhThuNcc;
@@ -325,16 +325,20 @@ export class CustomerCreateComponent extends AbstractBase implements OnInit {
   }
 
   async onSaveCustomer() {
+    // Check if the customer information form is valid.
     if (!this.customerInforForm.valid) {
+      // Mark all fields as touched and show a warning message.
       this.customerInforForm.markAllAsTouched();
       this.showToast('warn', 'Thông báo', 'Vui lòng nhập đầy đủ thông tin');
       return;
     }
-
+    // Get the customer type.
     let cusType = this.customerTypeControl.value;
+    // Create new instances of CustomerModel and ContactModel.
     let customer: CustomerModel = new CustomerModel();
     let contact: ContactModel = new ContactModel();
 
+    // Assign values from the form fields to properties of the customer and contact objects.
     customer.CustomerId = this.customerId;
     customer.CustomerName = this.firstNameControl.value + this.lastNameControl.value;
     customer.CustomerGroupId = this.customerGroupControl.value?.categoryId;
@@ -360,20 +364,24 @@ export class CustomerCreateComponent extends AbstractBase implements OnInit {
       contact.DateOfBirth = this.dateOfBirthControl.value ? this.convertToUTCTime(this.dateOfBirthControl.value) : null;
       contact.ProvinceId = this.tinhThanhPhoControl.value?.provinceId;
     }
-
+    // Call the createCustomerAsAccountAsync() method to create a new customer.
     let result: any = await this.customerService.createCustomerAsAccountAsync(customer, contact, [], this.auth.userId, false, false, null);
     if (result.statusCode != 200) {
+      // If the status code is not 200, show a warning message.
       this.showToast('warn', 'Thông báo', result.messageCode);
       return;
     }
 
+    // If the customer is successfully created, show a success message.
     this.showToast('success', 'Thông báo', result.messageCode);
+    // If creating a new customer (not editing an existing one), navigate to the new customer detail page.
     if (!this.customerId) {
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate(['/customer/create', { customerId: result.customerId, contactId: result.contactId }]);
       });
 
     } else {
+      // If editing an existing customer, reload the customer information.
       this.getCustomerById();
     }
   }

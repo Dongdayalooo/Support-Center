@@ -40,9 +40,8 @@
       </div>
     </div>
   </div>
-
-  <div class="row no-margin" style="background-color: #0e52d8;">
-    <!-- <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
+  <div class="row no-margin" style="background-color: #f2f4f8;">
+    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
       <div class="box-filter">
 
         <div class="row no-margin">
@@ -102,9 +101,8 @@
           </div>
         </div>
       </div>
-    </div> -->
+    </div>
 
-    <!-- bảng dữ liệu  -->
     <div *ngIf="listEmp.length > 0" class="col-md-{{leftColNumber}}">
       <p-table #myTable [columns]="listColRow" [value]="listEmp"  [resizableColumns]="true"
         columnResizeMode="expand" [paginator]="true" [rows]="10" [rowsPerPageOptions]="[10,20,30]" [responsive]="true"
@@ -166,7 +164,6 @@
       </div>
     </div>
 
-    <!-- bộ lọc -->
     <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
       <div class="box-filter">
 

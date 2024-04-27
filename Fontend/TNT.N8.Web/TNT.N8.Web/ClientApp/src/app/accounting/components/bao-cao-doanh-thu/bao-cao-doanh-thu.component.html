@@ -35,13 +35,6 @@
       <div class="col-md-6">
         <div class="row">
           <div class="col-md-12">
-
-            <button type="button" class="btn-create" *ngIf="actionAdd" (click)="exportExcel()">
-              <span class="btn-create-text">Xuất excel</span>
-            </button>
-            <div style="clear: both;"></div>
-          </div>
-          <div class="col-md-12">
             <div class="box-header-group-btn">
               <button type="button" class="btn-refresh" (click)="refreshFilter()">
                 <img src="/assets/icons/components/ios-refresh.svg" class="ios-refresh">
@@ -60,143 +53,6 @@
     </div>
   </div>
   <div class="row no-margin" style="background-color: #f2f4f8;">
-    <div *ngIf="isShowFilterTop" class="col-md-12 no-padding">
-      <div class="box-filter">
-
-        <div class="row no-margin" *ngIf="[3].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Loại nhân viên</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listLoaiNhanVien" [(ngModel)]="listLoaiNhanVienSelected"
-              defaultLabel="Chọn loại nhân viên" optionLabel="name" [style]="{'width': '100%'}"
-              [resetFilterOnHide]="true" selectedItemsLabel="{0} loại nhân viên"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[3].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Chức vụ</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listChucVu" [(ngModel)]="listChucVuSelected" defaultLabel="Chọn chức vụ"
-              optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
-              selectedItemsLabel="{0} chức vụ"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[1,2].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Phân hạng khách hàng</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listPhanHangKhachHang" [(ngModel)]="listPhanHangKhachHangSelected"
-              defaultLabel="Chọn phân hạng khách hàng" optionLabel="categoryName" [style]="{'width': '100%'}"
-              [resetFilterOnHide]="true" selectedItemsLabel="{0} phân hạng được chọn"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[1,2].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Khách hàng</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listKhachHang" [(ngModel)]="listKhachHangSelected" defaultLabel="Chọn khách hàng"
-              optionLabel="customerName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
-              selectedItemsLabel="{0} khách hàng được chọn"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[0,2].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Nhóm dịch vụ</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listNhomDichVu" [(ngModel)]="listNhomDichVuSelected"
-              defaultLabel="Chọn nhóm dịch vụ" optionLabel="categoryName" [style]="{'width': '100%'}"
-              [resetFilterOnHide]="true" selectedItemsLabel="{0} nhóm dịch vụ được chọn"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[0].includes(baoCaoSelected.index)">
-          <div class="col-md-12 mt-5">
-            <span>Dịch vụ</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listDichVu" [(ngModel)]="listDichVuSelected" defaultLabel="Chọn dịch vụ"
-              optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
-              selectedItemsLabel="{0} dịch vụ được chọn"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[0].includes(baoCaoSelected.index)">
-          <div class="col-md-12 mt-5">
-            <span>Loại doanh thu</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listLoaiDoanhThu" [(ngModel)]="listLoaiDoanhThuSelected"
-              defaultLabel="Chọn loại doanh thu" optionLabel="name" [style]="{'width': '100%'}"
-              [resetFilterOnHide]="true" selectedItemsLabel="{0} loại doanh thu được chọn"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin">
-          <div class="col-md-12 mt-5">
-            <span>Từ ngày</span>
-          </div>
-          <div class="col-md-12">
-            <p-calendar [(ngModel)]="tuNgay" [yearNavigator]="true" yearRange="2000:2100" dateFormat="dd/mm/yy"
-              [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true" [inputStyle]="{'width':'100%'}"
-              [baseZIndex]="9999">
-            </p-calendar>
-          </div>
-        </div>
-
-        <div class="row no-margin">
-          <div class="col-md-12 mt-5">
-            <span>Đến ngày</span>
-          </div>
-          <div class="col-md-12">
-            <p-calendar [(ngModel)]="denNgay" [yearNavigator]="true" yearRange="2000:2100" dateFormat="dd/mm/yy"
-              [style]="{'width':'100%'}" placeholder="dd/mm/yy" showButtonBar="true" [inputStyle]="{'width':'100%'}"
-              [baseZIndex]="9999">
-            </p-calendar>
-          </div>
-        </div>
-
-        <div class="row no-margin">
-          <div class="col-md-6 mt-5">
-            <span>Tổng doanh thu từ</span>
-          </div>
-
-          <div class="col-md-6 mt-5">
-            <span>Đến</span>
-          </div>
-        </div>
-
-        <div class="row no-margin">
-          <div class="col-md-6">
-            <p-inputNumber mode="decimal" [minFractionDigits]="2" [(ngModel)]="doanhThuTu"
-              class="w-100"></p-inputNumber>
-          </div>
-
-          <div class="col-md-6">
-            <p-inputNumber mode="decimal" [minFractionDigits]="2" [(ngModel)]="doanhThuDen"
-              class="w-100"></p-inputNumber>
-          </div>
-        </div>
-
-        <div class="row no-margin">
-          <div class="col-md-12 mt-5" style="text-align: right;">
-            <button type="button" class="btn-search" (click)="getBaoCaoTongHop()">
-              <span class="btn-search-text">Tìm kiếm</span>
-            </button>
-          </div>
-        </div>
-
-      </div>
-    </div>
-
     <div class="col-md-{{leftColNumber}}">
       <p-table #myTable [columns]="listCol" [value]="listData" [resizableColumns]="true" columnResizeMode="expand"
         [paginator]="true" [rows]="10" [rowsPerPageOptions]="[50,100,150]" [responsive]="true">
@@ -229,65 +85,20 @@
             <td *ngFor="let col of columns" class="ui-resizable-column" [ngSwitch]="col.field"
               [ngStyle]="{'text-align': col.textAlign, 'display': col.display, 'width': col.width}">
               <span class="ui-column-title">{{col.header}}</span>
-              <span *ngSwitchCase="'orderCode'" class="link">
+
+              <span *ngSwitchCase="'soLuongDat'">
                 {{rowData[col.field]}}
               </span>
-
-              <span *ngSwitchCase="'customerOrderCode'" class="link" (click)="viewDetail(rowData,1)">
-                {{rowData[col.field]}}
-              </span>
-
-              <span *ngSwitchCase="'orderActionCode'" class="link" (click)="viewDetail(rowData,2)">
-                {{rowData[col.field]}}
-              </span>
-
-              <span *ngSwitchCase="'customerName'" class="link" (click)="viewDetail(rowData,3)">
-                {{rowData[col.field]}}
-              </span>
-
-              <span *ngSwitchCase="'employeeName'" class="link" (click)="viewDetail(rowData,4)">
-                {{rowData[col.field]}}
-              </span>
-
 
               <span *ngSwitchCase="'goiDichVu'" [innerHTML]="rowData[col.field]"> </span>
               <span *ngSwitchCase="'dichVu'" [innerHTML]="rowData[col.field]"> </span>
 
-              <span *ngSwitchCase="'ngayDatHang'">
-                {{rowData[col.field] | date : 'dd/MM/yyyy'}}
-              </span>
-
+              
               <span *ngSwitchCase="'doanhThuTuKH'">
                 {{rowData[col.field] | number}}
               </span>
 
-              <span *ngSwitchCase="'thanhToanNcc'">
-                {{rowData[col.field] | number}}
-              </span>
-
-              <span *ngSwitchCase="'tongTienKh'">
-                {{rowData[col.field] | number}}
-              </span>
-
               <span *ngSwitchCase="'thanhToanChoNcc'">
-                {{rowData[col.field] | number}}
-              </span>
-
-              <span *ngSwitchCase="'tongTienThanhToanNcc'">
-                {{rowData[col.field] | number}}
-              </span>
-
-
-              <span *ngSwitchCase="'tongTienHoaHong'">
-                {{rowData[col.field] | number}}
-              </span>
-
-              <span *ngSwitchCase="'tongSoLanDatDichVu'">
-                {{rowData[col.field] | number}}
-              </span>
-
-
-              <span *ngSwitchCase="'thanhToanHoaHong'">
                 {{rowData[col.field] | number}}
               </span>
 
@@ -313,50 +124,6 @@
 
     <div *ngIf="isShowFilterLeft" class="col-md-{{rightColNumber}} no-padding">
       <div class="box-filter">
-        <div class="row no-margin" *ngIf="[3].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Loại nhân viên</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listLoaiNhanVien" [(ngModel)]="listLoaiNhanVienSelected"
-              defaultLabel="Chọn loại nhân viên" optionLabel="name" [style]="{'width': '100%'}"
-              [resetFilterOnHide]="true" selectedItemsLabel="{0} loại nhân viên"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[3].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Chức vụ</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listChucVu" [(ngModel)]="listChucVuSelected" defaultLabel="Chọn chức vụ"
-              optionLabel="name" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
-              selectedItemsLabel="{0} chức vụ"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[1,2].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Phân hạng khách hàng</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listPhanHangKhachHang" [(ngModel)]="listPhanHangKhachHangSelected"
-              defaultLabel="Chọn phân hạng khách hàng" optionLabel="categoryName" [style]="{'width': '100%'}"
-              [resetFilterOnHide]="true" selectedItemsLabel="{0} phân hạng được chọn"></p-multiSelect>
-          </div>
-        </div>
-
-        <div class="row no-margin" *ngIf="[1,2].includes(baoCaoSelected.index)">
-          <div class="col-md-12">
-            <span>Khách hàng</span>
-          </div>
-          <div class="col-md-12">
-            <p-multiSelect [options]="listKhachHang" [(ngModel)]="listKhachHangSelected" defaultLabel="Chọn khách hàng"
-              optionLabel="customerName" [style]="{'width': '100%'}" [resetFilterOnHide]="true"
-              selectedItemsLabel="{0} khách hàng được chọn"></p-multiSelect>
-          </div>
-        </div>
-
         <div class="row no-margin" *ngIf="[0,2].includes(baoCaoSelected.index)">
           <div class="col-md-12">
             <span>Nhóm dịch vụ</span>

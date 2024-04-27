@@ -55,11 +55,8 @@ export class BaoCaoDoanhThuComponent implements OnInit {
   listNhomDichVu = [];
   listDichVu = [];
   listLoaiDoanhThu = [];
-  listPhanHangKhachHang = [];
   listKhachHang = [];
   listGoiDichVu = [];
-  listLoaiNhanVien = [];
-  listChucVu = [];
 
   //Selected
   listNhomDichVuSelected = [];
@@ -68,8 +65,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
   listPhanHangKhachHangSelected = [];
   listKhachHangSelected = [];
   listGoiDichVuSelected = [];
-  listLoaiNhanVienSelected = [];
-  listChucVuSelected = [];
   tuNgay: Date;
   denNgay: Date;
   doanhThuTu: number;
@@ -91,19 +86,26 @@ export class BaoCaoDoanhThuComponent implements OnInit {
   }
 
   async ngOnInit() {
+    // Define the resource path
     let resource = "acc/accounting/bao-cao-doanh-thu";
+    // Check user's permission to access the resource
     let permission: any = await this.getPermission.getPermission(resource);
+    // If user doesn't have permission, redirect to home page
     if (permission.status == false) {
       this.router.navigate(['/home']);
     }
     else {
+      // If user has permission, extract available actions from permission object
       let listCurrentActionResource = permission.listCurrentActionResource;
+      // Check if 'add' action is allowed, if not, disable 'add' functionality
       if (listCurrentActionResource.indexOf("add") == -1) {
         this.actionAdd = false;
       }
+      // Check if 'download' action is allowed, if not, disable 'download' functionality
       if (listCurrentActionResource.indexOf("download") == -1) {
         this.actionDownload = false;
       }
+      // Fetch additional data required for the component's functionality
       await this.getMasterBaoCaoTongHop();
 
     }
@@ -122,11 +124,8 @@ export class BaoCaoDoanhThuComponent implements OnInit {
       this.listNhomDichVu = result.listNhomDichVu;
       this.listDichVu = result.listDichVu;
       this.listLoaiDoanhThu = result.listLoaiDoanhThu;
-      this.listPhanHangKhachHang = result.listPhanHangKh;
       this.listKhachHang = result.listCustomer;
       this.listGoiDichVu = result.listGoiDichVu;
-      this.listLoaiNhanVien = result.listLoaiNhanVien;
-      this.listChucVu = result.listChucVu;
       this.getBaoCaoTongHop();
     } else {
       let msg = { severity: 'error', summary: 'Thông báo:', detail: result.messageCode };
@@ -148,49 +147,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
         { field: 'tongDoanhThu', header: 'Tổng doanh thu', textAlign: 'right', display: 'table-cell', width: '150px' },
       ]
     }
-    //Daonh thu theo đơn dịch vụ
-    if (this.baoCaoSelected.index == 1) {
-      this.listCol = [
-        { field: 'customerOrderCode', header: 'Đơn đặt dịch vụ', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'orderActionCode', header: 'Phiếu hỗ trợ dịch vụ', textAlign: 'left', display: 'table-cell', width: '190px' },
-        { field: 'customerName', header: 'Khách hàng', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'phanHang', header: 'Phân hạng', textAlign: 'center', display: 'table-cell', width: '100px' },
-        { field: 'ngayDatHang', header: 'Ngày đặt hàng', textAlign: 'center', display: 'table-cell', width: '130px' },
-        { field: 'goiDichVu', header: 'Gói dịch vụ', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'dichVu', header: 'Dịch vụ', textAlign: 'left', display: 'table-cell', width: '280px' },
-        { field: 'doanhThuTuKH', header: 'Doanh thu từ KH', textAlign: 'right', display: 'table-cell', width: '135px' },
-        { field: 'thanhToanNcc', header: 'Thanh toán cho Ncc', textAlign: 'right', display: 'table-cell', width: '135px' },
-        { field: 'thanhToanHoaHong', header: 'Hoa hồng', textAlign: 'right', display: 'table-cell', width: '135px' },
-        { field: 'tongDoanhThu', header: 'Tổng doanh thu', textAlign: 'right', display: 'table-cell', width: '135px' },
-      ]
-    }
-    //Daonh thu theo  khách hàng
-    if (this.baoCaoSelected.index == 2) {
-      this.listCol = [
-        { field: 'customerName', header: 'Khách hàng', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'phanHang', header: 'Phân hạng', textAlign: 'center', display: 'table-cell', width: '100px' },
-        { field: 'soDonDatHang', header: 'Số đơn đặt dịch vụ', textAlign: 'center', display: 'table-cell', width: '150px' },
-        { field: 'goiDichVu', header: 'Gói dịch vụ', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'dichVu', header: 'Dịch vụ sử dụng', textAlign: 'left', display: 'table-cell', width: '280px' },
-        { field: 'tongTienKh', header: 'Tổng tiền KH trả trước', textAlign: 'right', display: 'table-cell', width: '150px' },
-        { field: 'tongTienThanhToanNcc', header: 'Thanh toán cho Ncc', textAlign: 'right', display: 'table-cell', width: '150px' },
-        { field: 'tongTienHoaHong', header: 'Hoa hồng', textAlign: 'right', display: 'table-cell', width: '150px' },
-        { field: 'tongDoanhThu', header: 'Tổng doanh thu', textAlign: 'right', display: 'table-cell', width: '150px' },
-      ]
-    }
-
-    //Daonh thu theo nhân viên
-    if (this.baoCaoSelected.index == 3) {
-      this.listCol = [
-        { field: 'employeeName', header: 'Nhân viên', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'phanLoai', header: 'Phân loại', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'chucVu', header: 'Chức vụ', textAlign: 'left', display: 'table-cell', width: '150px' },
-        { field: 'tongSoLanDatDichVu', header: 'Tổng số dịch vụ đã hỗ trợ', textAlign: 'center', display: 'table-cell', width: '150px' },
-        { field: 'dichVu', header: 'Dịch vụ hỗ trợ', textAlign: 'left', display: 'table-cell', width: '280px' },
-        { field: 'tongDoanhThu', header: 'Tổng doanh thu', textAlign: 'right', display: 'table-cell', width: '150px' },
-      ]
-    }
-
   }
 
   async getBaoCaoTongHop() {
@@ -209,8 +165,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
 
       ListPhanHangId: this.listPhanHangKhachHangSelected ? this.listPhanHangKhachHangSelected.map(x => x.categoryId) : [],
       ListKhachHang: this.listKhachHangSelected ? this.listKhachHangSelected.map(x => x.customerId) : [],
-      ListChucVuId: this.listChucVuSelected ? this.listChucVuSelected.map(x => x.value) : [],
-      ListLoaiNhanVienId: this.listLoaiNhanVienSelected ? this.listLoaiNhanVienSelected.map(x => x.value) : [],
     };
 
     if (param.TuNgay && param.DenNgay && param.TuNgay > param.DenNgay) {
@@ -244,8 +198,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
     this.listPhanHangKhachHangSelected = [];
     this.listKhachHangSelected = [];
     this.listGoiDichVuSelected = [];
-    this.listLoaiNhanVienSelected = [];
-    this.listChucVuSelected = [];
     this.tuNgay = null;
     this.denNgay = null;
     this.doanhThuTu = null;
@@ -300,84 +252,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
     // Nhân viên
     if (type == 4) url = this.router.serializeUrl(this.router.createUrlTree(['/employee/detail', { employeeId: rowData.employeeId, contactId: rowData.contactId }]));
     window.open(url, '_blank');
-  }
-
-  exportExcel() {
-    let title = this.baoCaoSelected.name;
-    let workbook = new Workbook();
-    let worksheet = workbook.addWorksheet(title);
-    worksheet.pageSetup.margins = {
-      left: 0.25, right: 0.25,
-      top: 0.75, bottom: 0.75,
-      header: 0.3, footer: 0.3
-    };
-    worksheet.pageSetup.paperSize = 9;  //A4 : 9
-
-    let dataHeaderRow1 = this.listCol.map(x => x.header);
-    let headerRow1 = worksheet.addRow(dataHeaderRow1);
-
-    headerRow1.font = { name: 'Time New Roman', size: 10, bold: true };
-    dataHeaderRow1.forEach((item, index) => {
-      headerRow1.getCell(index + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
-      headerRow1.getCell(index + 1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-      headerRow1.getCell(index + 1).fill = {
-        type: 'pattern',
-        pattern: 'solid',
-        fgColor: { argb: '8DB4E2' }
-      };
-    });
-    headerRow1.height = 32;
-
-
-    let listColNumber = ["doanhThuTuKH", "thanhToanNcc", "tongTienKh", "thanhToanChoNcc",
-      "tongTienThanhToanNcc", "tongTienHoaHong", "tongSoLanDatDichVu",
-      "thanhToanHoaHong", "hoaHongNhanVe", "tongDoanhThu"];
-
-    let data: Array<any> = [];
-    this.listData.forEach((item, index) => {
-      let row: Array<any> = [];
-      this.listCol.forEach((col, indexCol) => {
-        if (listColNumber.includes(col.field) && item[col.field]) {
-          row[indexCol] = this.decimalPipe.transform(item[col.field]).toString();
-        }
-        else if (col.field == "ngayDatHang" && item[col.field]) {
-          row[indexCol] = this.datePipe.transform(item[col.field], "dd/MM/yyyy");
-        }
-        else if (col.field == "dichVu" || col.field == "goiDichVu") {
-          row[indexCol] = item[col.field] != null ? item[col.field].split('<br>').join('\n') : "";
-        } else {
-          row[indexCol] = item[col.field] ?? "";
-        }
-      });
-      data.push(row);
-    });
-
-    data.forEach((el) => {
-      let row = worksheet.addRow(el);
-      row.font = { name: 'Times New Roman', size: 11 };
-      this.listCol.forEach((col, indexCol) => {
-        row.getCell(indexCol + 1).border = { left: { style: "thin" }, top: { style: "thin" }, bottom: { style: "thin" }, right: { style: "thin" } };
-        row.getCell(indexCol + 1).alignment = { vertical: 'middle', horizontal: 'center', wrapText: true };
-        if (indexCol == 0) row.getCell(indexCol + 1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-        if (col.field == "dichVu" || col.field == "goiDichVu") row.getCell(indexCol + 1).alignment = { vertical: 'middle', horizontal: 'left', wrapText: true };
-      });
-    });
-
-    /* fix with for column */
-    this.listCol.forEach((col, indexCol) => {
-      if (indexCol == 0) worksheet.getColumn(indexCol + 1).width = 30;
-      if (indexCol != 0) worksheet.getColumn(indexCol + 1).width = 22;
-      if (col.field == "dichVu" || col.field == "goiDichVu") worksheet.getColumn(indexCol + 1).width = 35;
-    });
-
-    this.exportToExel(workbook, title);
-  }
-
-  exportToExel(workbook: Workbook, fileName: string) {
-    workbook.xlsx.writeBuffer().then((data) => {
-      let blob = new Blob([data], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
-      saveAs.saveAs(blob, fileName);
-    })
   }
 
 }

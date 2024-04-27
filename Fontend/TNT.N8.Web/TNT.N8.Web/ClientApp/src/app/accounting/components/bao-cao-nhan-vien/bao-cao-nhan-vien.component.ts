@@ -22,9 +22,9 @@ import { EmployeeService } from '../../../employee/services/employee.service';
   ]
 })
 export class BaoCaoNhanVienComponent implements OnInit {
-  listEmp: Array<any> = [];  //Một mảng để lưu trữ dữ liệu nhân viên.
-  systemParameterList = JSON.parse(localStorage.getItem('systemParameterList')); //Nhận một đối tượng JSON từ lưu trữ cục bộ.
-  emptyGuid: string = '00000000-0000-0000-0000-000000000000'; //Một chuỗi đại diện cho GUID rỗng.
+  listEmp: Array<any> = [];
+  systemParameterList = JSON.parse(localStorage.getItem('systemParameterList'));
+  emptyGuid: string = '00000000-0000-0000-0000-000000000000';
   auth: any = JSON.parse(localStorage.getItem("auth"));
 
   actionAdd: boolean = true;
@@ -49,14 +49,11 @@ export class BaoCaoNhanVienComponent implements OnInit {
 
 
   employeeType: number = 1; //1: Nhân viên, 2: Công tác viên
-  listEmpSelected = []; //là một mảng rỗng được khai báo với tên là listEmpSelected. Đây là danh sách những nhân viên hoặc công tác viên đã được chọn.
-  listAllEmp = []; //là một mảng rỗng được khai báo với tên là listAllEmp. Đay là danh sách tất cả các nhân viên hoặc công tác viên có sẵn..
+  listEmpSelected = [];
+  listAllEmp = [];
   tuNgay: Date = new Date();
   denNgay: Date = new Date();
 
-  //Đây là hàm constructor của component hoặc service, nơi mà các dependency injection được thực hiện. 
-  //Các service như TranslateService, GetPermission, MatSnackBar, Router, DatePipe, MessageService, EmployeeService, và DecimalPipe được inject vào component hoặc service này. 
-  //Điều này cho phép bạn sử dụng các tính năng của các service này trong phạm vi của component hoặc service hiện tại.
   constructor(
     private translate: TranslateService,
     private getPermission: GetPermission,
@@ -67,18 +64,13 @@ export class BaoCaoNhanVienComponent implements OnInit {
     private employeeService: EmployeeService,
     private decimalPipe: DecimalPipe,
   ) {
-    this.translate.setDefaultLang('vi'); // thiết lập ngôn ngữ mặc định là tiếng việt bằng cách sử dụng phương thức setDefaultLang của service TranslateService
+    this.translate.setDefaultLang('vi');
     this.innerWidth = window.innerWidth;
   }
 
   async ngOnInit() {
-    //Biến resource chứa một đường dẫn tới trang, hoặc API đến baocaonhanvien
-    let resource = "acc/accounting/bao-cao-nhan-vien"; 
-    //sử dụng service getPermission để kiểm tra xem người dùng có quyền truy cập vào tài nguyên được chỉ định hay không.
-    // Phương thức getPermission trả về một promise, vì vậy await được sử dụng để đợi cho promise này hoàn thành trước khi tiếp tục thực thi đoạn mã.
-    let permission: any = await this.getPermission.getPermission(resource); 
-    //Đây là điều kiện để kiểm tra kết quả trả về từ phương thức getPermission. Nếu trạng thái là false, điều này có nghĩa là người dùng không có quyền truy cập vào tài nguyên, 
-    //và một thông báo cảnh báo sẽ được hiển thị thông qua service MatSnackBar, sau đó người dùng sẽ được chuyển hướng đến trang chủ bằng cách sử dụng service Router.
+    let resource = "acc/accounting/bao-cao-nhan-vien";
+    let permission: any = await this.getPermission.getPermission(resource);
     if (permission.status == false) {
       this.snackBar.openFromComponent(WarningComponent, { data: "Bạn không có quyền truy cập vào đường dẫn này vui lòng quay lại trang chủ", ...this.warningConfig });
       this.router.navigate(['/home']);
@@ -89,11 +81,11 @@ export class BaoCaoNhanVienComponent implements OnInit {
   }
 
   showMessage(msg: any) {
-    this.messageService.add(msg); //Hiển thị một tin nhắn sử dụng dịch vụ messageService.
+    this.messageService.add(msg);
   }
 
   clear() {
-    this.messageService.clear(); //Xóa bỏ bất kỳ tin nhắn nào đã hiển thị.
+    this.messageService.clear();
   }
 
   listColRow1 = [];
@@ -102,24 +94,21 @@ export class BaoCaoNhanVienComponent implements OnInit {
   listColRow2 = [];
 
   async searchData() {
-    this.loading = true; //Thực hiện một tìm kiếm không đồng bộ dữ liệu nhân viên dựa trên các tham số đã chỉ định.
-    // Kiểm tra xem ngày bắt đầu (tuNgay) có lớn hơn ngày kết thúc (denNgay) hay không.
+    this.loading = true;
+
     if (this.tuNgay > this.denNgay) {
       let msg = { severity: 'error', summary: 'Thông báo:', detail: "Ngày bắt đầu không được lớn hơn ngày kết thúc!" };
       this.showMessage(msg);
       return;
     }
-    //Tạo một đối tượng param chứa các tham số cần thiết cho việc gọi dịch vụ (baoCaoNhanVien) để lấy dữ liệu nhân viên
     let param = {
-      //Loại nhân viên, được chuyển đổi từ kiểu dữ liệu số sang chuỗi.
-      employeeType: parseInt(this.employeeType.toString()), 
-      //Một mảng chứa danh sách các employeeId được chọn (nếu có).
-      listEmpId: this.listEmpSelected ? this.listEmpSelected.map(x => x.employeeId) : [], 
+      employeeType: parseInt(this.employeeType.toString()),
+      listEmpId: this.listEmpSelected ? this.listEmpSelected.map(x => x.employeeId) : [],
       tuNgay: convertToUTCTime(new Date(this.tuNgay)),
       denNgay: convertToUTCTime(new Date(this.denNgay)),
     };
-    //Gọi dịch vụ baoCaoNhanVien từ employeeService để lấy dữ liệu nhân viên.
-    let result: any = await this.employeeService.baoCaoNhanVien(param); 
+
+    let result: any = await this.employeeService.baoCaoNhanVien(param);
     console.log("result", result)
     this.loading = false;
     if (result.statusCode == 200) {
@@ -174,7 +163,7 @@ export class BaoCaoNhanVienComponent implements OnInit {
     window.open(url, '_blank');
   }
 
-//  xuất file Excel
+
   exportExcel() {
     let title = "Báo cáo " + (this.employeeType == 1 ? "nhân viên" : "cộng tác viên");
     let workBook = new Workbook();
