@@ -86,7 +86,7 @@ export class SystemParameterService {
   }
 
   
-
+  //ApiCauHinhPhanHang
   createUpdateCauHinhPhkh(cauHinh: CauHinhPhanHangKhModel) {
     const url = localStorage.getItem('ApiEndPoint') + '/api/company/createUpdateCauHinhPhkh';
     return this.httpClient.post(url, {

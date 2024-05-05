@@ -83,7 +83,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 try
                 {
                     //Nếu là cập nhật
-                    if(parameter.Customer.CustomerId != null && parameter.Customer.CustomerId != Guid.Empty)
+                    if (parameter.Customer.CustomerId != null && parameter.Customer.CustomerId != Guid.Empty)
                     {
                         var customer = context.Customer.FirstOrDefault(x => x.CustomerId == parameter.Customer.CustomerId);
                         customer.UpdatedDate = DateTime.Now;
@@ -160,7 +160,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         context.Customer.Update(customer);
 
                         newContactId = contactCus.ContactId;
-                        newCustomerId = customer.CustomerId; 
+                        newCustomerId = customer.CustomerId;
                     }
                     //Nếu là tạo mới
                     else
@@ -330,7 +330,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             var totalCus = context.Customer.Count();
             var customerCode = "KH-" + totalCus.ToString() + "-" + DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
             var exist = context.Customer.FirstOrDefault(x => x.CustomerCode == customerCode);
-            if(exist != null)
+            if (exist != null)
             {
                 customerCode = ReGenerateCustomerCode(totalCus);
             }
@@ -375,41 +375,40 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var address = parameter.Address == null ? "" : parameter.Address.ToLower().Trim();
 
                 var listCustomer = (from cus in context.Customer
-                                             join ct in context.Contact on cus.CustomerId equals ct.ObjectId
-                                             into contactCus
-                                             from c in contactCus.DefaultIfEmpty()
+                                    join ct in context.Contact on cus.CustomerId equals ct.ObjectId
+                                    into contactCus
+                                    from c in contactCus.DefaultIfEmpty()
 
 
-                                             join pr in context.Province on c.ProvinceId equals pr.ProvinceId
-                                             into provinceCus
-                                             from p in provinceCus.DefaultIfEmpty()
+                                    join pr in context.Province on c.ProvinceId equals pr.ProvinceId
+                                    into provinceCus
+                                    from p in provinceCus.DefaultIfEmpty()
 
 
-                                             where
-                                                 cus.Active == true &&
-                                                 (fullName == null || fullName == "" || cus.CustomerName.Contains(fullName)) &&
-                                                 (parameter.FromDate == null || parameter.FromDate.Value.Date <= cus.CreatedDate.Date) &&
-                                                 (parameter.ToDate == null || parameter.ToDate.Value >= cus.CreatedDate.Date) &&
+                                    where
+                                        cus.Active == true &&
+                                        (fullName == null || fullName == "" || cus.CustomerName.Contains(fullName)) &&
+                                        (parameter.FromDate == null || parameter.FromDate.Value.Date <= cus.CreatedDate.Date) &&
+                                        (parameter.ToDate == null || parameter.ToDate.Value >= cus.CreatedDate.Date) &&
 
-                                                 c.ObjectType == ObjectType.CUSTOMER &&
-                                                 (email == ""  || (c.Email != null && c.Email.ToLower().Contains(email))) &&
-                                                 (phone == "" || (c.Phone != null && c.Phone.ToLower().Contains(phone))) &&
-                                                 (address == "" || (c.Address != null && c.Address.ToLower().Contains(address))) &&
-                                                 (parameter.ListProvinceId == null || parameter.ListProvinceId.Count == 0 && (c.ProvinceId != null 
-                                                 && parameter.ListProvinceId.Contains(c.ProvinceId.Value)))
+                                        c.ObjectType == ObjectType.CUSTOMER &&
+                                        (email == "" || (c.Email != null && c.Email.ToLower().Contains(email))) &&
+                                        (phone == "" || (c.Phone != null && c.Phone.ToLower().Contains(phone))) &&
+                                        (address == "" || (c.Address != null && c.Address.ToLower().Contains(address))) &&
+                                        (parameter.ListProvinceId == null || parameter.ListProvinceId.Count == 0 && (c.ProvinceId != null && parameter.ListProvinceId.Contains(c.ProvinceId.Value)))
 
-                                             select new CustomerEntityModel
-                                             {
-                                                 CustomerId = cus.CustomerId,
-                                                 CustomerName = cus.CustomerName,
-                                                 CustomerEmail = c.Email,
-                                                 CustomerPhone = c.Phone,
-                                                 ProvinceName = p.ProvinceName,
-                                                 CreatedDate = cus.CreatedDate,
-                                                 UpdatedDate = cus.UpdatedDate,
-                                                 PersonInChargeId = cus.PersonInChargeId,
-                                                 FullAddress = c.Address
-                                             }).ToList();
+                                    select new CustomerEntityModel
+                                    {
+                                        CustomerId = cus.CustomerId,
+                                        CustomerName = cus.CustomerName,
+                                        CustomerEmail = c.Email,
+                                        CustomerPhone = c.Phone,
+                                        ProvinceName = p.ProvinceName,
+                                        CreatedDate = cus.CreatedDate,
+                                        UpdatedDate = cus.UpdatedDate,
+                                        PersonInChargeId = cus.PersonInChargeId,
+                                        FullAddress = c.Address
+                                    }).ToList();
 
                 return new SearchCustomerResult()
                 {
@@ -663,51 +662,51 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listCategory = context.Category.ToList();
 
                 var customer = (from cus in context.Customer
-                               join ph in context.Category on cus.PhanHangId equals ph.CategoryId
-                               into phKH
-                               from ph in phKH.DefaultIfEmpty()
-                               where cus.CustomerId == parameter.CustomerId
-                               select new CustomerEntityModel()
-                               {
-                                   PhanHang = ph.CategoryName,
-                                   CustomerId = cus.CustomerId,
-                                   CustomerName = cus.CustomerName,
-                                   CustomerCareStaff = cus.CustomerCareStaff,
-                                   CustomerCode = cus.CustomerCode,
-                                   CustomerServiceLevelId = cus.CustomerServiceLevelId,
-                                   CustomerType = cus.CustomerType,
-                                   CustomerGroupId = cus.CustomerGroupId,
-                                   StatusId = cus.StatusId,
-                                   PersonInChargeId = cus.PersonInChargeId,
-                                   Active = cus.Active,
-                                   CreatedById = cus.CreatedById,
-                                   CreatedDate = cus.CreatedDate,
-                                   MaximumDebtDays = cus.MaximumDebtDays,
-                                   MaximumDebtValue = cus.MaximumDebtValue,
-                                   MainBusinessSector = cus.MainBusinessSector,
-                                   PaymentId = cus.PaymentId,
-                                   FieldId = cus.FieldId,
-                                   ScaleId = cus.ScaleId,
-                                   BusinessRegistrationDate = cus.BusinessRegistrationDate,
-                                   EnterpriseType = cus.EnterpriseType,
-                                   BusinessScale = cus.BusinessScale,
-                                   BusinessType = cus.BusinessType,
-                                   TotalEmployeeParticipateSocialInsurance = cus.TotalEmployeeParticipateSocialInsurance,
-                                   TotalCapital = cus.TotalCapital,
-                                   TotalRevenueLastYear = cus.TotalRevenueLastYear,
-                                   NearestDateTransaction = cus.NearestDateTransaction,
-                                   TotalReceivable = cus.TotalReceivable == null ? 0 : cus.TotalReceivable,
-                                   TotalSaleValue = cus.TotalSaleValue == null ? 0 : cus.TotalSaleValue,
-                                   IsGraduated = cus.IsGraduated,
-                                   IsApproval = cus.IsApproval,
-                                   ApprovalStep = cus.ApprovalStep,
-                                   Point = cus.Point ?? 0,
-                                   PayPoint = cus.PayPoint ?? 0,
-                                   StatusCareId = cus.StatusCareId,
-                                   KhachDuAn = cus.KhachDuAn,
-                                   SubjectsApplication = cus.SubjectsApplication,
-                                   StaffChargeIds = cus.StaffChargeIds
-                               }).FirstOrDefault();
+                                join ph in context.Category on cus.PhanHangId equals ph.CategoryId
+                                into phKH
+                                from ph in phKH.DefaultIfEmpty()
+                                where cus.CustomerId == parameter.CustomerId
+                                select new CustomerEntityModel()
+                                {
+                                    PhanHang = ph.CategoryName,
+                                    CustomerId = cus.CustomerId,
+                                    CustomerName = cus.CustomerName,
+                                    CustomerCareStaff = cus.CustomerCareStaff,
+                                    CustomerCode = cus.CustomerCode,
+                                    CustomerServiceLevelId = cus.CustomerServiceLevelId,
+                                    CustomerType = cus.CustomerType,
+                                    CustomerGroupId = cus.CustomerGroupId,
+                                    StatusId = cus.StatusId,
+                                    PersonInChargeId = cus.PersonInChargeId,
+                                    Active = cus.Active,
+                                    CreatedById = cus.CreatedById,
+                                    CreatedDate = cus.CreatedDate,
+                                    MaximumDebtDays = cus.MaximumDebtDays,
+                                    MaximumDebtValue = cus.MaximumDebtValue,
+                                    MainBusinessSector = cus.MainBusinessSector,
+                                    PaymentId = cus.PaymentId,
+                                    FieldId = cus.FieldId,
+                                    ScaleId = cus.ScaleId,
+                                    BusinessRegistrationDate = cus.BusinessRegistrationDate,
+                                    EnterpriseType = cus.EnterpriseType,
+                                    BusinessScale = cus.BusinessScale,
+                                    BusinessType = cus.BusinessType,
+                                    TotalEmployeeParticipateSocialInsurance = cus.TotalEmployeeParticipateSocialInsurance,
+                                    TotalCapital = cus.TotalCapital,
+                                    TotalRevenueLastYear = cus.TotalRevenueLastYear,
+                                    NearestDateTransaction = cus.NearestDateTransaction,
+                                    TotalReceivable = cus.TotalReceivable == null ? 0 : cus.TotalReceivable,
+                                    TotalSaleValue = cus.TotalSaleValue == null ? 0 : cus.TotalSaleValue,
+                                    IsGraduated = cus.IsGraduated,
+                                    IsApproval = cus.IsApproval,
+                                    ApprovalStep = cus.ApprovalStep,
+                                    Point = cus.Point ?? 0,
+                                    PayPoint = cus.PayPoint ?? 0,
+                                    StatusCareId = cus.StatusCareId,
+                                    KhachDuAn = cus.KhachDuAn,
+                                    SubjectsApplication = cus.SubjectsApplication,
+                                    StaffChargeIds = cus.StaffChargeIds
+                                }).FirstOrDefault();
 
 
                 #region Lấy list phòng ban con của user
@@ -776,7 +775,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
 
                 #endregion
-               
+
 
                 var contact = contacts.Where(c => c.ObjectId == customer.CustomerId && c.ObjectType == ObjectType.CUSTOMER).Select(ct => new ContactEntityModel()
                 {
@@ -913,7 +912,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                    into vData
                                    from v in vData.DefaultIfEmpty()
 
-                                   //emp
+                                       //emp
                                    join e in context.Employee on rate.EmployeeId equals e.EmployeeId
                                    into eData
                                    from e in eData.DefaultIfEmpty()
@@ -3556,7 +3555,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-               
+
 
                 return new GetStatisticCustomerForDashboardResult()
                 {
@@ -4759,7 +4758,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                
+
                 return new GetAllHistoryProductByCustomerIdResult
                 {
                     StatusCode = System.Net.HttpStatusCode.OK,
@@ -5220,10 +5219,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                 .Select(y => new
                                 {
                                     CustomerId = y.CustomerId,
-                                   
+
                                 }).ToList();
 
-                          
+
 
                             var listCusIdTopRevenueInMonth =
                                 newListOrder.Select(x => x.CustomerId).ToList();
@@ -5268,7 +5267,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                 }
 
                                 //Doanh thu
-                             
+
                             });
 
                             listCusTopRevenueInMonth = listCusTopRevenueInMonth.OrderByDescending(x => x.TotalSaleValue)
@@ -5419,7 +5418,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     //Lọc list Order theo list customer và trạng thái đơn hàng
                     if (listCustomerId.Count > 0)
                     {
-                      
+
                     }
                 }
 
@@ -5746,10 +5745,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
             {
                 var listStaffCharge = context.Employee.Where(emp => emp.Active == true)
                                     .Select(x => new EmployeeEntityModel
-                                            {
-                                                EmployeeId = x.EmployeeId,
-                                                EmployeeName = x.EmployeeName
-                                            }).ToList();
+                                    {
+                                        EmployeeId = x.EmployeeId,
+                                        EmployeeName = x.EmployeeName
+                                    }).ToList();
 
                 //get customer group
                 var customerGroupTypeId = context.CategoryType.Where(w => w.CategoryTypeCode == "NHA").FirstOrDefault()?.CategoryTypeId;
@@ -5761,7 +5760,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             CategoryCode = group.CategoryCode,
                                             CategoryTypeId = group.CategoryTypeId,
                                             IsDefault = group.IsDefauld
-                                        }).OrderBy(lg => lg.CategoryName).ToList();                                        
+                                        }).OrderBy(lg => lg.CategoryName).ToList();
 
                 #region Get Province
                 var ListProvinceEntityModel = context.Province.Select(p => new ProvinceEntityModel()
@@ -10894,7 +10893,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 if (parameter.IsCreateCustomer == true)
                 {
-                   
+
 
                     #region Add by dungpt
 
@@ -12210,9 +12209,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listTrangThaiTinhDoanhThu = GeneralList.GetTrangThais("CustomerOrder").Where(x => x.Value == 4 || x.Value == 5).Select(x => x.Value).ToList();
 
                 //Lấy toàn bộ phiếu yêu cầu ở trạng thái đã thanh toán, chờ thanh toán
-                var listAllPhieuYeuCau = context.CustomerOrder.Where(x => x.IsOrderAction == false 
-                && listAllCusId.Contains(x.CustomerId.Value) && listTrangThaiTinhDoanhThu.Contains(x.StatusOrder.Value)).ToList();
-               
+                var listAllPhieuYeuCau = context.CustomerOrder.Where(x => x.IsOrderAction == false && listAllCusId.Contains(x.CustomerId.Value) && listTrangThaiTinhDoanhThu.Contains(x.StatusOrder.Value)).ToList();
+
                 //Lấy danh sách cấu hình và danh mục phân hạng khách hàng:
                 var listCauHinhPhanHang = context.CauHinhPhanHangKh.ToList();
 
@@ -12228,51 +12226,26 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var listVendorOrderDetail = context.VendorOrderDetail.Where(x => listVendorOrderId.Contains(x.VendorOrderId)).ToList();
 
-                //listAllCus.ForEach(cus =>
-                //{
-                //    var listCusIdGioiThieu = listAllCus.Where(x => x.NguoiGioiThieuId == cus.CustomerId).Select(x => x.CustomerId).ToList();
-                //    var listOrderNguoiGioiThieu = listAllPhieuYeuCau.Where(x => listCusIdGioiThieu.Contains(x.CustomerId.Value)).ToList();
-
-                //    var listVendorOrderIdNguoiGtCurrent = listAllVendorOrder.Where(x => listCusIdGioiThieu.Contains(x.CustomerId.Value)).Select(x => x.VendorOrderId).ToList();
-                //    var listOrderDetailNguoiGioiThieu = listVendorOrderDetail.Where(x => listVendorOrderIdNguoiGtCurrent.Contains(x.VendorOrderId)).ToList();
-
-
-                //    var listOrderCus = listAllPhieuYeuCau.Where(x => x.CustomerId == cus.CustomerId).ToList();
-                //    var listVendorOrderIdCurrent = listAllVendorOrder.Where(x => x.CustomerId == cus.CustomerId).Select(x => x.VendorOrderId).ToList();
-                //    var listVendorOrderDetailCurrent = listVendorOrderDetail.Where(x => listVendorOrderIdCurrent.Contains(x.VendorOrderId)).ToList();
-                //    if (listOrderCus.Count() > 0)
-                //    {
-                //        var deviceId = listAllUser.FirstOrDefault(x => x.EmployeeId == cus.CustomerId)?.DeviceId;
-                //        cus.PhanHangId = CommonHelper.PhanHangKhachHang(cus.CustomerId, deviceId, listOrderCus, listCauHinhPhanHang, 
-                //                                                            listPhanHangCategory, listVendorOrderDetailCurrent,
-                //                                                            listOrderNguoiGioiThieu, listOrderDetailNguoiGioiThieu);
-                //    }
-                //});
-
                 listAllCus.ForEach(cus =>
                 {
                     var listCusIdGioiThieu = listAllCus.Where(x => x.NguoiGioiThieuId == cus.CustomerId).Select(x => x.CustomerId).ToList();
                     var listOrderNguoiGioiThieu = listAllPhieuYeuCau.Where(x => listCusIdGioiThieu.Contains(x.CustomerId.Value)).ToList();
+
                     var listVendorOrderIdNguoiGtCurrent = listAllVendorOrder.Where(x => listCusIdGioiThieu.Contains(x.CustomerId.Value)).Select(x => x.VendorOrderId).ToList();
                     var listOrderDetailNguoiGioiThieu = listVendorOrderDetail.Where(x => listVendorOrderIdNguoiGtCurrent.Contains(x.VendorOrderId)).ToList();
+
 
                     var listOrderCus = listAllPhieuYeuCau.Where(x => x.CustomerId == cus.CustomerId).ToList();
                     var listVendorOrderIdCurrent = listAllVendorOrder.Where(x => x.CustomerId == cus.CustomerId).Select(x => x.VendorOrderId).ToList();
                     var listVendorOrderDetailCurrent = listVendorOrderDetail.Where(x => listVendorOrderIdCurrent.Contains(x.VendorOrderId)).ToList();
-
                     if (listOrderCus.Count() > 0)
-                        if (listOrderCus.Count() > 0)
                     {
                         var deviceId = listAllUser.FirstOrDefault(x => x.EmployeeId == cus.CustomerId)?.DeviceId;
-                        if (cus.PhanHangId == null)
-                        {
-                            cus.PhanHangId = CommonHelper.PhanHangKhachHang(cus.CustomerId, deviceId, listOrderCus, listCauHinhPhanHang,
+                        cus.PhanHangId = CommonHelper.PhanHangKhachHang(cus.CustomerId, deviceId, listOrderCus, listCauHinhPhanHang,
                                                                             listPhanHangCategory, listVendorOrderDetailCurrent,
                                                                             listOrderNguoiGioiThieu, listOrderDetailNguoiGioiThieu);
-                        }
                     }
                 });
-
 
                 context.Customer.UpdateRange(listAllCus);
                 context.SaveChanges();

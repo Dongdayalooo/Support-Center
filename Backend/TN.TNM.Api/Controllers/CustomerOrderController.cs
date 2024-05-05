@@ -545,7 +545,7 @@ namespace TN.TNM.Api.Controllers
 
         [HttpPost]
         [Route("api/order/ratingOrder")]
-        [Authorize(Policy = "Member")]
+        //[Authorize(Policy = "Member")]
         public RatingOrderResult RatingOrder([FromBody] RatingOrderParameter request)
         {
             return this._iCustomerOrderDataAccess.RatingOrder(request);

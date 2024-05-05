@@ -72,7 +72,7 @@ namespace TN.TNM.DataAccess.Databases
         public virtual DbSet<CauHinhNghiLeChiTiet> CauHinhNghiLeChiTiet { get; set; }
         public virtual DbSet<CauHinhOt> CauHinhOt { get; set; }
         public virtual DbSet<CauHinhOtCaNgay> CauHinhOtCaNgay { get; set; }
-        public virtual DbSet<CauHinhPhanHangKh> CauHinhPhanHangKh { get; set; }         //DbCauHinhPhanHangKh
+        public virtual DbSet<CauHinhPhanHangKh> CauHinhPhanHangKh { get; set; }
         public virtual DbSet<CauHinhQuyTrinh> CauHinhQuyTrinh { get; set; }
         public virtual DbSet<CauHinhThueTncn> CauHinhThueTncn { get; set; }
         public virtual DbSet<CauHoiDanhGia> CauHoiDanhGia { get; set; }
@@ -402,7 +402,7 @@ namespace TN.TNM.DataAccess.Databases
         {
             if (!optionsBuilder.IsConfigured)
             {
-                //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 //optionsBuilder.UseNpgsql("Server=localhost;Port=5432;User Id=postgres;Password=postgres;Database=HDTL");
             }
         }
@@ -1063,17 +1063,11 @@ namespace TN.TNM.DataAccess.Databases
                 entity.Property(e => e.GioVaoSang).HasColumnType("time without time zone");
             });
 
-
-            //CauHinhPhanHangKh
-            // sử dụng modelBuilder để định nghĩa một đối tượng dữ liệu (entity) trong Entity Framework Core
             modelBuilder.Entity<CauHinhPhanHangKh>(entity =>
             {
-                entity.ToTable("CauHinhPhanHangKH"); // thiết lập tên bảng trong cơ sở dữ liệu cho đối tượng dữ liệu CauHinhPhanHangKH là "CauHinhPhanHangKH".
+                entity.ToTable("CauHinhPhanHangKH");
 
                 entity.Property(e => e.Id).ValueGeneratedNever();
-
-                //Đây là cách cấu hình thuộc tính GiaTriDen của đối tượng dữ liệu CauHinhPhanHangKH.
-                //Phương thức HasColumnType("numeric(18,2)") chỉ định kiểu dữ liệu của cột trong cơ sở dữ liệu là numeric với precision là 18 và scale là 2.
 
                 entity.Property(e => e.GiaTriDen).HasColumnType("numeric(18,2)");
 
@@ -1861,7 +1855,7 @@ namespace TN.TNM.DataAccess.Databases
                 entity.Property(e => e.Vat).HasColumnName("VAT");
 
                 entity.Property(e => e.VendorId).HasColumnName("VendorID");
-
+               
             });
 
             modelBuilder.Entity<CustomerOrderDetailExten>(entity =>
@@ -5653,5 +5647,5 @@ namespace TN.TNM.DataAccess.Databases
 
             return base.SaveChanges();
         }
-    }
+    } 
 }

@@ -288,7 +288,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                 PaymentScreenIconTransfer = GetImageBase64(x.PaymentScreenIconTransfer),
                                                 IsPaymentScreenIconTransfer = x.IsPaymentScreenIconTransfer,
                                                 IsPaymentScreenIconVnpay = x.IsPaymentScreenIconVnpay,
-                                                PaymentScreenIconVnpay = x.PaymentScreenIconVnpay 
+                                                PaymentScreenIconVnpay = x.PaymentScreenIconVnpay
                                             }).FirstOrDefault();
 
                 return new TakeMobileAppConfigurationResult
@@ -579,6 +579,44 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string folderPath = Path.Combine(webRootPath, "CauHinhWeb");
+                // Kiểm tra xem thư mục có tồn tại không
+                if (!Directory.Exists(folderPath))
+                {
+                    // Nếu không tồn tại, tạo thư mục
+                    Directory.CreateDirectory(folderPath);
+                }
+                else
+                {
+                    string[] filePaths = Directory.GetFiles(folderPath);
+
+                    // Delete each file
+                    foreach (string filePath in filePaths)
+                    {
+                        File.Delete(filePath);
+                        Console.WriteLine($"Deleted file: {filePath}");
+                    }
+                }
+
+                //Xóa các ảnh editor không dùng đến
+
+                string folderPathEditorImg = Path.Combine(webRootPath, "ImgTextEditor");
+
+
+                // Kiểm tra xem thư mục có tồn tại không
+                if (Directory.Exists(folderPathEditorImg))
+                {
+                    string[] filePaths = Directory.GetFiles(folderPathEditorImg);
+
+                    // Delete each file
+                    foreach (string filePath in filePaths)
+                    {
+                        var fileName = Path.GetFileName(filePath);
+                        if (!parameter.ListSrcAnh.Contains(fileName)) File.Delete(filePath);
+                    }
+                }
+
                 var listRmCauHinhThongTinWebBanHang = context.CauHinhThongTinWebBanHang.ToList();
                 var listRmCauHinhDanhGiaWeb = context.CauHinhDanhGiaWeb.ToList();
                 var listRmCauHinhGioiThieuWeb = context.CauHinhGioiThieuWeb.ToList();
@@ -599,6 +637,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     var cauHinhDanhGiaWeb = _mapper.Map<CauHinhDanhGiaWeb>(item);
                     cauHinhDanhGiaWeb.Id = Guid.NewGuid();
+                    if (!string.IsNullOrEmpty(item.Anh))
+                    {
+                        string imagePath = Path.Combine(folderPath, cauHinhDanhGiaWeb.Id.ToString() + ".jpeg");
+                        byte[] imageBytes = Convert.FromBase64String(item.Anh.Split(",")[1]);
+                        File.WriteAllBytes(imagePath, imageBytes);
+                        cauHinhDanhGiaWeb.Anh = imagePath;
+                    }
                     listAddCauHinhDanhGiaWeb.Add(cauHinhDanhGiaWeb);
                 });
 
@@ -615,6 +660,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     var cauHinh = _mapper.Map<CauHinhQuangCaoDoiTac>(item);
                     cauHinh.Id = Guid.NewGuid();
+                    if (!string.IsNullOrEmpty(item.Anh))
+                    {
+                        string imagePath = Path.Combine(folderPath, cauHinh.Id.ToString() + ".jpeg");
+                        byte[] imageBytes = Convert.FromBase64String(item.Anh.Split(",")[1]);
+                        File.WriteAllBytes(imagePath, imageBytes);
+                        cauHinh.Anh = imagePath;
+                    }
                     listCauHinhQuangCaoDoiTac.Add(cauHinh);
                 });
 
@@ -623,6 +675,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     var cauHinh = _mapper.Map<CauHinhAnhLinkWeb>(item);
                     cauHinh.Id = Guid.NewGuid();
+                    if (!string.IsNullOrEmpty(item.Anh))
+                    {
+                        string imagePath = Path.Combine(folderPath, cauHinh.Id.ToString() + ".jpeg");
+                        byte[] imageBytes = Convert.FromBase64String(item.Anh.Split(",")[1]);
+                        File.WriteAllBytes(imagePath, imageBytes);
+                        cauHinh.Anh = imagePath;
+                    }
                     listCauHinhAnhLinkWeb.Add(cauHinh);
                 });
 
@@ -656,11 +715,36 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
+                string webRootPath = _hostingEnvironment.WebRootPath;
+
                 var cauHinhThongTinWebBanHang = context.CauHinhThongTinWebBanHang.Select(x => _mapper.Map<CauHinhThongTinWebBanHangModel>(x)).FirstOrDefault();
-                var cauHinhDanhGiaWeb = context.CauHinhDanhGiaWeb.Select(x => _mapper.Map<CauHinhDanhGiaWebModel>(x)).ToList();
+                var cauHinhDanhGiaWeb = context.CauHinhDanhGiaWeb.Select(x => new CauHinhDanhGiaWebModel
+                {
+                    Id = x.Id,
+                    Anh = parameter.IsGetBase64 == true ? GetImageBase64(x.Anh) : (x.Anh != null ? x.Anh.Replace(webRootPath, "images") : ""),
+                    TenKhachHang = x.TenKhachHang,
+                    NoiDung = x.NoiDung,
+                    Sao = x.Sao,
+                }).ToList();
+
                 var cauHinhGioiThieuWeb = context.CauHinhGioiThieuWeb.Select(x => _mapper.Map<CauHinhGioiThieuWebModel>(x)).ToList();
-                var cauHinhQuangCaoDoiTac = context.CauHinhQuangCaoDoiTac.Select(x => _mapper.Map<CauHinhQuangCaoDoiTacModel>(x)).ToList();
-                var cauHinhAnhLinkWeb = context.CauHinhAnhLinkWeb.Select(x => _mapper.Map<CauHinhAnhLinkWebModel>(x)).ToList();
+                var cauHinhQuangCaoDoiTac = context.CauHinhQuangCaoDoiTac
+                .Select(x => new CauHinhQuangCaoDoiTacModel
+                {
+                    Id = x.Id,
+                    Anh = parameter.IsGetBase64 == true ? GetImageBase64(x.Anh) : (x.Anh != null ? x.Anh.Replace(webRootPath, "images") : ""),
+                    Link = x.Link,
+                    NoiDung = x.NoiDung,
+                }).ToList();
+
+                var cauHinhAnhLinkWeb = context.CauHinhAnhLinkWeb.Select(x => _mapper.Map<CauHinhAnhLinkWebModel>(x))
+                .Select(x => new CauHinhAnhLinkWebModel
+                {
+                    Id = x.Id,
+                    Anh = parameter.IsGetBase64 == true ? GetImageBase64(x.Anh) : (x.Anh != null ? x.Anh.Replace(webRootPath, "images") : ""),
+                    Link = x.Link,
+                    Type = x.Type,
+                }).ToList();
 
                 return new GetDataCauHinhWebResult
                 {
@@ -679,6 +763,89 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message
+                };
+            }
+        }
+
+        public UploadFileImgEditorResult UploadFileImgEditor(UploadFileImgEditorParameter parameter)
+        {
+            try
+            {
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string folderPath = Path.Combine(webRootPath, "ImgTextEditor");
+                // Kiểm tra xem thư mục có tồn tại không
+                if (!Directory.Exists(folderPath))
+                {
+                    // Nếu không tồn tại, tạo thư mục
+                    Directory.CreateDirectory(folderPath);
+                }
+                var gioiThieuSrc = new List<string>();
+                var lienHeSrc = new List<string>();
+                var footerMoTaSrc = new List<string>();
+                var listPath = new List<string>();
+
+
+                if (parameter.ListSrcAnhGT != null)
+                {
+                    parameter.ListSrcAnhGT.ForEach(item =>
+                    {
+                        var imgName = Guid.NewGuid().ToString() + Path.GetExtension(item.FileName);
+                        gioiThieuSrc.Add(Path.Combine("ImgTextEditor", imgName));
+                        string fullPath = Path.Combine(folderPath, imgName);
+                        listPath.Add(imgName);
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            item.CopyTo(stream);
+                        }
+                    });
+                }
+
+                if (parameter.ListSrcAnhLH != null)
+                {
+                    parameter.ListSrcAnhLH.ForEach(item =>
+                    {
+                        var imgName = Guid.NewGuid().ToString() + Path.GetExtension(item.FileName);
+                        lienHeSrc.Add(Path.Combine("ImgTextEditor", imgName));
+                        string fullPath = Path.Combine(folderPath, imgName);
+                        listPath.Add(imgName);
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            item.CopyTo(stream);
+                        }
+                    });
+                }
+
+                if (parameter.ListSrcAnhMT != null)
+                {
+                    parameter.ListSrcAnhMT.ForEach(item =>
+                    {
+                        var imgName = Guid.NewGuid().ToString() + Path.GetExtension(item.FileName);
+                        footerMoTaSrc.Add(Path.Combine("ImgTextEditor", imgName));
+
+                        string fullPath = Path.Combine(folderPath, imgName);
+                        listPath.Add(imgName);
+                        using (var stream = new FileStream(fullPath, FileMode.Create))
+                        {
+                            item.CopyTo(stream);
+                        }
+                    });
+                }
+
+                return new UploadFileImgEditorResult()
+                {
+                    StatusCode = System.Net.HttpStatusCode.OK,
+                    GioiThieuSrc = gioiThieuSrc,
+                    LienHeSrc = lienHeSrc,
+                    FooterMoTaSrc = footerMoTaSrc,
+                    ListPath = listPath
+                };
+            }
+            catch (Exception ex)
+            {
+                return new UploadFileImgEditorResult()
+                {
+                    StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
+                    MessageCode = ex.Message
                 };
             }
         }

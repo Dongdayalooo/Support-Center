@@ -459,5 +459,14 @@ namespace TN.TNM.Api.Controllers
         {
             return iVendorDataAccess.UpdateVendorOrder(request);
         }
+
+        [HttpPost]
+        [Route("api/vendor/deleteVendor")]
+        [Authorize(Policy = "Member")]
+        public UpdateVendorOrderResult DeleteVendor([FromBody] GetDataEditVendorParameter request)
+        {
+            return iVendorDataAccess.DeleteVendor(request);
+        }
+
     }
 }

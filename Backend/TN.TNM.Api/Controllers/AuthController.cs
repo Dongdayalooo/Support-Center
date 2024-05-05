@@ -491,5 +491,14 @@ namespace TN.TNM.Api.Controllers
             var response = this.AuthDataAccess.UpdateUserToNotActive(request);
             return response;
         }
+
+        [Route("api/auth/checkUserByUserId")]
+        [HttpPost]
+        [Authorize(Policy = "Member")]
+        public CheckUserByUserIdResult CheckUserByUserId([FromBody] CheckUserByUserIdParameter request)
+        {
+            var response = this.AuthDataAccess.CheckUserByUserId(request);
+            return response;
+        }
     }
 }

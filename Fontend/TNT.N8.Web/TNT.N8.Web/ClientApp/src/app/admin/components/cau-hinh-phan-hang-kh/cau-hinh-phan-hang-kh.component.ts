@@ -20,13 +20,14 @@ import { CauHinhPhanHangKhModel } from '../../../../../src/app/shared/models/cau
 export class CauHinhPhanHangKhComponent implements OnInit {
   emptyGuid: string = '00000000-0000-0000-0000-000000000000';
 
+  // Khai báo các biến FormGroup và FormControl cho form
   cauHinhPhanHangForm: FormGroup;
   phanHangControl: FormControl
   dieuKienControl: FormControl
   giaTriTuControl: FormControl
   giaTriDenControl: FormControl
 
-
+  // Khai báo các biến khác
   currentCauHinh: CauHinhPhanHangKhModel = null;
   dialogCauHinh: boolean = false;
   level: number = 0;
@@ -34,7 +35,7 @@ export class CauHinhPhanHangKhComponent implements OnInit {
 
   loading: boolean = false;
 
-
+  // Danh sách các biến lưu trữ dữ liệu
   listCauHinhPhanHangKh: CauHinhPhanHangKhModel[] = [];
   listCauHinhPhanHangKhTree: TreeNode[] = [];
   listDieuKienPhanHangKh: TrangThaiGeneral[] = [];
@@ -53,10 +54,11 @@ export class CauHinhPhanHangKhComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.setForm();
-    this.changeTab();
+    this.setForm(); // Khởi tạo form
+    this.changeTab(); // Thay đổi tab
   }
 
+  // Thiết lập form
   setForm() {
     this.phanHangControl = new FormControl(null);
     this.dieuKienControl = new FormControl(null);
@@ -72,8 +74,10 @@ export class CauHinhPhanHangKhComponent implements OnInit {
     });
   }
 
+  // Thay đổi tab
   changeTab() {
     this.loading = true;
+    // Gọi service để lấy dữ liệu cấu hình
     this.systemParameterService.getDataCauHinhMucThuongTab(4).subscribe(response => {
       this.loading = false;
 
@@ -82,20 +86,22 @@ export class CauHinhPhanHangKhComponent implements OnInit {
         this.messageService.add({ severity: 'error', summary: 'Thông báo', detail: result.messageCode });
         return;
       }
+      // Lấy dữ liệu trả về từ API
       console.log("result", result)
       this.listPhanLoaiKh = result.listPhanLoaiKh
       this.listCauHinhPhanHangKh = result.listCauHinhPhanHangKh;
       this.listDieuKienPhanHangKh = result.listDieuKienPhanHangKh;
 
+      // Tạo cây dữ liệu cấu hình phân hạng từ dữ liệu trả về
       let listChildren = this.listCauHinhPhanHangKh.filter(x => x.parentId == null);
       this.listCauHinhPhanHangKhTree = this.mapCauHinhToTree(listChildren);
     });
   }
 
-
+  // Lưu cấu hình
   saveCauHinh() {
     this.loading = true;
-
+    // Tạo đối tượng cấu hình mới
     var cauHinh = new CauHinhPhanHangKhModel();
     debugger
     if (this.cauHinhPhanHangForm.invalid) {
@@ -103,19 +109,20 @@ export class CauHinhPhanHangKhComponent implements OnInit {
       this.loading = false;
       return this.messageService.add({ severity: 'error', summary: 'Thông báo', detail: "Vui lòng nhập đủ các trường thông tin!" });
     }
-
+    // Gán giá trị cho các trường thông tin của cấu hình
     cauHinh.id = this.isEditCauHinh ? this.currentCauHinh?.id : null;
     cauHinh.phanHangId = this.phanHangControl.value?.categoryId;
     cauHinh.dieuKienId = this.dieuKienControl.value?.value;
     cauHinh.giaTriTu = this.giaTriTuControl.value;
     cauHinh.giaTriDen = this.giaTriDenControl.value;
     cauHinh.parentId = this.level == 1 ? (this.isEditCauHinh ? this.currentCauHinh?.parentId : this.currentCauHinh?.id) : null;
-
+    // Kiểm tra điều kiện giá trị từ không được lớn hơn giá trị đến
     if(cauHinh.giaTriTu > cauHinh.giaTriDen && cauHinh.parentId){{
       this.loading = false;
       return this.messageService.add({ severity: 'error', summary: 'Thông báo', detail: "Giá trị từ không được lớn hơn giá trị đến!" });
     }}
-
+    
+    // Gọi service để tạo hoặc cập nhật cấu hình
     this.loading = true;
     this.systemParameterService.createUpdateCauHinhPhkh(cauHinh).subscribe(response => {
       this.loading = false;
@@ -182,11 +189,13 @@ export class CauHinhPhanHangKhComponent implements OnInit {
     this.dialogCauHinh = true;
   }
 
+  // Xóa cấu hình phân hạng khuyến khích
   deleteCauHinhPhanHangKH(id: string) {
     this.confirmationService.confirm({
       message: 'Bạn chắc chắn muốn xóa?',
       accept: () => {
         this.loading = true;
+        // Gọi service để xóa cấu hình
         this.systemParameterService.deleteCauHinhPhanHangKH(id).subscribe(response => {
           this.loading = false;
           let result = <any>response;

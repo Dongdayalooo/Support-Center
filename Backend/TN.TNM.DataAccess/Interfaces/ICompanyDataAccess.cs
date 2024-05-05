@@ -29,16 +29,12 @@ namespace TN.TNM.DataAccess.Interfaces
         GetAllSystemParameterResult GetAllSystemParameter(GetAllSystemParameterParameter parameter);
         ChangeSystemParameterResult ChangeSystemParameter(ChangeSystemParameterParameter parameter);
         CreateUpdateCauHinhMucThuongResult CreateUpdateCauHinhMucThuong(CreateUpdateCauHinhMucThuongParameter parameter);
-        //cauhinhmucthuong
         DeleteCauHinhMucThuongResult DeleteCauHinhMucThuong(DeleteCauHinhMucThuongParameter parameter);
         GetDataCauHinhMucThuongTabResult GetDataCauHinhMucThuongTab(GetDataCauHinhMucThuongTabParameter parameter);
-        //cauhinhhesokhuyenkich
         CreateUpdateHeSoKhuyenKhichResult CreateUpdateHeSoKhuyenKhich(CreateUpdateHeSoKhuyenKhichParameter parameter);
         DeleteCauHinhHeSoKhuyenKhichResult DeleteCauHinhHeSoKhuyenKhich(DeleteCauHinhHeSoKhuyenKhichParameter parameter);
-        //CauHinhPhanHangKh
         CreateUpdateCauHinhPhkhResult CreateUpdateCauHinhPhkh(CreateUpdateCauHinhPhkhParameter parameter);
         DeleteCauHinhPhanHangKHResult DeleteCauHinhPhanHangKH(DeleteCauHinhPhanHangKHParameter parameter);
-        //cauhinhchietkhau
         CreateUpdateCauHinhChietKhauResult CreateUpdateCauHinhChietKhau(CreateUpdateCauHinhChietKhauParameter parameter);
         DeleteCauHinhChietKhauResult DeleteCauHinhChietKhau(DeleteCauHinhChietKhauParameter parameter);
 

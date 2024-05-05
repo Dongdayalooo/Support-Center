@@ -1908,7 +1908,6 @@ namespace TN.TNM.Api.Controllers
             return this._iEmployeeDataAccess.DanhSachNhanVienBaoCaoKhanCap(request);
         }
 
-        //baocaonhanvien
         [HttpPost]
         [Route("api/employee/baoCaoNhanVien")]
         [Authorize(Policy = "Member")]

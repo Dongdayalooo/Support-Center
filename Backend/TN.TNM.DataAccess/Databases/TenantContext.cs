@@ -367,7 +367,6 @@ namespace TN.TNM.DataAccess.Databases
         public virtual DbSet<OrderProcessDetail> OrderProcessDetail { get; set; }
         public virtual DbSet<VendorMappingOption> VendorMappingOption { get; set; }
         public virtual DbSet<OrderTaskMappingEmp> OrderTaskMappingEmp { get; set; }
-        //DbCauHinhPhanHangKh
         public virtual DbSet<CauHinhPhanHangKh> CauHinhPhanHangKh { get; set; }
         public virtual DbSet<ThongBaoHetHanDuyetThucHienDichVu> ThongBaoHetHanDuyetThucHienDichVu { get; set; }
 
@@ -5985,7 +5984,6 @@ namespace TN.TNM.DataAccess.Databases
                 
             });
 
-            //CauHinhPhanHangKh
             modelBuilder.Entity<CauHinhPhanHangKh>(entity =>
             {
                 entity.ToTable("CauHinhPhanHangKH");
@@ -5995,7 +5993,6 @@ namespace TN.TNM.DataAccess.Databases
                 entity.Property(e => e.GiaTriDen).HasColumnType("numeric(18,2)");
 
                 entity.Property(e => e.GiaTriTu).HasColumnType("numeric(18,2)");
-
             });
 
             modelBuilder.Entity<ThongBaoHetHanDuyetThucHienDichVu>(entity =>

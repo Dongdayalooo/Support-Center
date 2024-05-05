@@ -38,6 +38,8 @@ using Product = TN.TNM.DataAccess.Databases.Entities.Product;
 using TN.TNM.DataAccess.Models.QuyTrinh;
 using System.Drawing;
 using Org.BouncyCastle.Asn1.Ocsp;
+using Microsoft.AspNetCore.Http;
+using System.Text.RegularExpressions;
 
 namespace TN.TNM.DataAccess.Databases.DAO
 {
@@ -651,7 +653,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             Description = null,
                             Note = null,
                             PaymentMethod = Guid.Empty,
-                          
+
                             Amount = 0,
                             DiscountValue = null,
                             CreatedById = Guid.Empty,
@@ -1113,7 +1115,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             List<ProcurementRequestItem> procurementRequestItems)
         //List<ProductAttribute> productAttributes)
         {
-          
+
             return 0;
         }
 
@@ -1441,17 +1443,18 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listOption = context.Options.Where(x => x.ThanhToanTruoc == true).Select(x => _mapper.Map<OptionsEntityModel>(x)).ToList();
 
                 var listPriceOption = (from p in context.PriceProduct
-                                      join op in listOption on p.ProductId equals op.Id
-                                      select new PriceProductEntityModel { 
-                                          PriceProductId = p.PriceProductId,
-                                          OptionName = op.Name,
-                                          PriceVnd = p.PriceVnd,
-                                          MinQuantity = p.MinQuantity,
-                                          EffectiveDate = p.EffectiveDate,
-                                          ProductId = p.ProductId,
-                                          NgayHetHan = p.NgayHetHan,
-                                          TiLeChietKhau = p.TiLeChietKhau,
-                                      }).ToList();
+                                       join op in listOption on p.ProductId equals op.Id
+                                       select new PriceProductEntityModel
+                                       {
+                                           PriceProductId = p.PriceProductId,
+                                           OptionName = op.Name,
+                                           PriceVnd = p.PriceVnd,
+                                           MinQuantity = p.MinQuantity,
+                                           EffectiveDate = p.EffectiveDate,
+                                           ProductId = p.ProductId,
+                                           NgayHetHan = p.NgayHetHan,
+                                           TiLeChietKhau = p.TiLeChietKhau,
+                                       }).ToList();
 
                 return new GetMasterDataPriceProductResult
                 {
@@ -1476,7 +1479,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                var thoiGianTu = parameter.PriceProduct.EffectiveDate.Date;
+                var thoiGianTu = parameter.PriceProduct.EffectiveDate.Value.Date;
                 var thoiGianDen = parameter.PriceProduct.NgayHetHan.Value.Date;
 
                 //Kiểm tra giá và thời gian hiệu lực bị giao trong tùy chọn chưa?
@@ -1484,10 +1487,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                          x.ProductId == parameter.PriceProduct.ProductId &&
                          x.PriceProductId != parameter.PriceProduct.PriceProductId &&
                         (
-                            (x.EffectiveDate.Date <= thoiGianTu && thoiGianDen <= x.NgayHetHan.Value.Date) ||
-                            (x.EffectiveDate.Date <= thoiGianTu && thoiGianDen >= x.NgayHetHan.Value.Date) ||
-                            (x.EffectiveDate.Date >= thoiGianTu && thoiGianTu <= x.NgayHetHan.Value.Date && thoiGianDen >= x.EffectiveDate && thoiGianDen.Date < x.NgayHetHan.Value.Date) ||
-                            (x.EffectiveDate.Date >= thoiGianTu && x.NgayHetHan.Value.Date <= thoiGianDen)
+                            (x.EffectiveDate.Date <= thoiGianTu && thoiGianTu <= x.NgayHetHan.Value.Date) ||
+                            (x.EffectiveDate.Date <= thoiGianDen && thoiGianDen <= x.NgayHetHan.Value.Date)
                         )
                     );
 
@@ -1506,10 +1507,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var newPriceProduct = new PriceProduct
                     {
                         PriceProductId = Guid.NewGuid(),
-                        ProductId = parameter.PriceProduct.ProductId,
-                        EffectiveDate = parameter.PriceProduct.EffectiveDate,
-                        PriceVnd = parameter.PriceProduct.PriceVnd,
-                        MinQuantity = parameter.PriceProduct.MinQuantity,
+                        ProductId = parameter.PriceProduct.ProductId.Value,
+                        EffectiveDate = parameter.PriceProduct.EffectiveDate.Value,
+                        PriceVnd = parameter.PriceProduct.PriceVnd.Value,
+                        MinQuantity = parameter.PriceProduct.MinQuantity.Value,
                         PriceForeignMoney = parameter.PriceProduct.PriceForeignMoney,
                         NgayHetHan = parameter.PriceProduct.NgayHetHan,
                         TiLeChietKhau = parameter.PriceProduct.TiLeChietKhau ?? 0,
@@ -1526,10 +1527,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 else
                 {
                     var priceProduct = context.PriceProduct.FirstOrDefault(c => c.PriceProductId == parameter.PriceProduct.PriceProductId);
-                    priceProduct.ProductId = parameter.PriceProduct.ProductId;
-                    priceProduct.EffectiveDate = parameter.PriceProduct.EffectiveDate;
-                    priceProduct.PriceVnd = parameter.PriceProduct.PriceVnd;
-                    priceProduct.MinQuantity = parameter.PriceProduct.MinQuantity;
+                    priceProduct.ProductId = parameter.PriceProduct.ProductId.Value;
+                    priceProduct.EffectiveDate = parameter.PriceProduct.EffectiveDate.Value;
+                    priceProduct.PriceVnd = parameter.PriceProduct.PriceVnd.Value;
+                    priceProduct.MinQuantity = parameter.PriceProduct.MinQuantity.Value;
                     priceProduct.UpdatedById = parameter.UserId;
                     priceProduct.UpdatedDate = DateTime.Now;
                     priceProduct.TiLeChietKhau = parameter.PriceProduct.TiLeChietKhau ?? 0;
@@ -1804,10 +1805,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var priceProduct = new PriceProduct
                     {
                         PriceProductId = Guid.NewGuid(),
-                        ProductId = item.ProductId,
-                        EffectiveDate = item.EffectiveDate,
-                        MinQuantity = item.MinQuantity,
-                        PriceVnd = item.PriceVnd,
+                        ProductId = item.ProductId.Value,
+                        EffectiveDate = item.EffectiveDate.Value,
+                        MinQuantity = item.MinQuantity.Value,
+                        PriceVnd = item.PriceVnd.Value,
                         PriceForeignMoney = item.PriceForeignMoney,
                         CustomerGroupCategory = item.CustomerGroupCategory,
                         Active = true,
@@ -1933,7 +1934,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listGiaTriThuocTinh = context.ProductAttributeCategoryValue
                     .Where(x => x.ProductAttributeCategoryId == parameter.ProductAttributeCategoryId).ToList();
 
-               
+
 
                 context.ProductAttribute.Remove(attribute);
                 context.ProductAttributeCategoryValue.RemoveRange(listGiaTriThuocTinh);
@@ -2231,7 +2232,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                     }).ToList();
 
                 //List loại gói dịch vụ
-                var listProductCategoryEntityModel = await context.ProductCategory.Where(x => x.Active == true).Select(x => new ProductCategoryEntityModel
+                var listAllProductCategory = await context.ProductCategory.Where(x => x.Active == true).Select(x => new ProductCategoryEntityModel
                 {
                     ProductCategoryId = x.ProductCategoryId,
                     ProductCategoryName = x.ProductCategoryName,
@@ -2240,18 +2241,30 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     ParentId = x.ParentId
                 }).ToListAsync();
 
+                var listProductCategoryEntityModel = new List<ProductCategoryEntityModel>();
+
+                var listProductCategoryLv0 = listAllProductCategory.Where(x => x.ProductCategoryLevel == 0).ToList();
+                listProductCategoryLv0.ForEach(item =>
+                {
+                    listProductCategoryEntityModel.Add(item);
+                    listProductCategoryEntityModel = GetListChildActiveProductCategory(listProductCategoryEntityModel,listAllProductCategory, item);
+                });
+
+
+
+
                 //List Nhân viên
                 var listEmployeeWithRole = (from ur in context.UserRole
-                                    join u in context.User on ur.UserId equals u.UserId
-                                    join e in context.Employee on u.EmployeeId equals e.EmployeeId
-                                    where e.Active == true
-                                    select new EmployeeEntityModel
-                                    {
-                                        EmployeeId = e.EmployeeId,
-                                        EmployeeName = e.EmployeeName,
-                                        RoleId = ur.RoleId,
-                                        ChucVuId = e.ChucVuId,
-                                    }).ToList();
+                                            join u in context.User on ur.UserId equals u.UserId
+                                            join e in context.Employee on u.EmployeeId equals e.EmployeeId
+                                            where e.Active == true
+                                            select new EmployeeEntityModel
+                                            {
+                                                EmployeeId = e.EmployeeId,
+                                                EmployeeName = e.EmployeeName,
+                                                RoleId = ur.RoleId,
+                                                ChucVuId = e.ChucVuId,
+                                            }).ToList();
 
                 var listOptionEntityModel = await context.Options
                                             .Select(x => new OptionsEntityModel
@@ -2301,6 +2314,20 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
         }
 
+        private List<ProductCategoryEntityModel> GetListChildActiveProductCategory(
+            List<ProductCategoryEntityModel> listProductCategoryEntityModel, 
+            List<ProductCategoryEntityModel>  listAllProductCategory, ProductCategoryEntityModel item)
+        {
+            var listChild = listAllProductCategory.Where(x => x.ProductCategoryLevel == 1 && x.ParentId == item.ProductCategoryId).ToList();
+            listChild.ForEach(item1 =>
+            {
+                listProductCategoryEntityModel.Add(item1);
+                listProductCategoryEntityModel = GetListChildActiveProductCategory(listProductCategoryEntityModel, listAllProductCategory, item);
+            });
+
+            return listProductCategoryEntityModel;
+        }
+
         public GetListEmployeeByRoleIdResult GetListEmployeeByRoleId(GetListEmployeeByRoleIdParameter parameter)
         {
             try
@@ -2334,6 +2361,52 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
         }
 
+        private string AddImageToPath(string base64String, string newPath, string servicePacketId, string type)
+        {
+            try
+            {
+                var match = Regex.Match(base64String, @"data:image/(?<extension>[^\s;]+)");
+                var extensition = "jpg";
+                if (match.Success)
+                {
+                    extensition = match.Groups["extension"].Value;
+                }
+
+
+                string fileName = type + "_" + servicePacketId + "." + extensition;
+                string base64 = base64String.Substring(base64String.IndexOf(',') + 1);
+
+                // Convert the Base64 string to a byte array
+                byte[] fileBytes = Convert.FromBase64String(base64);
+
+                // Combine the directory path and file name to get the full file path
+                string fullPath = Path.Combine(newPath, fileName);
+
+                // Save the byte array to the specified file path
+                File.WriteAllBytes(fullPath, fileBytes);
+                return fullPath;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        static bool IsFileInUse(string filePath)
+        {
+            try
+            {
+                using (FileStream fileStream = File.Open(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                {
+                    return false;
+                }
+            }
+            catch (IOException)
+            {
+                return true;
+            }
+        }
+
         public async Task<CreateOrUpdateServicePacketResult> CreateOrUpdateServicePacket(CreateOrUpdateServicePacketParameter parameter)
         {
             try
@@ -2361,27 +2434,65 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     context.ServicePacket.Add(servicePacket);
                 }
 
-                //Xóa ảnh
-                var servicePacketImageByServicePacket = context.ServicePacketImage.FirstOrDefault(x => x.ServicePacketId == servicePacket.Id);
-                if (servicePacketImageByServicePacket != null)
+               
+                string folderName = "ServicePacketImage";
+                string webRootPath = _hostingEnvironment.WebRootPath;
+                string newPath = Path.Combine(webRootPath, folderName);
+
+                if (!Directory.Exists(newPath))
                 {
-                    context.ServicePacketImage.RemoveRange(servicePacketImageByServicePacket);
+                    Directory.CreateDirectory(newPath);
                 }
 
-                //Thêm ảnh
-                if (parameter.ServicePacketImageEntityModel != null)
+                //Xóa ảnh
+                var servicePacketImageByServicePacket = context.ServicePacketImage.FirstOrDefault(x => x.ServicePacketId == servicePacket.Id);
+
+                if (servicePacketImageByServicePacket != null)
                 {
-                    var servicePacketImage = _mapper.Map<ServicePacketImage>(parameter.ServicePacketImageEntityModel);
+                    //if (!string.IsNullOrEmpty(servicePacketImageByServicePacket.Icon) && parameter.FileIcon != null)
+                    //{
+                    //    // Đợi cho đến khi tệp tin không còn được sử dụng
+                    //    while (IsFileInUse(servicePacketImageByServicePacket.Icon))
+                    //    {
+                    //        System.Threading.Thread.Sleep(1000); // Đợi 1 giây
+                    //    }
+                    //    File.Delete(servicePacketImageByServicePacket.Icon);
+                    //}
+
+                    //if (!string.IsNullOrEmpty(servicePacketImageByServicePacket.BackgroundImage) && parameter.FileBackground != null)
+                    //{
+                    //    // Đợi cho đến khi tệp tin không còn được sử dụng
+                    //    while (IsFileInUse(servicePacketImageByServicePacket.BackgroundImage))
+                    //    {
+                    //        System.Threading.Thread.Sleep(1000); // Đợi 1 giây
+                    //    }
+                    //    File.Delete(servicePacketImageByServicePacket.BackgroundImage);
+                    //}
+                    //if (!string.IsNullOrEmpty(servicePacketImageByServicePacket.MainImage) && parameter.FileMainImg != null)
+                    //{
+                    //    // Đợi cho đến khi tệp tin không còn được sử dụng
+                    //    while (IsFileInUse(servicePacketImageByServicePacket.MainImage))
+                    //    {
+                    //        System.Threading.Thread.Sleep(1000); // Đợi 1 giây
+                    //    }
+                    //    File.Delete(servicePacketImageByServicePacket.MainImage);
+                    //}
+
+                    if (parameter.FileIcon != null) servicePacketImageByServicePacket.Icon = AddImageToPath(parameter.FileIcon, newPath, servicePacket.Id.ToString(), "Icon");
+                    if (parameter.FileBackground != null) servicePacketImageByServicePacket.BackgroundImage = AddImageToPath(parameter.FileBackground, newPath, servicePacket.Id.ToString(), "Background");
+                    if (parameter.FileMainImg != null) servicePacketImageByServicePacket.MainImage = AddImageToPath(parameter.FileMainImg, newPath, servicePacket.Id.ToString(), "MainImg");
+                    context.ServicePacketImage.Update(servicePacketImageByServicePacket);
+                }
+                else
+                {
+                    var servicePacketImage = new ServicePacketImage();
                     servicePacketImage.Id = Guid.NewGuid();
                     servicePacketImage.ServicePacketId = servicePacket.Id;
                     servicePacketImage.CreatedDate = DateTime.Now;
                     servicePacketImage.CreatedById = parameter.UserId;
-                    string folderName = "ServicePacketImage";
-                    string webRootPath = _hostingEnvironment.WebRootPath;
-                    string newPath = Path.Combine(webRootPath, folderName);
-                    servicePacketImage.MainImage = parameter.ServicePacketImageEntityModel.MainImageName != null ? Path.Combine(newPath, parameter.ServicePacketImageEntityModel.MainImageName) : "";
-                    servicePacketImage.BackgroundImage = parameter.ServicePacketImageEntityModel.BackgroundImageName != null ? Path.Combine(newPath, parameter.ServicePacketImageEntityModel.BackgroundImageName) : "";
-                    servicePacketImage.Icon = parameter.ServicePacketImageEntityModel.IconName != null ? Path.Combine(newPath, parameter.ServicePacketImageEntityModel.IconName) : "";
+                    if (parameter.FileIcon != null) servicePacketImage.Icon = AddImageToPath(parameter.FileIcon, newPath, servicePacket.Id.ToString(), "Icon");
+                    if (parameter.FileBackground != null) servicePacketImage.BackgroundImage = AddImageToPath(parameter.FileBackground, newPath, servicePacket.Id.ToString(), "Background");
+                    if (parameter.FileMainImg != null) servicePacketImage.MainImage = AddImageToPath(parameter.FileMainImg, newPath, servicePacket.Id.ToString(), "MainImg");
                     context.ServicePacketImage.Add(servicePacketImage);
                 }
 
@@ -2484,7 +2595,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     notiConfig.ServicePacketId = servicePacket.Id;
                     context.NotificationConfiguration.Add(notiConfig);
 
-                    if(item.ListEmployeeEntityModel != null && item.ListEmployeeEntityModel.Count > 0)
+                    if (item.ListEmployeeEntityModel != null && item.ListEmployeeEntityModel.Count > 0)
                     {
                         foreach (var empMNC in item.ListEmployeeEntityModel)
                         {
@@ -2527,11 +2638,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 #endregion
 
                 #region Thêm cấu hình mới
-               
+
                 var listCauHinhQuyTrinh = new List<CauHinhQuyTrinh>();
                 var listCacBuocQuyTrinh = new List<CacBuocQuyTrinh>();
                 var listPhongBanTrongCacBuocQuyTrinh = new List<PhongBanTrongCacBuocQuyTrinh>();
-                
+
                 var newCauHinh = new CauHinhQuyTrinh();
                 newCauHinh.Id = Guid.NewGuid();
                 newCauHinh.TenCauHinh = "";
@@ -2584,7 +2695,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Xóa quản lý dịch vụ cũ và thêm các quản lý dịch vụ update
                 var listOldManager = context.ManagerPacketService.Where(x => x.PackId == servicePacket.Id).ToList();
                 var listManager = new List<ManagerPacketService>();
-                parameter.ListManagerId.ForEach(item => {
+                parameter.ListManagerId.ForEach(item =>
+                {
                     var newObj = new ManagerPacketService();
                     newObj.Id = Guid.NewGuid();
                     newObj.PackId = servicePacket.Id;
@@ -2619,7 +2731,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
         private bool CheckServicePacketCode(string code)
         {
-            if(context.ServicePacket.FirstOrDefault(x => x.Code == code) != null)
+            if (context.ServicePacket.FirstOrDefault(x => x.Code == code) != null)
             {
                 return true;
             }
@@ -2695,35 +2807,43 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var customerSubjectsApplication = context.Customer.FirstOrDefault(x => x.CustomerId == user.EmployeeId)?.SubjectsApplication;
                     var listProvince = context.Province.Select(x => new { ProvinceId = x.ProvinceId, ProvinceName = x.ProvinceName }).ToList();
                     listServicePacket = await (from s in context.ServicePacket
-                                                    join pc in context.ProductCategory on s.ProductCategoryId equals pc.ProductCategoryId
-                                                    join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
-                                                    join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
-                                                    into sc
-                                                    from scJoined in sc.DefaultIfEmpty()
-                                                    where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
-                                                    orderby s.Stt
-                                                    select new ServicePacketEntityModel
-                                                    {
-                                                        Id = s.Id,
-                                                        AttributeName = s.AttributeName,
-                                                        Description = s.Description,
-                                                        ProvinceIds = s.ProvinceIds,
-                                                        ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
-                                                        Message = s.Message,
-                                                        Name = s.Name,
-                                                        ProductCategoryId = s.ProductCategoryId,
-                                                        ProductCategoryName = pc.ProductCategoryName,
-                                                        Status = s.Status,
-                                                        Icon = GetImageBase64(si.Icon),
-                                                        BackgroundImage = GetImageBase64(si.BackgroundImage),
-                                                        MainImage = GetImageBase64(si.MainImage),
-                                                        Stt = s.Stt,
-                                                        SubjectsApplication = customerSubjectsApplication != null ? scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : (scJoined.CategoryCode == ProductConsts.CategoryCodeUserReview && customerSubjectsApplication == true) ? true : false : false,
-                                                        ListOption = listServicePacketMappingOptions.Where(x => x.ServicePacketId == s.Id).ToList()
-                                                    }).ToListAsync();
+                                               join pc in context.ProductCategory on s.ProductCategoryId equals pc.ProductCategoryId
+                                               join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
+                                               into siData
+                                               from si in siData.DefaultIfEmpty()
+                                               join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
+                                               into sc
+                                               from scJoined in sc.DefaultIfEmpty()
+                                               where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
+                                               orderby s.Stt
+                                               select new ServicePacketEntityModel
+                                               {
+                                                   Id = s.Id,
+                                                   AttributeName = s.AttributeName,
+                                                   Description = s.Description,                   
+                                                   ProvinceIds = s.ProvinceIds,
+                                                   ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
+                                                   Message = s.Message,
+                                                   Name = s.Name,
+                                                   ProductCategoryId = s.ProductCategoryId,
+                                                   ProductCategoryName = pc.ProductCategoryName,
+                                                   Status = s.Status,
+                                                   Icon = Path.GetFileName(si.Icon),
+                                                   BackgroundImage = Path.GetFileName(si.BackgroundImage),
+                                                   MainImage = Path.GetFileName(si.MainImage),
+                                                   Stt = s.Stt,
+                                                   SubjectsApplication = 
+                                                   //Nếu là up mobile thì cho xem hết 
+                                                   scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true :
+                                                   //Nếu là KH review và gọi cho KH review thì cho xem 
+                                                   (scJoined.CategoryCode == ProductConsts.CategoryCodeUserReview && customerSubjectsApplication == true) ? true : false,
+                                                   
+                                                   ListOption = listServicePacketMappingOptions.Where(x => x.ServicePacketId == s.Id).ToList()
+                                               }).ToListAsync();
 
                     var listAllServiceMappingOptions = context.ServicePacketMappingOptions.ToList();
-                    listServicePacket.ForEach(item => {
+                    listServicePacket.ForEach(item =>
+                    {
                         item.CountOption = listAllServiceMappingOptions.Count(x => x.ServicePacketId == item.Id && x.OptionId != null);
                     });
                 }
@@ -2731,35 +2851,38 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     var listProvince = context.Province.Select(x => new { ProvinceId = x.ProvinceId, ProvinceName = x.ProvinceName }).ToList();
                     listServicePacket = await (from s in context.ServicePacket
-                                                   join pc in context.ProductCategory on s.ProductCategoryId equals pc.ProductCategoryId
-                                                   join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
-                                                   join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
-                                                   into sc
-                                                   from scJoined in sc.DefaultIfEmpty()
-                                                   where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
-                                                   orderby s.Stt
-                                                   select new ServicePacketEntityModel
-                                                   {
-                                                       Id = s.Id,
-                                                       AttributeName = s.AttributeName,
-                                                       Description = s.Description,
-                                                       ProvinceIds = s.ProvinceIds,
-                                                       ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
-                                                       Message = s.Message,
-                                                       Name = s.Name,
-                                                       ProductCategoryId = s.ProductCategoryId,
-                                                       ProductCategoryName = pc.ProductCategoryName,
-                                                       Status = s.Status,
-                                                       Icon = GetImageBase64(si.Icon),
-                                                       BackgroundImage = GetImageBase64(si.BackgroundImage),
-                                                       MainImage = GetImageBase64(si.MainImage),
-                                                       Stt = s.Stt,
-                                                       SubjectsApplication = scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : false,
-                                                       ListOption = listServicePacketMappingOptions.Where(x => x.ServicePacketId == s.Id).ToList()
-                                                   }).ToListAsync();
+                                               join pc in context.ProductCategory on s.ProductCategoryId equals pc.ProductCategoryId
+                                               join si in context.ServicePacketImage on s.Id equals si.ServicePacketId
+                                               into siData
+                                               from si in siData.DefaultIfEmpty()
+                                               join c in context.Category on s.SubjectsApplicationId equals c.CategoryId
+                                               into sc
+                                               from scJoined in sc.DefaultIfEmpty()
+                                               where (s.Name.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || pc.ProductCategoryName.ToLower().Contains(parameter.FilterText.ToLower() ?? "") || parameter.FilterText == null)
+                                               orderby s.Stt
+                                               select new ServicePacketEntityModel
+                                               {
+                                                   Id = s.Id,
+                                                   AttributeName = s.AttributeName,
+                                                   Description = s.Description,
+                                                   ProvinceIds = s.ProvinceIds,
+                                                   ProvinceName = (s.ProvinceIds != null && s.ProvinceIds.Length > 0) ? String.Join(", ", listProvince.Where(x => s.ProvinceIds.Any(y => y == x.ProvinceId)).Select(z => z.ProvinceName).ToList()) : "",
+                                                   Message = s.Message,
+                                                   Name = s.Name,
+                                                   ProductCategoryId = s.ProductCategoryId,
+                                                   ProductCategoryName = pc.ProductCategoryName,
+                                                   Status = s.Status,
+                                                   Icon = Path.GetFileName(si.Icon),
+                                                   BackgroundImage = Path.GetFileName(si.BackgroundImage),
+                                                   MainImage = Path.GetFileName(si.MainImage),
+                                                   Stt = s.Stt,
+                                                   SubjectsApplication = scJoined.CategoryCode == ProductConsts.CategoryCodeUpMobile ? true : false,
+                                                   ListOption = listServicePacketMappingOptions.Where(x => x.ServicePacketId == s.Id).ToList()
+                                               }).ToListAsync();
 
                     var listAllServiceMappingOptions = context.ServicePacketMappingOptions.ToList();
-                    listServicePacket.ForEach(item => {
+                    listServicePacket.ForEach(item =>
+                    {
                         item.CountOption = listAllServiceMappingOptions.Count(x => x.ServicePacketId == item.Id && x.OptionId != null);
                     });
                 }
@@ -2784,9 +2907,32 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                var servicePacket = await context.ServicePacket.FirstOrDefaultAsync(x => x.Id == parameter.Id);
-                context.ServicePacket.RemoveRange(servicePacket);
 
+                //Xác nhận mật khẩu CEO 
+                var listCeo = context.Employee.Where(x => x.ChucVuId == 1).ToList();
+                var listCeoId = listCeo.Select(x => x.EmployeeId).ToList();
+                var listPassWord = context.User.Where(x => listCeoId.Contains(x.EmployeeId.Value)).Select(x => x.Password).ToList();
+
+                var passInput = AuthUtil.GetHashingPassword(parameter.PasswordCeo);
+
+                if (!listPassWord.Contains(passInput))
+                {
+                    return new DeleteServicePacketResult()
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = "Mật khẩu CEO không đúng!" 
+                    };
+                }
+
+                var servicePacket = await context.ServicePacket.FirstOrDefaultAsync(x => x.Id == parameter.Id);
+                if(servicePacket == null)
+                {
+                    return new DeleteServicePacketResult
+                    {
+                        MessageCode = "Không tìm thấy gói dịch vụ trên hệ thống!",
+                        StatusCode = HttpStatusCode.ExpectationFailed
+                    };
+                }
                 //Xóa Mapping
                 var listServicePacketMappingProduct = await context.ServicePacketMappingOptions.Where(x => x.ServicePacketId == parameter.Id).ToListAsync();
                 if (listServicePacketMappingProduct != null)
@@ -2839,10 +2985,93 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     }
                 }
 
+                //Xóa các phiếu dịch vụ gán với gói dv
+                var listDonDatDv = context.OrderProcess.Where(x => x.ServicePacketId == parameter.Id).ToList();
+                var listDonDatDvId = listDonDatDv.Select(x => x.Id).ToList();
+
+                //Nếu có đơn đặt dv
+                if(listDonDatDv.Count() > 0)
+                {
+                    var listDetailDonDatDv = context.OrderProcessDetail.Where(x => listDonDatDvId.Contains(x.OrderProcessId.Value)).ToList();
+
+                    var listEmpOrderProcess = context.OrderProcessMappingEmployee.Where(x => listDonDatDvId.Contains(x.OrderProcessId.Value)).ToList();
+
+                    //Xóa phiếu yêu cầu gán với orderProcess
+
+                    var listPhieuYc = context.CustomerOrder.Where(x => listDonDatDvId.Contains(x.OrderProcessId.Value)).ToList();
+
+                    var listPhieuYcId = listPhieuYc.Select(x => x.OrderId).ToList();
+
+                    var listYc = context.CustomerOrderDetail.Where(x => listPhieuYcId.Contains(x.OrderId)).ToList();
+
+                    var listYcPhatSinh = context.CustomerOrderDetailExten.Where(x => listPhieuYcId.Contains(x.OrderId)).ToList();
+
+                    var listYcId = listYc.Select(x => x.OrderDetailId).ToList();
+                    var listYcExten = context.CustomerOrderExtension.Where(x => listYcId.Contains(x.OrderDetailId.Value)).ToList();
+
+                    var listTask = context.CustomerOrderTask.Where(x => listPhieuYcId.Contains(x.OrderActionId.Value)).ToList();
+
+                    var listTaskId = listTask.Select(x => x.Id).ToList();
+                    var listTaskEmp = context.OrderTaskMappingEmp.Where(x => listTaskId.Contains(x.CustomerOrderTaskId)).ToList();
+
+
+                    var listReportPoint = context.ReportPoint.Where(x => listPhieuYcId.Contains(x.OrderActionId.Value)).ToList();
+
+                    var listReportPointId = listReportPoint.Select(x => x.Id).ToList();
+
+                    var listNoteRp = context.Note.Where(x => x.ObjectType == "Report_Point" && listReportPointId.Contains(x.ObjectId)).ToList();
+                    var listNoteOrderAction = context.Note.Where(x => x.ObjectType == "Report_Point" && listPhieuYcId.Contains(x.ObjectId)).ToList();
+
+                   
+
+                    //Xóa các phiếu mua hàng từ Ncc 
+                    var listVendorOrder = context.VendorOrder.Where(x => listPhieuYcId.Contains(x.OrderActionId.Value)).ToList();
+
+                    var listVendorOrderId = listVendorOrder.Select(x => x.VendorOrderId).ToList();
+
+                    var listPhieuThuBaoCoMappingCustomerOrder = context.PhieuThuBaoCoMappingCustomerOrder.Where(x => listVendorOrderId.Contains(x.VendorOrderId.Value)).ToList();
+
+                    var listVendorOrderCostDetail = context.VendorOrderDetail.Where(x => listVendorOrderId.Contains(x.VendorOrderId)).ToList();
+
+                    var listVendorOrderProcurementRequestMapping = context.VendorOrderProcurementRequestMapping.Where(x => listVendorOrderId.Contains(x.VendorOrderId.Value)).ToList();
+
+
+                    if (listPhieuThuBaoCoMappingCustomerOrder.Count() > 0) context.PhieuThuBaoCoMappingCustomerOrder.RemoveRange(listPhieuThuBaoCoMappingCustomerOrder);
+                    if (listVendorOrderCostDetail.Count() > 0) context.VendorOrderDetail.RemoveRange(listVendorOrderCostDetail);
+                    if (listVendorOrderProcurementRequestMapping.Count() > 0) context.VendorOrderProcurementRequestMapping.RemoveRange(listVendorOrderProcurementRequestMapping);
+                    if (listVendorOrder.Count() > 0) context.VendorOrder.RemoveRange(listVendorOrder);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+
+                    if (listNoteRp.Count() > 0) context.Note.RemoveRange(listNoteRp);
+                    if (listNoteOrderAction.Count() > 0) context.Note.RemoveRange(listNoteOrderAction);
+
+                    if (listReportPoint.Count() > 0) context.ReportPoint.RemoveRange(listReportPoint);
+
+                    if (listTaskEmp.Count() > 0) context.OrderTaskMappingEmp.RemoveRange(listTaskEmp);
+                    if (listTask.Count() > 0) context.CustomerOrderTask.RemoveRange(listTask);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+
+                    if (listYcExten.Count() > 0) context.CustomerOrderExtension.RemoveRange(listYcExten);
+                    if (listYcPhatSinh.Count() > 0) context.CustomerOrderDetailExten.RemoveRange(listYcPhatSinh);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+                    if (listYc.Count() > 0) context.CustomerOrderDetail.RemoveRange(listYc);
+                    if (listEmpOrderProcess.Count() > 0) context.OrderProcessMappingEmployee.RemoveRange(listEmpOrderProcess);
+                    if (listDetailDonDatDv.Count() > 0) context.OrderProcessDetail.RemoveRange(listDetailDonDatDv);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+                    if (listPhieuYc.Count() > 0) context.CustomerOrder.RemoveRange(listPhieuYc);
+                    context.OrderProcess.RemoveRange(listDonDatDv);
+                }
+
+                context.ServicePacket.RemoveRange(servicePacket);
                 context.SaveChanges();
+
                 return new DeleteServicePacketResult
                 {
-                    Message = "Xóa thành công",
+                    MessageCode = "Xóa gói dịch vụ thành công",
                     StatusCode = HttpStatusCode.OK
                 };
             }
@@ -2850,7 +3079,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             {
                 return new DeleteServicePacketResult
                 {
-                    Message = e.Message,
+                    MessageCode = e.Message,
                     StatusCode = HttpStatusCode.ExpectationFailed
                 };
             }
@@ -2920,8 +3149,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                  IconName = Path.GetFileName(x.Icon)
                                              }).FirstOrDefault();
 
-                var listNotificationConfigurationModel = (from n in context.NotificationConfiguration join
-                                                          c in context.Category on n.CategoryId equals c.CategoryId
+                var listNotificationConfigurationModel = (from n in context.NotificationConfiguration
+                                                          join
+              c in context.Category on n.CategoryId equals c.CategoryId
                                                           where n.ServicePacketId == parameter.Id
                                                           select new NotificationConfigurationEntityModel
                                                           {
@@ -2972,7 +3202,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Lấy cấu hình phê duyệt
                 var cauHinhQuyTrinh = new CauHinhQuyTrinhModel();
                 var quyTrinh = context.QuyTrinh.FirstOrDefault(x => x.DoiTuongApDung == 31);
-                if(quyTrinh != null)
+                if (quyTrinh != null)
                 {
                     cauHinhQuyTrinh = context.CauHinhQuyTrinh.Where(x => x.QuyTrinhId == quyTrinh.Id && x.ServicePacketId == parameter.Id).Select(y =>
                     new CauHinhQuyTrinhModel
@@ -2982,7 +3212,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         ListCacBuocQuyTrinh = new List<CacBuocQuyTrinhModel>()
                     }).FirstOrDefault();
 
-                    if(cauHinhQuyTrinh != null)
+                    if (cauHinhQuyTrinh != null)
                     {
                         var listCacBuocQuyTrinh = context.CacBuocQuyTrinh
                             .Where(x => x.CauHinhQuyTrinhId == cauHinhQuyTrinh.Id).ToList();
@@ -3000,17 +3230,17 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                     ListPhongBanTrongCacBuocQuyTrinh = new List<PhongBanTrongCacBuocQuyTrinhModel>()
                                 }).OrderBy(z => z.Stt).ToList();
 
-                       cauHinhQuyTrinh.ListCacBuocQuyTrinh.ForEach(buoc =>
-                       {
-                           buoc.ListPhongBanTrongCacBuocQuyTrinh = listPhongBanTrongCacBuoc
-                               .Where(x => x.CacBuocQuyTrinhId == buoc.Id).Select(y =>
-                                   new PhongBanTrongCacBuocQuyTrinhModel
-                                   {
-                                       Id = y.Id,
-                                       OrganizationId = y.OrganizationId,
-                                       CacBuocQuyTrinhId = y.CacBuocQuyTrinhId
-                                   }).ToList();
-                       });
+                        cauHinhQuyTrinh.ListCacBuocQuyTrinh.ForEach(buoc =>
+                        {
+                            buoc.ListPhongBanTrongCacBuocQuyTrinh = listPhongBanTrongCacBuoc
+                                .Where(x => x.CacBuocQuyTrinhId == buoc.Id).Select(y =>
+                                    new PhongBanTrongCacBuocQuyTrinhModel
+                                    {
+                                        Id = y.Id,
+                                        OrganizationId = y.OrganizationId,
+                                        CacBuocQuyTrinhId = y.CacBuocQuyTrinhId
+                                    }).ToList();
+                        });
                     }
                 }
 
@@ -3053,7 +3283,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     return base64String;
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return "";
             }
@@ -3063,10 +3293,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                if(parameter.ServicePacketMappingOptionsEntityModel.Id == null && parameter.ServicePacketMappingOptionsEntityModel.ParentId != null && parameter.ServicePacketMappingOptionsEntityModel.OptionId != null)
+                if (parameter.ServicePacketMappingOptionsEntityModel.Id == null && parameter.ServicePacketMappingOptionsEntityModel.ParentId != null && parameter.ServicePacketMappingOptionsEntityModel.OptionId != null)
                 {
                     var servicePacketMPOByOption = context.ServicePacketMappingOptions.Where(x => x.ParentId == parameter.ServicePacketMappingOptionsEntityModel.ParentId && x.OptionId == parameter.ServicePacketMappingOptionsEntityModel.OptionId).FirstOrDefault();
-                    if(servicePacketMPOByOption != null)
+                    if (servicePacketMPOByOption != null)
                     {
                         return new CreateServicePacketMappingOptionResult
                         {
@@ -3090,7 +3320,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
 
                 var servicePacketMPO = _mapper.Map<ServicePacketMappingOptions>(parameter.ServicePacketMappingOptionsEntityModel);
-                if(servicePacketMPO.Id != null && servicePacketMPO.Id != Guid.Empty)
+                if (servicePacketMPO.Id != null && servicePacketMPO.Id != Guid.Empty)
                 {
                     servicePacketMPO.UpdatedDate = DateTime.Now;
                     servicePacketMPO.UpdatedById = parameter.UserId;
@@ -3108,7 +3338,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     var listServicePacketMappingOptionsBySortOrder = new List<ServicePacketMappingOptions>();
                     listServicePacketMappingOptionsBySortOrder = context.ServicePacketMappingOptions.Where(x => x.ParentId == servicePacketMPO.ParentId && x.Id != servicePacketMPO.Id && x.ServicePacketId == parameter.ServicePacketMappingOptionsEntityModel.ServicePacketId).OrderBy(x => x.SortOrder).ToList();
-                    if(servicePacketMPO.SortOrder <= listServicePacketMappingOptionsBySortOrder.Count)
+                    if (servicePacketMPO.SortOrder <= listServicePacketMappingOptionsBySortOrder.Count)
                     {
                         listServicePacketMappingOptionsBySortOrder.Insert((int)servicePacketMPO.SortOrder - 1, servicePacketMPO);
                     }
@@ -3156,6 +3386,17 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     };
                 }
 
+                //Kiểm tra xem dịch vụ có được sử dụng trong phiếu yêu cầu không
+                var checkUse = context.CustomerOrderDetail.FirstOrDefault(x => x.OptionId == parameter.Id);
+                if(checkUse != null)
+                {
+                    return new DeleteServicePacketMappingOptionResult
+                    {
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        Message = "Tùy chọn dịch vụ đã được sử dụng trong phiếu yêu cầu, không thể xóa!"
+                    };
+                }
+
                 var servicePacketMPO = context.ServicePacketMappingOptions.Where(x => x.Id == parameter.Id).FirstOrDefault();
                 context.ServicePacketMappingOptions.Remove(servicePacketMPO);
 
@@ -3181,7 +3422,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var pack = context.ServicePacket.FirstOrDefault(x => x.Id == parameter.Id);
-                if(pack == null)
+                if (pack == null)
                 {
                     return new ChangeOrderServicePackResult
                     {
@@ -3191,14 +3432,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
                 var max = context.ServicePacket.Max(x => x.Stt);
                 //Nếu stt nhập  == stt trong DB
-                if(pack.Stt == parameter.Stt)
+                if (pack.Stt == parameter.Stt)
                 {
                     return new ChangeOrderServicePackResult
                     {
                         StatusCode = HttpStatusCode.OK,
                         MessageCode = "Cập nhật số thứ tự thành công!",
                     };
-                } else if (parameter.Stt > max)
+                }
+                else if (parameter.Stt > max)
                 {
                     return new ChangeOrderServicePackResult
                     {
@@ -3227,10 +3469,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     else
                     {
                         //Lấy khoảng điểm báo cáo có điều kiện: Stt lớn hơn điểm báo cáo đang sửa và nhỏ hơn số thứ tự mới của báo cáo đang sửa
-                        var listUpdatePack = context.ServicePacket.Where(x => x.Id != pack.Id  && x.Stt > pack.Stt && x.Stt <= parameter.Stt).OrderBy(x => x.Stt).ToList();
+                        var listUpdatePack = context.ServicePacket.Where(x => x.Id != pack.Id && x.Stt > pack.Stt && x.Stt <= parameter.Stt).OrderBy(x => x.Stt).ToList();
                         listUpdatePack.ForEach(item =>
                         {
-                            item.Stt = item.Stt -1;
+                            item.Stt = item.Stt - 1;
                         });
                         pack.Stt = parameter.Stt;
                         context.ServicePacket.Update(pack);
@@ -3244,8 +3486,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     };
                 }
             }
-            catch (Exception e) 
-            { 
+            catch (Exception e)
+            {
                 return new ChangeOrderServicePackResult
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
@@ -3253,6 +3495,29 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
+
+        public UploadProductImageResult UploadProductImage(UploadProductImageParameter parameter)
+        {
+            try
+            {
+                
+                return new UploadProductImageResult()
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = CommonMessage.FileUpload.NO_FILE
+                };
+                
+            }
+            catch (Exception ex)
+            {
+                return new UploadProductImageResult()
+                {
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                    MessageCode = ex.Message
+                };
+            }
+        }
+
 
     }
 }

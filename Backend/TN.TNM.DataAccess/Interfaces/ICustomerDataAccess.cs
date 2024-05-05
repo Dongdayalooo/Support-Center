@@ -74,8 +74,6 @@ namespace TN.TNM.DataAccess.Interfaces
         GetListTinhHuongResult GetListTinhHuong(GetListTinhHuongParameter parameter);
         Task<GetChiTietTinhHuongResult> GetChiTietTinhHuong(GetChiTietTinhHuongParameter parameter);
         Task<TakeListEvaluateResult> TakeListEvaluateForObjectId(TakeListEvaluateParameter parameter);
-
-        //capnhatphanhangkh
         CapNhatPhanHangKhResult CapNhatPhanHangKh(CapNhatPhanHangKhParameter parameter);
     }
 }

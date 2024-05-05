@@ -126,7 +126,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             VendorCode = order.VendorCode,
                             VendorName = order.VendorName,
                             VendorId = order.VendorId,
-                            TotalPurchase = newData.Where(x => x.VendorId == order.VendorId).Sum(x => x.TotalPurchase) ?? 0,
+                            TotalPurchase = vendorOrderList.Where(x => x.VendorId == order.VendorId).Sum(x => x.TotalPurchase) ?? 0,
                             TotalPaid = order.TotalPaid,
                             NearestTransaction = order.NearestTransaction,
                             Status = order.Status

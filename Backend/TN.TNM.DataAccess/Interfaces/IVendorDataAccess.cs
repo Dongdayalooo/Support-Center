@@ -63,5 +63,7 @@ namespace TN.TNM.DataAccess.Interfaces
         GetProductCategoryGroupByLevelResult GetProductCategoryGroupByLevel(GetProductCategoryGroupByLevelParameter paramter);
         GetDataBarchartFollowMonthResult GetDataBarchartFollowMonth(GetDataBarchartFollowMonthParameter parameter);
         #endregion
+
+        UpdateVendorOrderResult DeleteVendor(GetDataEditVendorParameter parameter);
     }
 }

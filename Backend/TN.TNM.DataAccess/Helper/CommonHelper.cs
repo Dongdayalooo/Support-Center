@@ -95,7 +95,7 @@ namespace TN.TNM.DataAccess.Helper
         public static bool PushNotificationToDevice(string deviceId, string title, string body, string type, string orderId, bool sos = false) {
             try
             {
-                //type 1: order, 2: orderAction
+                //type 1: order, 2: orderAction, 3: Khác
                 if (credential == null)
                 {
                     credential = FirebaseApp.Create(new AppOptions()
@@ -204,7 +204,6 @@ namespace TN.TNM.DataAccess.Helper
                 {
                     tongTienHoaHong += (item.TongTienHoaHong ?? 0);
                 }
-
             });
 
             if (vendorOrder.VendorOrderType == 1)
@@ -224,7 +223,6 @@ namespace TN.TNM.DataAccess.Helper
             return vendorOrder;
         }
 
-        //phanhangkh
         public static Guid PhanHangKhachHang(Guid customerId, string deviceId, List<CustomerOrder> listOrder, List<CauHinhPhanHangKh> listCauHinh, 
             List<Category> listPhanHangCategory, List<VendorOrderDetail> listVendorOrderDetail, List<CustomerOrder> listOrderNguoiGioiThieu, List<VendorOrderDetail> listOrderDetailNguoiGioiThieu)
         {

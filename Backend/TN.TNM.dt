@@ -1,0 +1,1319 @@
+<?xml version="1.0" encoding="utf-16"?>
+<DevTrackerData xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SolutionTotalEditTime="PT2H51M56.7344452S" SolutionTotalViewTime="PT3H11M24.4923589S" SolutionTotalDebugTime="PT10M44.9080746S">
+  <FileVersion>
+    <Major>1</Major>
+    <Minor>0</Minor>
+  </FileVersion>
+  <SolutionFolder>F:\TriNghia\16. HDTL_v2\Backend</SolutionFolder>
+  <SolutionCreattionDate>2023-12-07T09:47:18.3197801+07:00</SolutionCreattionDate>
+  <ProjectsCreatedDateList>
+    <ProjectCreated>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-07T09:47:03.0710195+07:00</CreatedDate>
+    </ProjectCreated>
+    <ProjectCreated>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\TN.TNM.BusinessLogic.csproj</ProjectName>
+      <CreatedDate>2023-12-07T09:47:03.9780797+07:00</CreatedDate>
+    </ProjectCreated>
+    <ProjectCreated>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-07T09:47:07.048675+07:00</CreatedDate>
+    </ProjectCreated>
+    <ProjectCreated>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Common\TN.TNM.Common.csproj</ProjectName>
+      <CreatedDate>2023-12-07T09:47:03.9860578+07:00</CreatedDate>
+    </ProjectCreated>
+  </ProjectsCreatedDateList>
+  <SessionTimeList />
+  <LastSessionTimeList>
+    <DevTrackerDataItem ViewActiveTime="PT2.7527764S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\Entities\CustomerOrder.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T22:51:55.2859562+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT7.1025131S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\CustomerOrderController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:26.6229134+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT19.0726233S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerOrderDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:33.7259704+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M57.9813475S" EditActiveTime="PT46.2038993S">
+      <ModifiedDate>2023-12-18T22:52:07.6660085+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\CustomerOrderModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T17:46:47.0970686+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4M20.7106989S" EditActiveTime="PT20M3.7790879S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>Debug Mode</Item>
+      <ItemType>DebugModeItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-18T17:15:19.1972986+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.6252009S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Helper\GeneralList.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T17:32:52.5267447+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT59.4714846S" EditActiveTime="PT1M16.1517972S">
+      <ModifiedDate>2023-12-18T21:53:49.5561443+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetReceivableCustomerReportNewParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:23:21.8687297+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT8.6497855S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Interfaces\ICustomerOrderDataAccess.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:29.9251898+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.1175826S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Interfaces\IReceivableDataAccess.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:23:17.2648916+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT12.5180902S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\ReceivableController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:23:13.4675969+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.8662378S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerReportModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T17:20:03.8364339+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT36M47.3788614S" EditActiveTime="PT36M29.7846369S">
+      <ModifiedDate>2023-12-18T22:52:07.6571328+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T16:54:43.9038191+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.359006S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Order\SearchOrderParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:35.2954349+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+  </LastSessionTimeList>
+  <TotalTimeList>
+    <DevTrackerDataItem ViewActiveTime="PT36.1752333S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\accounting\services\accounting.service.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T11:10:22.6886347+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.4943786S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>0</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\AssetDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:49:22.0064555+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4M27.5728291S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\AuthDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T11:05:58.1990573+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT19.5307689S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\BankBookDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:45:29.6153324+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.2417299S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CashBookDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:45:41.3624395+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT30.6315577S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CompanyDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:45:46.6041694+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2.9016289S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerCareDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:49:38.5346333+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT27.5861323S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\CustomerController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:12.480143+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT48.301604S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:49:41.4372589+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2.7527764S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\Entities\CustomerOrder.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T22:51:55.2859562+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT7.1025131S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\CustomerOrderController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:26.6229134+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT12M33.8803362S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>4</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerOrderDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T17:04:36.7878179+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.0688529S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Order\CustomerOrderDetailEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:53:11.7060095+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2M39.5757677S" EditActiveTime="PT29.8790173S">
+      <ModifiedDate>2023-12-14T12:00:37.7894109+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Order\CustomerOrderEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:36:20.8951505+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT9.2892146S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\CustomerOrderEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:27:43.2169046+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT6M8.9573249S" EditActiveTime="PT4M1.2144589S">
+      <ModifiedDate>2023-12-18T22:52:07.6660085+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>2</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\CustomerOrderModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:27:52.5071167+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT0.8533774S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\DashboardController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:11.6258055+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT10M44.9081073S" EditActiveTime="PT36M6.8675405S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>4</EditedCount>
+      <ViewedCount>4</ViewedCount>
+      <Item>Debug Mode</Item>
+      <ItemType>DebugModeItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T17:46:15.2638471+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT9.4607562S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\ExportExcelReceivableReportParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:21:35.7986073+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT11.7697985S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\ExportExcelReceivableReportResult.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:02.3719323+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT23.9912372S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>3</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Helper\GeneralList.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T18:03:06.5126899+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1.5219599S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetDataSearchReceivableVendorResult.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:01.2140065+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT32.4479043S" EditActiveTime="PT21.2465947S">
+      <ModifiedDate>2023-12-13T16:23:13.6457688+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetMasterDataReportParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:54.8485734+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT29.6198336S" EditActiveTime="PT26.2498328S">
+      <ModifiedDate>2023-12-13T16:19:56.6033096+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetMasterDataReportResult.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:55.123803+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT11.1779425S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerDetailResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:57.231188+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2M9.4503645S" EditActiveTime="PT1M43.9628568S">
+      <ModifiedDate>2023-12-18T21:53:49.5561443+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>3</EditedCount>
+      <ViewedCount>3</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetReceivableCustomerReportNewParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:22:28.7572742+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT41.7022205S" EditActiveTime="PT18.0953191S">
+      <ModifiedDate>2023-12-14T10:23:31.5820703+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>2</EditedCount>
+      <ViewedCount>3</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerReportNewResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:23:11.2796176+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT24.9347539S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetReceivableCustomerReportParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:06:13.0298878+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2.8898635S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\Messages\Responses\Receivable\Customer\GetReceivableCustomerReportResponse.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\TN.TNM.BusinessLogic.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:20:54.2185093+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT15.8287046S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerReportResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:16.4734984+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT8.6497855S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Interfaces\ICustomerOrderDataAccess.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:29.9251898+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M15.6235497S" EditActiveTime="PT14.0994487S">
+      <ModifiedDate>2023-12-13T16:24:35.8735734+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\Interfaces\Receivable\IReceivable.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\TN.TNM.BusinessLogic.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:07:48.2183392+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M47.5320361S" EditActiveTime="PT15.3837514S">
+      <ModifiedDate>2023-12-13T16:24:55.3857404+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Interfaces\IReceivableDataAccess.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:03:22.1570485+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3M33.7363168S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\vendor\components\list-vendor-price\list-vendor-price.component.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T11:05:46.227017+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4.2390815S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\shared\components\note-time-line-cus\note-time-line-cus.component.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T16:09:52.7311751+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M54.077286S" EditActiveTime="PT2M31.2484871S">
+      <ModifiedDate>2023-12-13T16:24:55.3967119+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\ReceivableController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:03:35.832096+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT22.3693632S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerEntityModel - Copy.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:41:40.6561003+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT41.8353005S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>2</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:40:57.2494081+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M52.6490057S" EditActiveTime="PT2M45.3028391S">
+      <ModifiedDate>2023-12-18T11:45:21.6251226+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>3</EditedCount>
+      <ViewedCount>4</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerReportModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:42:03.6073336+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2H24M8.5344781S" EditActiveTime="PT2H38M50.0478772S">
+      <ModifiedDate>2023-12-18T22:52:07.6571328+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>5</EditedCount>
+      <ViewedCount>6</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T11:04:22.3315996+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT44.1817415S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\Factories\Receivable\ReceivableFactory.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\TN.TNM.BusinessLogic.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:05:37.1670217+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.359006S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Order\SearchOrderParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:35.2954349+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+  </TotalTimeList>
+  <HistoryTimeList>
+    <DevTrackerDataItem ViewActiveTime="PT2.7527764S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\Entities\CustomerOrder.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T22:51:55.2859562+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT59.4714846S" EditActiveTime="PT1M16.1517972S">
+      <ModifiedDate>2023-12-18T21:53:49.5561443+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetReceivableCustomerReportNewParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:23:21.8687297+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.1175826S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Interfaces\IReceivableDataAccess.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:23:17.2648916+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT12.5180902S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\ReceivableController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:23:13.4675969+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.359006S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Order\SearchOrderParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:35.2954349+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT19.0726233S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerOrderDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:33.7259704+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT8.6497855S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Interfaces\ICustomerOrderDataAccess.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:29.9251898+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT7.1025131S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\CustomerOrderController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-18T21:22:26.6229134+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M57.9813475S" EditActiveTime="PT46.2038993S">
+      <ModifiedDate>2023-12-18T22:52:07.6660085+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\CustomerOrderModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T17:46:47.0970686+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.6252009S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Helper\GeneralList.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T17:32:52.5267447+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.8662378S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerReportModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T17:20:03.8364339+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4M20.7106989S" EditActiveTime="PT20M3.7790879S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>Debug Mode</Item>
+      <ItemType>DebugModeItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-18T17:15:19.1972986+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT36M47.3632423S" EditActiveTime="PT36M29.7846369S">
+      <ModifiedDate>2023-12-18T22:52:07.6571328+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T16:54:43.9038191+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.9940271S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerReportNewResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T10:45:33.2352223+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.0688529S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Order\CustomerOrderDetailEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:53:11.7060095+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4M10.9759774S" EditActiveTime="PT3M15.0105596S">
+      <ModifiedDate>2023-12-18T11:45:22.5697661+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\CustomerOrderModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:27:52.5071167+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT9.2892146S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\CustomerOrderEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:27:43.2169046+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1.7905876S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerOrderDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:27:26.0093616+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT43.3650172S" EditActiveTime="PT6.4024422S">
+      <ModifiedDate>2023-12-18T11:45:21.6251226+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerReportModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:27:18.2292869+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT7.655025S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:27:10.5742619+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT58.866361S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Order\CustomerOrderEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T09:20:53.6089907+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3M59.9927124S" EditActiveTime="PT2M12.6620608S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>Debug Mode</Item>
+      <ItemType>DebugModeItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-18T09:15:50.3143933+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT40M37.4735784S" EditActiveTime="PT1H54.5171893S">
+      <ModifiedDate>2023-12-18T11:45:14.1764912+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-18T08:41:54.5274645+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT48.301604S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:49:41.4372589+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2.9016289S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerCareDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:49:38.5346333+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3.0842486S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\AuthDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:49:27.6515576+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.4943786S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>0</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\AssetDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:49:22.0064555+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT30.6315577S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CompanyDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:45:46.6041694+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT5.2417299S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CashBookDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:45:41.3624395+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT19.5307689S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\BankBookDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:45:29.6153324+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M40.7094067S" EditActiveTime="PT29.8790173S">
+      <ModifiedDate>2023-12-14T12:00:37.7894109+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Order\CustomerOrderEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:36:20.8951505+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT32.6476558S" EditActiveTime="PT17.7431372S">
+      <ModifiedDate>2023-12-14T11:30:59.2896444+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetReceivableCustomerReportNewParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T11:30:25.6557943+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT27.4541981S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerOrderDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T10:39:31.4711135+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M53.132466S" EditActiveTime="PT1M53.8623048S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>Debug Mode</Item>
+      <ItemType>DebugModeItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-14T10:35:52.0569427+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT13.5053915S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Helper\GeneralList.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T10:25:10.7233798+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT32.3989267S" EditActiveTime="PT28.6684268S">
+      <ModifiedDate>2023-12-14T10:30:00.3367601+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerReportModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T10:23:56.3502987+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1.2989285S" EditActiveTime="PT11.6757109S">
+      <ModifiedDate>2023-12-14T10:23:31.5820703+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerReportNewResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T10:22:58.5219817+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT15M36.9966358S" EditActiveTime="PT23M5.4947585S">
+      <ModifiedDate>2023-12-14T12:00:36.4607594+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T10:14:09.7785304+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT9M30.5524363S" EditActiveTime="PT10.4527935S">
+      <ModifiedDate>2023-12-14T09:46:12.5297587+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-14T08:49:01.6504063+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT6.8606448S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Helper\GeneralList.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T18:03:06.5126899+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT31.07223S" EditActiveTime="PT11M56.5650844S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>Debug Mode</Item>
+      <ItemType>DebugModeItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T17:46:15.2638471+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT11M45.5629272S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\CustomerOrderDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T17:04:36.7878179+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT33.018824S" EditActiveTime="PT2M10.2319701S">
+      <ModifiedDate>2023-12-13T17:44:41.8091049+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerReportModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:42:03.6073336+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT22.3693632S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerEntityModel - Copy.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:41:40.6561003+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT34.1802755S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Models\Receivable\ReceivableCustomerEntityModel.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:40:57.2494081+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT36.4092649S" EditActiveTime="PT6.4196082S">
+      <ModifiedDate>2023-12-13T16:44:48.7535474+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerReportNewResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:23:11.2796176+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT37.3312241S" EditActiveTime="PT10.0679224S">
+      <ModifiedDate>2023-12-13T16:27:14.6113065+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetReceivableCustomerReportNewParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:22:28.7572742+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT9.4607562S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\ExportExcelReceivableReportParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:21:35.7986073+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT2.8898635S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\Messages\Responses\Receivable\Customer\GetReceivableCustomerReportResponse.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\TN.TNM.BusinessLogic.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:20:54.2185093+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT32.4479043S" EditActiveTime="PT21.2465947S">
+      <ModifiedDate>2023-12-13T16:23:13.6457688+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetMasterDataReportParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:54.8485734+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT15.8287046S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerReportResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:16.4734984+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT11.7697985S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\ExportExcelReceivableReportResult.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:02.3719323+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1.5219599S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetDataSearchReceivableVendorResult.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:15:01.2140065+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT11.1779425S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetReceivableCustomerDetailResults.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:57.231188+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT29.6198336S" EditActiveTime="PT26.2498328S">
+      <ModifiedDate>2023-12-13T16:19:56.6033096+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Results\Receivable\Customer\GetMasterDataReportResult.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:55.123803+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT27.5861323S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\CustomerController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:12.480143+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT0.8533774S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\DashboardController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:14:11.6258055+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4.2390815S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\shared\components\note-time-line-cus\note-time-line-cus.component.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T16:09:52.7311751+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M15.6235497S" EditActiveTime="PT14.0994487S">
+      <ModifiedDate>2023-12-13T16:24:35.8735734+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\Interfaces\Receivable\IReceivable.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\TN.TNM.BusinessLogic.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:07:48.2183392+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT31.2130742S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\vendor\components\list-vendor-price\list-vendor-price.component.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T16:07:00.5620175+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT25.2062427S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\accounting\services\accounting.service.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T16:06:33.6499429+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT24.9347539S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Messages\Parameters\Receivable\Customer\GetReceivableCustomerReportParameter.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:06:13.0298878+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT44.1817415S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\Factories\Receivable\ReceivableFactory.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.BusinessLogic\TN.TNM.BusinessLogic.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:05:37.1670217+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M41.5591958S" EditActiveTime="PT2M31.2484871S">
+      <ModifiedDate>2023-12-13T16:24:55.3967119+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\Controllers\ReceivableController.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.Api\TN.TNM.Api.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:03:35.832096+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M44.4144535S" EditActiveTime="PT15.3837514S">
+      <ModifiedDate>2023-12-13T16:24:55.3857404+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Interfaces\IReceivableDataAccess.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:03:22.1570485+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT40M5.4380608S" EditActiveTime="PT38M9.798499S">
+      <ModifiedDate>2023-12-13T22:15:06.650397+07:00</ModifiedDate>
+      <ModifiedBy>cuongnd</ModifiedBy>
+      <EditedCount>1</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T16:01:17.9256006+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT10.9689906S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\accounting\services\accounting.service.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T11:10:22.6886347+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT4M24.4885805S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\AuthDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T11:05:58.1990573+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT3M2.5232426S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Fontend\TNT.N8.Web\TNT.N8.Web\ClientApp\src\app\vendor\components\list-vendor-price\list-vendor-price.component.ts</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName />
+      <CreatedDate>2023-12-13T11:05:46.227017+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+    <DevTrackerDataItem ViewActiveTime="PT1M30.7125191S" EditActiveTime="PT0S">
+      <ModifiedDate>0001-01-01T00:00:00</ModifiedDate>
+      <EditedCount>0</EditedCount>
+      <ViewedCount>1</ViewedCount>
+      <Item>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\Databases\DAO\ReceivableDAO.cs</Item>
+      <ItemType>ProjectItem</ItemType>
+      <ProjectName>F:\TriNghia\16. HDTL_v2\Backend\TN.TNM.DataAccess\TN.TNM.DataAccess.csproj</ProjectName>
+      <CreatedDate>2023-12-13T11:04:22.3315996+07:00</CreatedDate>
+      <ViewedBy>cuongnd</ViewedBy>
+    </DevTrackerDataItem>
+  </HistoryTimeList>
+</DevTrackerData>

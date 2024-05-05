@@ -254,5 +254,12 @@ namespace TN.TNM.Api.Controllers
             return this.iMobileAppConfigurationDataAccess.GetDataCauHinhWeb(request);
         }
 
+        [HttpPost]
+        [Route("api/MobileAppConfiguration/uploadFileImgEditor")]
+        public UploadFileImgEditorResult UploadFileImgEditor([FromForm] UploadFileImgEditorParameter request)
+        {
+            return this.iMobileAppConfigurationDataAccess.UploadFileImgEditor(request);
+        }
+
     }
 }

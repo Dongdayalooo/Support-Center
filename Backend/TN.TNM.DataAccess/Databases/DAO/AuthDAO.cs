@@ -145,13 +145,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     u.UserName == paramater.User.UserName && u.Password == paramater.User.Password);
 
                 //Cập nhật deviceId của người dùng nếu có
-                if (paramater.User.DeviceId != null && user != null)
+                if(paramater.User.DeviceId != null && user != null)
                 {
                     user.DeviceId = paramater.User.DeviceId.Trim();
                     context.User.Update(user);
                     context.SaveChanges();
                 }
-
+                
                 // check login bằng account vendor
                 var externalUser = context.ExternalUser.FirstOrDefault(u =>
                  u.UserName == paramater.User.UserName && u.Password == paramater.User.Password);
@@ -238,7 +238,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var emp = context.Employee.FirstOrDefault(e => e.EmployeeId == empId);
 
-                if (emp.Active == false)
+                if(emp.Active == false)
                 {
                     return new LoginResult
                     {
@@ -518,7 +518,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 Guid? roleId = Guid.Empty;
 
                 var contact = new Contact();
-
+                     
                 var emp = context.Employee.FirstOrDefault(e => e.EmployeeId == empId);
                 var cus = context.Customer.FirstOrDefault(e => e.CustomerId == empId);
                 var vendor = context.Vendor.FirstOrDefault(e => e.VendorId == empId);
@@ -649,7 +649,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 }
                 //Nếu là KH
-                else if (cus != null)
+                else if(cus != null)
                 {
                     if (cus?.Active != true)
                     {
@@ -682,17 +682,17 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
 
                 var contactEntityModel = new ContactEntityModel
-                {
-                    Address = contact?.Address,
-                    Phone = contact?.Phone,
-                    Email = contact?.Email,
-                    LastName = contact?.LastName,
-                    FirstName = contact?.FirstName,
-                    Gender = contact?.Gender,
-                    DateOfBirth = contact?.DateOfBirth,
-                    ObjectType = contact?.ObjectType,
-                    ProvinceId = contact?.ProvinceId,
-                };
+                              {
+                                  Address = contact?.Address,
+                                  Phone = contact?.Phone,
+                                  Email = contact?.Email,
+                                  LastName = contact?.LastName,
+                                  FirstName = contact?.FirstName,
+                                  Gender = contact?.Gender,
+                                  DateOfBirth = contact?.DateOfBirth,
+                                  ObjectType = contact?.ObjectType,
+                                  ProvinceId = contact?.ProvinceId,
+                              };
 
                 var currentUser = new AuthEntityModel
                 {
@@ -1033,7 +1033,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                if (parameter.NewPassword.Trim() != parameter.ConfirmPassword.Trim())
+                if(parameter.NewPassword.Trim() != parameter.ConfirmPassword.Trim())
                 {
                     return new ChangePasswordResult
                     {
@@ -2259,7 +2259,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     Key = "vendor/detail",
                     Name = "Xem chi tiết nhà cung cấp"
                 },
-
+                
                 new PermissionTempModel()
                 {
                     Key = "admin/company-config",
@@ -2640,7 +2640,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var avatarPath = "";
-                if (parameter.CustomerId == null)
+                if(parameter.CustomerId == null)
                 {
                     User user = new User();
                     user.UserId = Guid.NewGuid();
@@ -2714,7 +2714,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     contact.ProvinceId = parameter.ProvinceId;
                     contact.Phone = parameter.PhoneNumber;
 
-                    if (parameter.UserId != null && parameter.UserId != Guid.Empty && parameter.CustomerId != null && parameter.CustomerId != Guid.Empty)
+                    if(parameter.UserId != null && parameter.UserId != Guid.Empty && parameter.CustomerId != null && parameter.CustomerId != Guid.Empty)
                     {
                         var existUser = context.User.FirstOrDefault(x => x.UserName == parameter.PhoneNumber);
                         existUser.UserName = parameter.PhoneNumber;
@@ -2809,7 +2809,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             };
                         }
                         context.Contact.Update(contact);
-                    }
+                    }   
                     //Nếu là Ncc
                     else if (parameter.Type == 2)
                     {
@@ -2955,7 +2955,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                 });
 
                                 context.FileInFolder.RemoveRange(listFile);
-
+                              
                                 string newPath = Path.Combine(webRootPath, folderName);
 
                                 //Lưu file
@@ -3004,7 +3004,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     Url = avatarPath,
                     StatusCode = HttpStatusCode.OK,
-                    Message = parameter.CustomerId != null ? "Cập nhật thông tin thành công!" : "Đăng ký thành công!"
+                    Message = parameter.CustomerId != null ? "Cập nhật thông tin thành công!": "Đăng ký thành công!"
                 };
             }
             catch (Exception e)
@@ -3092,7 +3092,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var user = context.User.FirstOrDefault(x => x.UserId == parameter.UserId);
-                if (user == null)
+                if(user == null)
                 {
                     return new RemoveDeviceIdResult
                     {
@@ -3119,7 +3119,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
         }
 
-        public UpdateUserToNotActiveResult UpdateUserToNotActive(UpdateUserNotActiveParameter parameter)
+        public UpdateUserToNotActiveResult UpdateUserToNotActive (UpdateUserNotActiveParameter parameter)
         {
             try
             {
@@ -3144,35 +3144,35 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
         }
 
-        //    public CheckUserByUserIdResult CheckUserByUserId(CheckUserByUserIdParameter parameter)
-        //    {
-        //        try
-        //        {
-        //            var user = context.User.FirstOrDefault(x => x.UserId == parameter.UserId);
-        //            if (user == null)
-        //            {
-        //                return new CheckUserByUserIdResult
-        //                {
-        //                    MessageCode = "Tài khoản không tồn tại trên hệ thống!",
-        //                    StatusCode = HttpStatusCode.FailedDependency,
-        //                };
-        //            }
+        public CheckUserByUserIdResult CheckUserByUserId(CheckUserByUserIdParameter parameter)
+        {
+            try
+            {
+                var user = context.User.FirstOrDefault(x => x.UserId == parameter.UserId);
+                if(user == null)
+                {
+                    return new CheckUserByUserIdResult
+                    {
+                        MessageCode = "Tài khoản không tồn tại trên hệ thống!",
+                        StatusCode = HttpStatusCode.FailedDependency,
+                    };
+                }
 
-        //            return new CheckUserByUserIdResult
-        //            {
-        //                MessageCode = "Tài khoản vẫn đang hoạt động",
-        //                StatusCode = HttpStatusCode.OK,
-        //            };
-        //        }
-        //        catch (Exception e)
-        //        {
-        //            return new CheckUserByUserIdResult
-        //            {
-        //                Message = e.Message,
-        //                StatusCode = HttpStatusCode.ExpectationFailed,
-        //            };
-        //        }
-        //    }
+                return new CheckUserByUserIdResult
+                {
+                    MessageCode = "Tài khoản vẫn đang hoạt động",
+                    StatusCode = HttpStatusCode.OK,
+                };
+            }
+            catch (Exception e)
+            {
+                return new CheckUserByUserIdResult
+                {
+                    Message = e.Message,
+                    StatusCode = HttpStatusCode.ExpectationFailed,
+                };
+            }
+        }
 
     }
 }

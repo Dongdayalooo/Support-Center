@@ -44,5 +44,6 @@ namespace TN.TNM.DataAccess.Interfaces
         RemoveDeviceIdResult RemoveDeviceId(RemoveDeviceIdParameter parameter);
 
         UpdateUserToNotActiveResult UpdateUserToNotActive(UpdateUserNotActiveParameter parameter);
+        CheckUserByUserIdResult CheckUserByUserId(CheckUserByUserIdParameter parameter);
     }
 }

@@ -17,6 +17,8 @@ using TN.TNM.Common;
 using TN.TNM.BusinessLogic.Messages.Responses.File;
 using TN.TNM.BusinessLogic.Messages.Requests.File;
 using Microsoft.AspNetCore.Hosting;
+using File = System.IO.File;
+
 
 namespace TN.TNM.Api.Controllers
 {
@@ -231,7 +233,7 @@ namespace TN.TNM.Api.Controllers
         [HttpPost]
         [Route("api/Product/createOrUpdatePriceProduct")]
         [Authorize(Policy = "Member")]
-        public CreateOrUpdatePriceProductResult CreateOrUpdatePriceProduct([FromBody]CreateOrUpdatePriceProductParameter request)
+        public CreateOrUpdatePriceProductResult CreateOrUpdatePriceProduct([FromBody] CreateOrUpdatePriceProductParameter request)
         {
             return this.iProductDataAccess.CreateOrUpdatePriceProduct(request);
         }
@@ -413,56 +415,9 @@ namespace TN.TNM.Api.Controllers
         [HttpPost]
         [Route("api/Product/uploadServicePacketImage")]
         [Authorize(Policy = "Member")]
-        public UploadFileResponse UploadProductImage(UploadFileRequest request)
+        public UploadProductImageResult UploadProductImage(UploadProductImageParameter request)
         {
-            try
-            {
-                if (request.FileList != null && request.FileList.Count > 0)
-                {
-                    string folderName = "ServicePacketImage";
-                    string webRootPath = _hostingEnvironment.WebRootPath;
-                    string newPath = Path.Combine(webRootPath, folderName);
-                    if (!Directory.Exists(newPath))
-                    {
-                        Directory.CreateDirectory(newPath);
-                    }
-
-                    foreach (IFormFile item in request.FileList)
-                    {
-                        if (item.Length > 0)
-                        {
-                            string fileName = item.FileName.Trim();
-                            string fullPath = Path.Combine(newPath, fileName);
-                            using (var stream = new FileStream(fullPath, FileMode.Create))
-                            {
-                                item.CopyTo(stream);
-                            }
-                        }
-                    }
-
-                    return new UploadFileResponse()
-                    {
-                        StatusCode = HttpStatusCode.OK,
-                        MessageCode = CommonMessage.FileUpload.UPLOAD_SUCCESS,
-                    };
-                }
-                else
-                {
-                    return new UploadFileResponse()
-                    {
-                        StatusCode = HttpStatusCode.ExpectationFailed,
-                        MessageCode = CommonMessage.FileUpload.NO_FILE
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                return new UploadFileResponse()
-                {
-                    StatusCode = HttpStatusCode.ExpectationFailed,
-                    MessageCode = ex.Message
-                };
-            }
+            return this.iProductDataAccess.UploadProductImage(request);
         }
     }
 }

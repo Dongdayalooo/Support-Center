@@ -459,39 +459,48 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             MessageCode = CommonMessage.MasterData.ONLY_2_LVL
                         };
                     }
-                    else
+                    var checkExistCode = context.Category.FirstOrDefault(x => x.CategoryTypeId == parameter.CategoryTypeId &&
+                                                        x.CategoryCode.Trim().ToLower() == parameter.CategoryCode.Trim().ToLower());
+                    if (checkExistCode != null)
                     {
-                        Category category = new Category()
-                        {
-                            CategoryId = Guid.NewGuid(),
-                            CategoryName = parameter.CategoryName,
-                            CategoryCode = parameter.CategoryCode,
-                            CategoryTypeId = parameter.CategoryTypeId,
-                            CreatedById = parameter.UserId,
-                            CreatedDate = DateTime.Now,
-                            Active = true,
-                            IsDefauld = false,
-                            IsEdit = true
-                        };
-
-                        context.Category.Add(category);
-                        context.SaveChanges();
                         return new CreateCategoryResult()
                         {
-                            StatusCode = HttpStatusCode.OK,
-                            MessageCode = CommonMessage.MasterData.CREATE_SUCCESS
+                            StatusCode = HttpStatusCode.ExpectationFailed,
+                            MessageCode = "Trùng mã dữ liệu!"
                         };
                     }
+
+                    Category category = new Category()
+                    {
+                        CategoryId = Guid.NewGuid(),
+                        CategoryName = parameter.CategoryName,
+                        CategoryCode = parameter.CategoryCode,
+                        CategoryTypeId = parameter.CategoryTypeId,
+                        CreatedById = parameter.UserId,
+                        CreatedDate = DateTime.Now,
+                        Active = true,
+                        IsDefauld = false,
+                        IsEdit = true
+                    };
+
+                    context.Category.Add(category);
+                    context.SaveChanges();
+                    return new CreateCategoryResult()
+                    {
+                        StatusCode = HttpStatusCode.OK,
+                        MessageCode = CommonMessage.MasterData.CREATE_SUCCESS
+                    };
+
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new CreateCategoryResult()
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message
                 };
-            }           
+            }
         }
 
         public DeleteCategoryByIdResult DeleteCategoryById(DeleteCategoryByIdParameter parameter)
@@ -533,47 +542,56 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     MessageCode = CommonMessage.MasterData.DELETE_SUCCESS
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new DeleteCategoryByIdResult()
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message
                 };
-            }       
+            }
         }
 
         public EditCategoryByIdResult EditCategoryById(EditCategoryByIdParameter parameter)
         {
             try
             {
-                var categoryType = context.Category.FirstOrDefault(ct => ct.CategoryId == parameter.CategoryId);
-                if (categoryType == null)
+                var category = context.Category.FirstOrDefault(ct => ct.CategoryId == parameter.CategoryId);
+                if (category == null)
                 {
                     return new EditCategoryByIdResult()
                     {
                         StatusCode = HttpStatusCode.ExpectationFailed,
-                        MessageCode = CommonMessage.MasterData.CANNOT_EDIT_TYPE
+                        MessageCode = "Không tìm thấy bản ghi trên hệ thống!"
                     };
                 }
-                else
-                {
-                    var category = context.Category.FirstOrDefault(c => c.CategoryId == parameter.CategoryId);
-                    category.CategoryName = parameter.CategoryName;
-                    category.CategoryCode = parameter.CategoryCode;
-                    category.SortOrder = parameter.SortOrder;
-                    category.UpdatedById = parameter.UserId;
-                    category.UpdatedDate = DateTime.Now;
 
-                    context.SaveChanges();
+                var checkExistCode = context.Category.FirstOrDefault(x => x.CategoryTypeId == category.CategoryTypeId &&
+                                                       x.CategoryId != category.CategoryId &&
+                                                       x.CategoryCode.Trim().ToLower() == parameter.CategoryCode.Trim().ToLower());
+                if (checkExistCode != null)
+                {
                     return new EditCategoryByIdResult()
                     {
-                        StatusCode = HttpStatusCode.OK,
-                        MessageCode = CommonMessage.MasterData.EDIT_SUCCESS
+                        StatusCode = HttpStatusCode.ExpectationFailed,
+                        MessageCode = "Trùng mã dữ liệu!"
                     };
                 }
+
+                category.CategoryName = parameter.CategoryName;
+                category.CategoryCode = parameter.CategoryCode;
+                category.SortOrder = parameter.SortOrder;
+                category.UpdatedById = parameter.UserId;
+                category.UpdatedDate = DateTime.Now;
+
+                context.SaveChanges();
+                return new EditCategoryByIdResult()
+                {
+                    StatusCode = HttpStatusCode.OK,
+                    MessageCode = CommonMessage.MasterData.EDIT_SUCCESS
+                };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new EditCategoryByIdResult()
                 {
@@ -581,7 +599,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     MessageCode = e.Message
                 };
             }
-            
+
         }
 
         public UpdateStatusIsActiveResult UpdateStatusIsActive(UpdateStatusIsActiveParameter parameter)
@@ -609,7 +627,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     };
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new UpdateStatusIsActiveResult()
                 {
@@ -617,7 +635,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     MessageCode = e.Message
                 };
             }
-            
+
         }
 
         public UpdateStatusIsDefaultResult UpdateStatusIsDefault(UpdateStatusIsDefaultParameter parameter)
@@ -651,14 +669,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     };
                 }
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new UpdateStatusIsDefaultResult()
                 {
                     StatusCode = HttpStatusCode.ExpectationFailed,
                     MessageCode = e.Message
                 };
-            }         
+            }
         }
     }
 }

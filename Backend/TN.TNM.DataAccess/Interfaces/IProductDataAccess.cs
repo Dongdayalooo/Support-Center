@@ -58,7 +58,6 @@ namespace TN.TNM.DataAccess.Interfaces
 
         DeleteServicePacketMappingOptionResult DeleteServicePacketMappingOption(DeleteServicePacketMappingOptionParameter parameter);
         ChangeOrderServicePackResult ChangeOrderServicePack(ChangeOrderServicePackParameter parameter);
-
-        
+        UploadProductImageResult UploadProductImage(UploadProductImageParameter parameter);
     }
 }

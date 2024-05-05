@@ -22,5 +22,6 @@ namespace TN.TNM.DataAccess.Interfaces
         TakeListAdvertisementConfigurationResult TakeListAdvertisementConfiguration(TakeListAdvertisementConfigurationParameter parameter);
         CreateUpdateCauHinhWebResult CreateUpdateCauHinhWeb(CreateUpdateCauHinhWebParameter parameter);
         GetDataCauHinhWebResult GetDataCauHinhWeb(GetDataCauHinhWebParameter parameter);
+        UploadFileImgEditorResult UploadFileImgEditor(UploadFileImgEditorParameter parameter);
     }
 }

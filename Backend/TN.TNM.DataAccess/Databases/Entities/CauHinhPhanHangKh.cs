@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 
-//File này định nghĩa một đối tượng dữ liệu (entity) trong C# được sử dụng trong Entity Framework Core để tương tác với cơ sở dữ liệu
 namespace TN.TNM.DataAccess.Databases.Entities
 {
     public partial class CauHinhPhanHangKh

@@ -99,7 +99,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                         var statusNewCustomerOrder = GeneralList.GetTrangThais("CustomerOrder").FirstOrDefault(x => x.Value == 1).Value;
                         customerOrder.CustomerId = parameter.CusOrder.CustomerId;
-                        customerOrder.DiscountType = parameter.DiscountType; 
+                        customerOrder.DiscountType = parameter.DiscountType;
                         customerOrder.DiscountValue = parameter.DiscountValue;
                         customerOrder.OrderType = parameter.CusOrder.OrderType;
                         customerOrder.ObjectId = parameter.CusOrder.ObjectId;
@@ -262,13 +262,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         parameter.OrderProcessId = customerOrder.OrderProcessId;
 
                         //Trạng thái mới thì cập nhật khu vực
-                        if(customerOrder.StatusOrder == 1)
+                        if (customerOrder.StatusOrder == 1)
                         {
                             customerOrder.ProvinceId = parameter.CusOrder.ProvinceId;
                             customerOrder.DistrictId = parameter.CusOrder.DistrictId;
                             customerOrder.WardId = parameter.CusOrder.WardId;
                         }
-                      
+
                         context.CustomerOrder.Update(customerOrder);
 
                         //Lưu thuộc tính của gói và tùy chọn dịch vụ
@@ -341,8 +341,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
         }
 
         private void genCustomerOrder(out List<CustomerOrderExtension> listAttrDetail, out List<CustomerOrderDetail> listOrderDetail,
-            out List<CustomerOrderDetailExten>  listOrderDetailExten,
-            CreateCustomerOrderParameter parameter,CustomerOrder customerOrder,bool isCreateOrder)
+            out List<CustomerOrderDetailExten> listOrderDetailExten,
+            CreateCustomerOrderParameter parameter, CustomerOrder customerOrder, bool isCreateOrder)
         {
             listAttrDetail = new List<CustomerOrderExtension>();
             listOrderDetail = new List<CustomerOrderDetail>();
@@ -364,7 +364,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 listAttrDetailTemp.Add(newExten);
             });
 
-            var listTreeOptionOfPack = context.ServicePacketMappingOptions.Where(x =>x.ServicePacketId == parameter.ServicePacketId).ToList();
+            var listTreeOptionOfPack = context.ServicePacketMappingOptions.Where(x => x.ServicePacketId == parameter.ServicePacketId).ToList();
 
             //Tùy chọn và thuộc tính của tùy chọn dịch vụ
             dynamic indexDetail = 1;
@@ -631,7 +631,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         (or, cus) => new { or, cus })
                     .Where(x => x.or.Active == true && (customerName == "" || x.cus.CustomerName.Contains(customerName)) &&
                                 (orderCode == "" || x.or.OrderCode.Contains(orderCode)) &&
-                                (listStatusCode == null || listStatusCode.Count == 0 ) &&
+                                (listStatusCode == null || listStatusCode.Count == 0) &&
                                 (fromDate == null || fromDate == DateTime.MinValue || fromDate <= x.or.OrderDate) &&
                                 (toDate == null || toDate == DateTime.MinValue || toDate >= x.or.OrderDate))
                     .Select(m => new CustomerOrderEntityModel
@@ -644,14 +644,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         CustomerId = m.or.CustomerId.Value,
                         CustomerName = m.cus.CustomerName,
                         PaymentMethod = m.or.PaymentMethod,
-                      
+
                         DiscountValue = m.or.DiscountValue,
                         CreatedById = m.or.CreatedById,
                         CreatedDate = m.or.CreatedDate,
                         UpdatedById = m.or.UpdatedById,
                         UpdatedDate = m.or.UpdatedDate,
                         Active = m.or.Active,
-                       
+
                     }).ToList();
 
                 #region Kiểu LinQ
@@ -773,7 +773,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             var contactCustomer = lstContact.FirstOrDefault(x => x.ObjectId == item.CustomerId && x.ObjectType == ObjectType.CUSTOMER);
                             var contactSeller = listAllContact.FirstOrDefault(x => x.ObjectId == item.Seller && x.ObjectType == ObjectType.EMPLOYEE);
 
-                       
+
 
                             var orderDetail = listOrderDetail.Where(e => e.OrderId == item.OrderId).ToList();
                             if (orderDetail.Count > 0)
@@ -1098,7 +1098,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = HttpStatusCode.OK,
                     MessageCode = "Success",
                     OrderList = listOrder,
-                    OrderTop5List= new List<CustomerOrderEntityModel>()
+                    OrderTop5List = new List<CustomerOrderEntityModel>()
                 };
             }
             catch (Exception e)
@@ -1276,14 +1276,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                UpdatedById = or.UpdatedById,
                                                UpdatedDate = or.UpdatedDate,
                                                Active = or.Active,
-                                        
+
                                            }).FirstOrDefault();
 
-               
+
 
                 #endregion
 
-               
+
 
                 #region By Hung Edit Code
 
@@ -1324,7 +1324,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                         UnitLaborNumber = cod.UnitLaborNumber
                                                     })).ToList();
 
-           
+
 
                 #endregion
 
@@ -1354,7 +1354,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                         UnitPrice = cod.UnitPrice,
                                                         UpdatedDate = cod.UpdatedDate,
                                                         GuaranteeTime = cod.GuaranteeTime,
-                                                      
+
                                                         ExpirationDate = cod.ExpirationDate,
                                                         Vat = cod.Vat,
                                                         NameVendor = "",
@@ -1368,7 +1368,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                         UnitLaborNumber = cod.UnitLaborNumber
                                                     })).ToList();
 
-               
+
 
                 #endregion
 
@@ -1496,7 +1496,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         public string getNameGEn(Guid CustomerDetailID)
         {
             string Result = string.Empty;
-         
+
 
             return Result;
 
@@ -1505,7 +1505,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         public List<OrderProductDetailProductAttributeValueEntityModel> getListOrderProductDetailProductAttributeValue(Guid CustomerDetailID)
         {
             List<OrderProductDetailProductAttributeValueEntityModel> listResult = new List<OrderProductDetailProductAttributeValueEntityModel>();
-       
+
             return listResult;
         }
 
@@ -1544,7 +1544,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var PaymentMethodObj =
                     context.Category.FirstOrDefault(item => item.CategoryId == customerOrder.PaymentMethod);
 
-                
+
 
                 return new ExportCustomerOrderPDFResult()
                 {
@@ -1597,15 +1597,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 note.CreatedDate = DateTime.Now;
                 note.NoteTitle = CommonMessage.Note.NOTE_TITLE;
 
-                
+
                 switch (parameter.ObjectType)
                 {
                     case "SEND_APPROVAL":
                         var statusIP = statusOrder.FirstOrDefault(s => s.OrderStatusCode == "IP");
-                    
+
                         customerOrderObj.UpdatedById = parameter.UserId;
                         customerOrderObj.UpdatedDate = DateTime.Now;
-                       
+
                         message = CommonMessage.Order.EDIT_ORDER_SUCCESS;
                         note.Description = CommonMessage.Note.NOTE_CONTENT_SEND_APPROVAL;
                         break;
@@ -1882,8 +1882,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = HttpStatusCode.ExpectationFailed
                 };
             }
-            
-           
+
+
 
             return new UpdateCustomerOrderResult
             {
@@ -2072,7 +2072,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var statusDBH =
                         context.OrderStatus.FirstOrDefault(o => o.OrderStatusCode == "DLV" && o.Active == true);
 
-                  
+
                 }
                 return new CheckBeforCreateOrUpdateOrderResult
                 {
@@ -2146,7 +2146,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 return orderCode = cusCode + "-" + servicePacketCode + "-" + (countCustomerOrder + 1).ToString();
             }
 
-            if(isOrderAction == false)
+            if (isOrderAction == false)
             {
                 //Loại phiếu yêu cầu
                 var listOrderType = GeneralList.GetTrangThais("OrderType").ToList();
@@ -2158,14 +2158,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var servicePacketCode = context.ServicePacket.FirstOrDefault(x => x.Id == parameterOrder.ServicePacketId)?.Code;
 
                 //Số phiếu yêu cầu hỗ trợ KH đã đặt
-                var countCustomerOrder = context.CustomerOrder.Where(x => x.CustomerId == parameterOrder.CusOrder.CustomerId 
+                var countCustomerOrder = context.CustomerOrder.Where(x => x.CustomerId == parameterOrder.CusOrder.CustomerId
                                 && x.IsOrderAction == false && x.OrderType == normalType).Count().ToString();
                 orderCode = pre + "-" + cusCode + "-" + servicePacketCode + "-" + countCustomerOrder;
-                
+
                 if (parameterOrder.CusOrder.OrderType == extenType)
                 {
                     //Số phiếu yêu cầu hỗ trợ bổ sung KH đã đặt
-                    var countCustomerOrderExten = context.CustomerOrder.Where(x => x.CustomerId == parameterOrder.CusOrder.CustomerId 
+                    var countCustomerOrderExten = context.CustomerOrder.Where(x => x.CustomerId == parameterOrder.CusOrder.CustomerId
                                 && x.IsOrderAction == false && x.OrderType == extenType).Count().ToString();
                     orderCode = "YCBS" + "-" + countCustomerOrderExten + "_" + orderCode;
                 }
@@ -2222,7 +2222,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var orderStatusIdList = commonOrderStatus.Select(o => o.OrderStatusId).ToList();
                 var custormerIdList = commonCustomers.Select(c => c.CustomerId).ToList();
                 var commonCustomerOrder = context.CustomerOrder.Where(c =>
-                                           
+
                                               (parameter.OrderDateStart == null || parameter.OrderDateStart == DateTime.MinValue || parameter.OrderDateStart.Value.Date <= c.OrderDate.Date)
                                               && (parameter.OrderDateEnd == null || parameter.OrderDateEnd == DateTime.MinValue || parameter.OrderDateEnd.Value.Date >= c.OrderDate.Date)).ToList();
 
@@ -2369,7 +2369,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     #region Add by Dung: viết lại công thức tính tổng tiền theo từng sản phẩm, mỗi sản phẩm phải trừ tiền chiết khấu của tổng đơn hàng
                     var customerOrder = commonCustomerOrder.FirstOrDefault(f => f.OrderId == item.OrderId);
                     decimal? discountPerOrder = 0;
-                  
+
                     #endregion
 
                     var product = commonProduct.FirstOrDefault(x => x.ProductId == item.ProductId);
@@ -2463,7 +2463,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = HttpStatusCode.ExpectationFailed
                 };
             }
-            
+
         }
 
         private decimal CalculatorTotal(decimal? Vat, bool DiscountType, decimal? DiscountValue, decimal Quantity, decimal UnitPrice, decimal? ExchangeRate)
@@ -2557,8 +2557,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var commonOrderStatus = context.OrderStatus.Where(x => x.OrderStatusCode == "IP" || x.OrderStatusCode == "DLV" || x.OrderStatusCode == "PD" || x.OrderStatusCode == "COMP").ToList();
                 var orderStatusIdList = commonOrderStatus.Select(o => o.OrderStatusId).ToList();
 
-                var commonCustomerOrder = context.CustomerOrder.Where(c => 
-                                            
+                var commonCustomerOrder = context.CustomerOrder.Where(c =>
+
                                                (parameter.OrderDateStart == null || parameter.OrderDateStart == DateTime.MinValue || parameter.OrderDateStart.Value.Date <= c.OrderDate.Date)
                                               && (parameter.OrderDateEnd == null || parameter.OrderDateEnd == DateTime.MinValue || parameter.OrderDateEnd.Value.Date >= c.OrderDate.Date)).ToList();
                 var custormerOrderIdList = commonCustomerOrder.Select(c => c.OrderId).ToList();
@@ -2638,7 +2638,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     #region Add by Dung: viết lại công thức tính tổng tiền theo từng sản phẩm, mỗi sản phẩm phải trừ tiền chiết khấu của tổng đơn hàng
                     var customerOrder = commonCustomerOrder.FirstOrDefault(f => f.OrderId == item.OrderId);
                     decimal? discountPerOrder = 0;
-                    
+
                     #endregion
 
                     var product = commonProduct.FirstOrDefault(x => x.ProductId == item.ProductId);
@@ -2710,14 +2710,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = HttpStatusCode.OK
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new GetProductCategoryGroupByLevelResult()
                 {
                     MessageCode = e.Message,
                     StatusCode = HttpStatusCode.ExpectationFailed
                 };
-            }       
+            }
         }
 
         public GetEmployeeListByOrganizationIdResult GetEmployeeListByOrganizationId(GetEmployeeListByOrganizationIdParameter parameter)
@@ -2743,13 +2743,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     .Where(x => x.OrganizationId != null && organizationIdList.Contains((Guid)x.OrganizationId)).ToList();
                 var employeeIdList = commonEmployee.Select(x => x.EmployeeId).ToList();
                 var customerOrderAllStatus = context.CustomerOrder.Where(c =>
-                 
+
                      (parameter.OrderDateStart == null ||
                         parameter.OrderDateStart == DateTime.MinValue ||
                         parameter.OrderDateStart.Value.Date <= c.OrderDate.Date)
                     && (parameter.OrderDateEnd == null || parameter.OrderDateEnd == DateTime.MinValue ||
                         parameter.OrderDateEnd.Value.Date >= c.OrderDate.Date)).ToList();
-               
+
                 var listOrderCode = context.SystemParameter.FirstOrDefault(x => x.SystemKey == "OrderStatus")
                     .SystemValueString.Split(';').ToList();
                 var commonOrderStatus = allStatusOrder.Where(x => listOrderCode.Contains(x.OrderStatusCode)).ToList();
@@ -2823,7 +2823,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                     var customerOrder = commonCustomerOrder.FirstOrDefault(f => f.OrderId == item.OrderId);
                     decimal? discountPerOrder = 0;
-                   
+
 
                     #endregion
 
@@ -2964,7 +2964,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     if (allStatusOrder != null)
                     {
                         var statusTemp = new StatusOrderModel();
-                     
+
                         statusTemp.Amount = item.Amount.Value;
                         statusTemp.DiscountValue = item.DiscountValue;
                         statustList.Add(statusTemp);
@@ -3040,37 +3040,37 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = HttpStatusCode.OK
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new GetEmployeeListByOrganizationIdResult()
                 {
                     MessageCode = e.Message,
                     StatusCode = HttpStatusCode.ExpectationFailed
                 };
-            }      
+            }
         }
 
         public GetMonthsListResult GetMonthsList(GetMonthsListParameter parameter)
         {
             try
             {
-                
+
 
 
                 return new GetMonthsListResult()
                 {
-                    MessageCode="Success",
-                    StatusCode=HttpStatusCode.OK
+                    MessageCode = "Success",
+                    StatusCode = HttpStatusCode.OK
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new GetMonthsListResult()
-                {                
+                {
                     MessageCode = e.Message,
                     StatusCode = HttpStatusCode.ExpectationFailed
                 };
-            } 
+            }
         }
 
         private List<Guid?> getOrganizationChildrenId(List<Organization> organizationList, Guid? id, List<Guid?> list)
@@ -3106,8 +3106,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var commonOrderStatus = context.OrderStatus.Where(w => w.OrderStatusCode == "IP" || w.OrderStatusCode == "DLV" || w.OrderStatusCode == "PD" || w.OrderStatusCode == "COMP").ToList();
                 var orderStatusIdList = commonOrderStatus.Select(o => o.OrderStatusId).ToList();
-                var commonCustomerOrder = context.CustomerOrder.Where(c => 
-                                             
+                var commonCustomerOrder = context.CustomerOrder.Where(c =>
+
                                                (parameter.OrderDateStart == null || parameter.OrderDateStart == DateTime.MinValue || parameter.OrderDateStart.Value.Date <= c.OrderDate.Date)
                                               && (parameter.OrderDateEnd == null || parameter.OrderDateEnd == DateTime.MinValue || parameter.OrderDateEnd.Value.Date >= c.OrderDate.Date)).ToList();
                 var custormerOrderIdList = commonCustomerOrder.Select(c => c.OrderId).ToList();
@@ -3146,7 +3146,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     #region Add by Dung: viết lại công thức tính tổng tiền theo từng sản phẩm, mỗi sản phẩm phải trừ tiền chiết khấu của tổng đơn hàng
                     var customerOrder = commonCustomerOrder.FirstOrDefault(f => f.OrderId == item.OrderId);
                     decimal? discountPerOrder = 0;
-                
+
                     #endregion
 
                     var product = commonProduct.FirstOrDefault(x => x.ProductId == item.ProductId);
@@ -3214,23 +3214,23 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 return new GetProductCategoryGroupByManagerResult()
                 {
                     lstResult = lstResult,
-                    MessageCode="Success",
-                    StatusCode=HttpStatusCode.OK
+                    MessageCode = "Success",
+                    StatusCode = HttpStatusCode.OK
                 };
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 return new GetProductCategoryGroupByManagerResult()
                 {
                     MessageCode = e.Message,
                     StatusCode = HttpStatusCode.ExpectationFailed
                 };
-            }         
+            }
         }
 
         public GetMasterDataOrderSearchResult GetMasterDataOrderSearch(GetMasterDataOrderSearchParameter parameter)
         {
-            try 
+            try
             {
                 //nếu là phiếu yêu cầu 
                 if (parameter.IsOrderAction == false && parameter.IsOrderProcess == false)
@@ -3308,7 +3308,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 if (parameter.IsOrderProcess == true)
                 {
                     var listCusId = context.OrderProcess.Select(x => x.CustomerId).Distinct().ToList();
-                    var listCus = context.Customer.Where(x => listCusId.Contains(x.CustomerId)).Select(x => new CustomerEntityModel {
+                    var listCus = context.Customer.Where(x => listCusId.Contains(x.CustomerId)).Select(x => new CustomerEntityModel
+                    {
                         CustomerId = x.CustomerId,
                         CustomerCodeName = x.CustomerCode + "-" + x.CustomerName,
                     }).ToList();
@@ -3387,7 +3388,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
 
                 //phiếu yêu cầu
-                if(parameter.IsOrderAction == false && parameter.IsOrderProcess == false)
+                if (parameter.IsOrderAction == false && parameter.IsOrderProcess == false)
                 {
                     var listOrderType = GeneralList.GetTrangThais("OrderType").ToList();
 
@@ -3442,7 +3443,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                     //Lấy list các bước tạo  phiếu yêu cầu và xác nhận thanh toán của tất cả phiếu 
                     var listAllStepPack = context.PermissionConfiguration
-                            .Where(x => x.CategoryId == createOrderStepId || x.CategoryId  == cofirmCostStepId).ToList();
+                            .Where(x => x.CategoryId == createOrderStepId || x.CategoryId == cofirmCostStepId).ToList();
 
                     var listAllStepPackId = listAllStepPack.Select(x => x.Id).ToList();
                     //Lấy list all emp mapping bước 
@@ -3452,7 +3453,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     //Lấy list dịch vụ phát sinh
                     var listCustomerOrderDetailExten = context.CustomerOrderDetailExten.Where(x => listOrderId.Contains(x.OrderId)).ToList();
 
-                    listOrder.ForEach(item => {
+                    listOrder.ForEach(item =>
+                    {
                         item.CustomerName = listAllCus.FirstOrDefault(x => x.CustomerId == item.CustomerId)?.CustomerName;
 
                         var empCreator = listAllUser.FirstOrDefault(y => y.UserId == item.CreatedById);
@@ -3469,7 +3471,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         var listPack = listPacketService.Where(x => listPacketServiceId.Contains(x.Id)).ToList();
                         item.ListPacketServiceId = listPack.Select(x => x.Id).ToList();
                         item.ListPacketServiceName = string.Join(",", listPack.Select(x => x.Name).ToList());
-                  
+
                         item.OrderStatusName = listStatus.FirstOrDefault(x => x.Value == item.StatusOrder).Name;
 
                         #region Lấy list người tạo + người phụ trách bước tạo phiếu + xác nhận phiếu
@@ -3477,7 +3479,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         item.ListPersonInCharge.Add(empLogin.EmployeeId);
 
                         var packetIdOfOrder = listOrderDetail.FirstOrDefault(x => x.OrderId == item.OrderId)?.PacketServiceId;
-                        if(packetIdOfOrder != null)
+                        if (packetIdOfOrder != null)
                         {
                             //các nhân viên được truy cập phiêu yêu cầu
                             var listStepIdOfOrder = listAllStepPack.Where(x => x.ServicePacketId == packetIdOfOrder).Select(x => x.Id).ToList();
@@ -3497,7 +3499,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                       (x.ListPersonInCharge == null || x.ListPersonInCharge.Count == 0 || x.ListPersonInCharge.Contains(empLogin.EmployeeId))
                       )).ToList();
                 }
-               //Phiếu hỗ trợ
+                //Phiếu hỗ trợ
                 else if (parameter.IsOrderAction == true && parameter.IsOrderProcess == false)
                 {
                     //Lọc theo ngày và trạng thái
@@ -3555,7 +3557,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     //Lấy list all emp mapping bước 
                     var listAllEmpPermissionConfigure = context.EmployeeMappingPermissionConfiguration.Where(x => listAllStepPackId.Contains(x.PermissionConfigurationId)).ToList();
 
-                    listOrder.ForEach(item => {
+                    listOrder.ForEach(item =>
+                    {
                         item.CustomerName = listAllCus.FirstOrDefault(x => x.CustomerId == item.CustomerId)?.CustomerName;
                         item.OrderStatusName = listStatus.FirstOrDefault(x => x.Value == item.StatusOrder).Name;
                         item.OrderRequireCode = listCustomerOrder.FirstOrDefault(x => x.OrderId == item.ObjectId)?.OrderCode;
@@ -3591,7 +3594,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
 
                 //Search cho quy trình đặt dịch vụ
-                if(parameter.IsOrderProcess == true)
+                if (parameter.IsOrderProcess == true)
                 {
                     //Lọc theo ngày và trạng thái
                     listOrderProcess = context.OrderProcess.Where(x =>
@@ -3626,7 +3629,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
 
                     //Lấy categoryId của Xác nhận hoàn thành hỗ trợ dịch vụ + các bước k mặc định
-                    var listCateFixed = new List<string>() { 
+                    var listCateFixed = new List<string>() {
                         ProductConsts.CategoryCodeCreateStep,
                         ProductConsts.CategoryCodeConfirmStep,
                         ProductConsts.CategoryCodeCforderStep,
@@ -3634,7 +3637,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         ProductConsts.CategoryCodeDoneStep
                         };
                     var cateTypeIdOfStep = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeActionStep).CategoryTypeId;
-                    var listCategoryInOrderProcess = context.Category.Where(x => x.CategoryTypeId == cateTypeIdOfStep && 
+                    var listCategoryInOrderProcess = context.Category.Where(x => x.CategoryTypeId == cateTypeIdOfStep &&
                                        (x.CategoryCode == ProductConsts.CategoryCodeDoneStep || !listCateFixed.Contains(x.CategoryCode))).Select(x => x.CategoryId).ToList();
 
                     //Lấy list các bước tạo phiếu hỗ trợ và báo cáo của tất cả phiếu 
@@ -3645,7 +3648,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     //Lấy list all emp mapping bước 
                     var listAllEmpPermissionConfigure = context.EmployeeMappingPermissionConfiguration.Where(x => listAllStepPackId.Contains(x.PermissionConfigurationId)).ToList();
 
-                    listOrderProcess.ForEach(item => {
+                    listOrderProcess.ForEach(item =>
+                    {
                         item.CustomerName = listAllCus.FirstOrDefault(x => x.CustomerId == item.CustomerId)?.CustomerName;
                         item.StatusName = listStatus.FirstOrDefault(x => x.Value == item.Status).Name;
                         item.ProductCategoryName = listAllProductCategory.FirstOrDefault(x => x.ProductCategoryId == item.ProductCategoryId)?.ProductCategoryName;
@@ -3696,7 +3700,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             {
                 var empLoginName = "";
 
-                if(parameter.UserId != null && parameter.UserId != Guid.Empty)
+                if (parameter.UserId != null && parameter.UserId != Guid.Empty)
                 {
                     var user = context.User.FirstOrDefault(x => x.UserId == parameter.UserId);
                     var employee = context.Employee.FirstOrDefault(x => x.EmployeeId == user.EmployeeId);
@@ -3714,21 +3718,21 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 #region Lấy List Customer
                 var listAllCustomer = (from c in context.Customer.Where(x => x.Active == true && (parameter.CreateObjectId == null || x.CustomerId == parameter.CreateObjectId))
-                                      join contact in context.Contact.Where(x => x.ObjectType == "CUS") on c.CustomerId equals contact.ObjectId
-                                      select new CustomerEntityModel
-                                      {
-                                          CustomerId = c.CustomerId,
-                                          CustomerCode = c.CustomerCode,
-                                          CustomerName = c.CustomerName,
-                                          CustomerGroupId = c.CustomerGroupId,
-                                          CustomerEmail = contact.Email,
-                                          CustomerPhone = contact.Phone,
-                                          FullAddress = contact.Address.Trim(),
-                                          TaxCode = contact.TaxCode,
-                                          PaymentId = c.PaymentId,
-                                          PersonInChargeId = c.PersonInChargeId,
-                                          CustomerCodeName = c.CustomerCode + " - " + c.CustomerName,
-                                      }).ToList();
+                                       join contact in context.Contact.Where(x => x.ObjectType == "CUS") on c.CustomerId equals contact.ObjectId
+                                       select new CustomerEntityModel
+                                       {
+                                           CustomerId = c.CustomerId,
+                                           CustomerCode = c.CustomerCode,
+                                           CustomerName = c.CustomerName,
+                                           CustomerGroupId = c.CustomerGroupId,
+                                           CustomerEmail = contact.Email,
+                                           CustomerPhone = contact.Phone,
+                                           FullAddress = contact.Address.Trim(),
+                                           TaxCode = contact.TaxCode,
+                                           PaymentId = c.PaymentId,
+                                           PersonInChargeId = c.PersonInChargeId,
+                                           CustomerCodeName = c.CustomerCode + " - " + c.CustomerName,
+                                       }).ToList();
 
                 #endregion
 
@@ -3767,20 +3771,22 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         }).OrderBy(z => z.CategoryName).ToList();
 
 
-                listPaymentMethod = (from c in listPayMentCategory 
-                                    join p in context.PaymentMethodConfigure on c.CategoryId equals p.CategoryId
-                                    select new PaymentMethodConfigureEntityModel()
-                                    {
-                                        Id = p.Id,
-                                        CategoryId = p.CategoryId,
-                                        CategoryName = c.CategoryName,
-                                        CategoryCode = c.CategoryCode,
-                                        Content = p.Content,
-                                        CreatedById = p.CreatedById,
-                                    }).ToList();
+                listPaymentMethod = (from c in listPayMentCategory
+                                     join p in context.PaymentMethodConfigure on c.CategoryId equals p.CategoryId
+                                     select new PaymentMethodConfigureEntityModel()
+                                     {
+                                         Id = p.Id,
+                                         CategoryId = p.CategoryId,
+                                         CategoryName = c.CategoryName,
+                                         CategoryCode = c.CategoryCode,
+                                         Content = p.Content,
+                                         CreatedById = p.CreatedById,
+                                     }).ToList();
 
+                //Lấy orgId phòng cao nhất
+                var orgId = context.Organization.FirstOrDefault(x => x.ParentId == null)?.OrganizationId;
                 //var ceoId = GeneralList.GetChucVuNhanVien().FirstOrDefault(x => x.Value == 1)?.Value;
-                var listEmpPheDuyet = context.Employee.Where(x => x.Active == true).Select(x => new EmployeeEntityModel
+                var listEmpPheDuyet = context.Employee.Where(x => x.Active == true && x.OrganizationId == orgId).Select(x => new EmployeeEntityModel
                 {
                     EmployeeId = x.EmployeeId,
                     EmployeeCodeName = x.EmployeeCode + "-" + x.EmployeeName
@@ -3789,7 +3795,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 dynamic listProvince = null;
 
-                if(parameter.PackId != null)
+                if (parameter.PackId != null)
                 {
                     var packet = context.ServicePacket.FirstOrDefault(x => x.Id == parameter.PackId);
 
@@ -3809,7 +3815,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                             ProvinceId = p.ProvinceId,
                                             ProvinceName = p.ProvinceName,
                                             DistrictId = d != null ? d.DistrictId : Guid.Empty,
-                                            DistrictName = d != null ?  d.DistrictName : null,
+                                            DistrictName = d != null ? d.DistrictName : null,
                                             WardId = w != null ? w.WardId : Guid.Empty,
                                             WardName = w != null ? w.WardName : null
                                         })
@@ -3820,7 +3826,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                ProvinceName = x.FirstOrDefault().ProvinceName,
                                                ListDistrict = packet.DistrictIds != null ?
                                                    x.Where(x1 => packet.DistrictIds.Contains(x1.DistrictId))
-                                                    .GroupBy(y => y.DistrictId).Select(y => new {
+                                                    .GroupBy(y => y.DistrictId).Select(y => new
+                                                    {
                                                         DistrictId = y.Key,
                                                         DistrictName = y.FirstOrDefault().DistrictName,
                                                         ListWard = packet.WardIds != null ? y.Where(x2 => packet.WardIds.Contains(x2.WardId)).Select(u => new
@@ -4028,18 +4035,18 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
 
                 var listPaymentMethod = (from c in listPayMentCategory
-                                     join p in context.PaymentMethodConfigure on c.CategoryId equals p.CategoryId
-                                     select new PaymentMethodConfigureEntityModel()
-                                     {
-                                         Id = p.Id,
-                                         CategoryId = p.CategoryId,
-                                         CategoryName = c.CategoryName,
-                                         CategoryCode = c.CategoryCode,
-                                         Content = p.Content,
-                                         CreatedById = p.CreatedById,
-                                     }).ToList();
+                                         join p in context.PaymentMethodConfigure on c.CategoryId equals p.CategoryId
+                                         select new PaymentMethodConfigureEntityModel()
+                                         {
+                                             Id = p.Id,
+                                             CategoryId = p.CategoryId,
+                                             CategoryName = c.CategoryName,
+                                             CategoryCode = c.CategoryCode,
+                                             Content = p.Content,
+                                             CreatedById = p.CreatedById,
+                                         }).ToList();
 
-                var listAllCustomerOrder = (from x in context.CustomerOrder 
+                var listAllCustomerOrder = (from x in context.CustomerOrder
                                             join p in context.Province on x.ProvinceId equals p.ProvinceId
                                             into xp
                                             from xpJoined in xp.DefaultIfEmpty()
@@ -4139,7 +4146,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     }
                     //Bước xác nhận thanh toán
 
-                    
+
                     var confirmStep = listAllStepPack.FirstOrDefault(x => x.CategoryId == cofirmCostStepId);
                     var listEmpIdConfirm = listAllEmpPermissionConfigure.Where(x => x.PermissionConfigurationId == confirmStep.Id).Select(x => x.EmployeeId).ToList();
                     if (listEmpIdConfirm.Contains(empLogin.EmployeeId) || isAdmin == true)
@@ -4206,7 +4213,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listAllOption = context.Options.Where(x => listOptionId.Contains(x.Id)).ToList();
 
                 //Thuộc tính gói
-                var listAtrrPacket = context.CustomerOrderExtension.Where(x => x.OrderDetailId == customerOrder.OrderId  && x.ObjectType == "2" && listPacketServiceId.Contains(x.ObjectId))
+                var listAtrrPacket = context.CustomerOrderExtension.Where(x => x.OrderDetailId == customerOrder.OrderId && x.ObjectType == "2" && listPacketServiceId.Contains(x.ObjectId))
                                         .Select(x => new CustomerOrderExtensionEntityModel
                                         {
                                             Id = x.Id,
@@ -4293,7 +4300,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     item.CustomerName = listCus.FirstOrDefault(x => x.CustomerId == item.CustomerId)?.CustomerName;
                     var user = listUser.FirstOrDefault(x => x.UserId == item.CreatedById);
-                    if(user != null)
+                    if (user != null)
                     {
                         item.SupporterName = listEmp.FirstOrDefault(x => x.EmployeeId == user.EmployeeId)?.EmployeeName;
                     }
@@ -4310,7 +4317,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var orderActionId = context.CustomerOrder.FirstOrDefault(x => x.ObjectId == parameter.OrderId && x.IsOrderAction == true)?.OrderId;
                 var doiTuongApDung = GeneralList.GetTrangThais("DoiTuongApDungQuyTrinhPheDuyet").FirstOrDefault(x => x.Value == 31).Value;
 
-            
+
                 var isShowXacNhan = false;
                 var isShowTuChoi = false;
 
@@ -4330,10 +4337,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     {
                         listEmpPD = context.Employee.Where(x => listChuyenTiepPd.Contains(x.EmployeeId))
                                                     .Select(x => new EmployeeEntityModel
-                                                    { 
+                                                    {
                                                         EmployeeId = x.EmployeeId,
                                                         EmployeeCodeName = x.EmployeeCode + "-" + x.EmployeeName,
-                                                    }).ToList(); 
+                                                    }).ToList();
 
                         //Kiểm tra xem phê duyệt có phải là phê duyệt chuyển tiếp CEO cho quy trình phát sinh dịch vụ hay không
                         if (customerOrder.StatusOrder == 11 && customerOrder.ChuyenTiepPDDVPS == true)
@@ -4427,8 +4434,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 Guid? quanLyGoi_EmpId = null;
                 String quanLyGoi_Name = "";
                 var quanLyGoi = context.ManagerPacketService.FirstOrDefault(x => x.PackId == customerOrder.ServicePacketId);
-                
-                if(quanLyGoi != null)
+
+                if (quanLyGoi != null)
                 {
                     quanLyGoi_EmpId = quanLyGoi.EmployeeId;
                     quanLyGoi_UserId = context.User.FirstOrDefault(x => x.EmployeeId == quanLyGoi.EmployeeId)?.UserId;
@@ -4469,7 +4476,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                            ProvinceName = x.FirstOrDefault().ProvinceName,
                                            ListDistrict = packet.DistrictIds != null ?
                                                x.Where(x1 => packet.DistrictIds.Contains(x1.DistrictId))
-                                                .GroupBy(y => y.DistrictId).Select(y => new {
+                                                .GroupBy(y => y.DistrictId).Select(y => new
+                                                {
                                                     DistrictId = y.Key,
                                                     DistrictName = y.FirstOrDefault().DistrictName,
                                                     ListWard = packet.WardIds != null ? y.Where(x2 => packet.WardIds.Contains(x2.WardId)).Select(u => new
@@ -4637,7 +4645,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-           
+
                 return new GetDataDashboardHomeResult()
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -5202,7 +5210,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                
+
 
             }
             catch (Exception e)
@@ -5213,7 +5221,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     MessageCode = e.Message
                 };
             }
-      
+
 
             return new CreateOrderServiceResult()
             {
@@ -5497,7 +5505,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         receiptInvoice.RecipientName = parameter.CustomerName?.Trim() ?? "";
                         receiptInvoice.RecipientAddress = "";
                         decimal? amout = 0;
-                       
+
                         receiptInvoice.UnitPrice = amout;
                         receiptInvoice.CurrencyUnit = unitPrice.CategoryId;
                         receiptInvoice.ExchangeRate = 1;
@@ -5534,7 +5542,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                     var order = listOrder.FirstOrDefault();
                     orderDate = order.OrderDate;
-                    
+
                     if (String.IsNullOrEmpty(parameter.CustomerPhone))
                     {
                         customerPhone = "";
@@ -6613,9 +6621,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listCustomerOrderEntity = context.CustomerOrder
                     .Where(
                         w => w.Active == true
-                            
-                          
-                          
+
+
+
                              && (listCustomerFilterId.Count == 0 ||
                                  (listCustomerFilterId.Count != 0 && listCustomerFilterId.Contains(w.CustomerId.Value))
                              ) //filter khách hàng
@@ -7077,9 +7085,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             listKiemTraTonKho.Add(kiemTraTonKho);
                         }
                     });
-            
+
                 }
-               
+
                 return new CheckTonKhoSanPhamResult()
                 {
                     StatusCode = HttpStatusCode.OK,
@@ -7102,7 +7110,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-              
+
             }
             catch (Exception ex)
             {
@@ -7112,7 +7120,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
                 };
             }
-            
+
             return new UpdateCustomerOrderTonKhoResult
             {
                 MessageCode = CommonMessage.Order.EDIT_ORDER_SUCCESS,
@@ -7175,7 +7183,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listTreeOrderPacketService = new List<TreeOrderPacketService>();
 
                 //Dich vu
-                listProduct.ForEach(pro => {
+                listProduct.ForEach(pro =>
+                {
 
                     //Tuy chon cua dich vu
                     var listProductOp = listProductOption.Where(x => x.ProductId == pro.ProductId).ToList();
@@ -7184,8 +7193,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                         //Thuoc tinh cua dich vu
                         var listAttr = listAttrProductOptions.Where(x => x.ObjectId == op.OptionId).ToList();
-                        listAttr.ForEach(attrOp => { 
-                        
+                        listAttr.ForEach(attrOp =>
+                        {
+
                         });
                     });
                 });
@@ -7193,9 +7203,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
 
                 return new GetServicePacketOrderByIdResult
-            {
-                StatusCode = HttpStatusCode.OK,
-            };
+                {
+                    StatusCode = HttpStatusCode.OK,
+                };
             }
             catch (Exception e)
             {
@@ -7214,7 +7224,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 #region dịch vụ
                 //Lấy gói dịch vụ
                 var packetService = context.ServicePacket.FirstOrDefault(x => x.Id == parameter.PacketServiceId);
-                if(packetService == null)
+                if (packetService == null)
                 {
                     return new SearchOptionOfPacketServiceResult()
                     {
@@ -7224,7 +7234,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
 
                 var attrCateTypeId = context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == ProductConsts.CategoryTypeCodeATR).CategoryTypeId;
-                var listAttr = context.Category.Where(x => x.CategoryTypeId == attrCateTypeId).Select(x => new CategoryEntityModel {
+                var listAttr = context.Category.Where(x => x.CategoryTypeId == attrCateTypeId).Select(x => new CategoryEntityModel
+                {
                     CategoryId = x.CategoryId,
                     CategoryName = x.CategoryName,
                     CategoryCode = x.CategoryCode,
@@ -7241,7 +7252,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         CategoryName = listAttr.FirstOrDefault(y => y.CategoryId == x.CategoryId).CategoryName,
                         ObjectType = x.ObjectType,
                         ObjectId = x.ObjectId
-                        }).ToList();
+                    }).ToList();
 
                 #endregion
 
@@ -7249,7 +7260,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 #region Tùy chọn dịch vụ
 
                 var listTreeMapping = context.ServicePacketMappingOptions.Where(x => x.ServicePacketId == parameter.PacketServiceId)
-                    .Select(x => new ServicePacketMappingOptionsEntityModel {
+                    .Select(x => new ServicePacketMappingOptionsEntityModel
+                    {
                         Id = x.Id,
                         Name = x.Name,
                         ParentId = x.ParentId,
@@ -7273,29 +7285,29 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 //lấy list dịch vụ
                 var listOption = await (from o in context.Options
-                                    where listOptionPackId.Contains(o.Id)
-                                    select new OptionsEntityModel
-                                    {
-                                        Name = o.Name,
-                                        NameCustom = o.Price != null ? o.Name + "   -   " + "Đơn giá: " + String.Format("{0:N0}", o.Price) : o.Name,
-                                        Price = o.Price,
-                                        Id = o.Id,
-                                        ParentId = o.ParentId,
-                                        Description = o.Description,
-                                        VAT = o.Vat,
-                                        CategoryUnitId = o.CategoryUnitId,
-                                        CategoryUnitName = listOptionCategoryUnit.FirstOrDefault(x => x.CategoryId == o.CategoryUnitId) != null ? listOptionCategoryUnit.FirstOrDefault(x => x.CategoryId == o.CategoryUnitId).CategoryName : ""
-                                    }).ToListAsync();
+                                        where listOptionPackId.Contains(o.Id)
+                                        select new OptionsEntityModel
+                                        {
+                                            Name = o.Name,
+                                            NameCustom = o.Price != null ? o.Name + "   -   " + "Đơn giá: " + String.Format("{0:N0}", o.Price) : o.Name,
+                                            Price = o.Price,
+                                            Id = o.Id,
+                                            ParentId = o.ParentId,
+                                            Description = o.Description,
+                                            VAT = o.Vat,
+                                            CategoryUnitId = o.CategoryUnitId,
+                                            CategoryUnitName = listOptionCategoryUnit.FirstOrDefault(x => x.CategoryId == o.CategoryUnitId) != null ? listOptionCategoryUnit.FirstOrDefault(x => x.CategoryId == o.CategoryUnitId).CategoryName : ""
+                                        }).ToListAsync();
 
                 var listAllProductPrice = context.PriceProduct.Where(x => listOptionPackId.Contains(x.ProductId)).ToList();
 
                 listTreeMapping.ForEach(item =>
                 {
                     //Nếu có thông tin về option
-                    if(item.OptionId != null)
+                    if (item.OptionId != null)
                     {
                         var option = listOption.FirstOrDefault(x => x.Id == item.OptionId);
-                        if(option != null)
+                        if (option != null)
                         {
                             var price = listAllProductPrice.FirstOrDefault(x => x.ProductId == item.OptionId && x.EffectiveDate != null && x.NgayHetHan != null &&
                                                                            x.EffectiveDate.Date <= DateTime.Now.Date && x.NgayHetHan.Value.Date >= DateTime.Now.Date);
@@ -7371,7 +7383,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var customerOrder = context.CustomerOrder.FirstOrDefault(x => x.OrderId == parameter.OrderId);
-                if(customerOrder == null)
+                if (customerOrder == null)
                 {
                     return new ChangeStatusCustomerOrderResult()
                     {
@@ -7379,7 +7391,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         MessageCode = "Không tìm thấy phiếu yêu cầu trên hệ thống!"
                     };
                 }
-                if(parameter.PaymentMethod != null)
+                if (parameter.PaymentMethod != null)
                 {
                     customerOrder.PaymentMethod = parameter.PaymentMethod.Value;
                 }
@@ -7405,7 +7417,11 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Nếu đơn hàng có giá trị == 0 => chuyển qua bước đã thanh toán luôn
                 if (customerOrder.Amount == 0 && customerOrder.OrderType == 1 && parameter.StatusOrder == 1)
                 {
-                    parameter.StatusOrder = 4; //Đã thanh toán 
+                    //Nếu danh sách không có phát sinh hoặc phát sinh đều có giá
+                    if (parameter.ListDetailExtend.Count() == 0 || parameter.ListDetailExtend.FirstOrDefault(x => x.Price == null) == null)
+                    {
+                        parameter.StatusOrder = 4; //Đã thanh toán 
+                    }
                 }
 
                 if (parameter.StatusOrder == 1)
@@ -7511,7 +7527,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     customerOrder.StatusOrder = GeneralList.GetTrangThais("CustomerOrder").FirstOrDefault(x => x.Value == 6).Value;
                     messagae = "Đã hủy đặt dịch vụ!";
-                
+
                     var body = "Phiếu " + customerOrder.OrderCode + ": " + messagae;
                     var title = "Phiếu " + customerOrder.OrderCode;
                     var type = 1; //1 : order, 2: orderAction
@@ -7667,10 +7683,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
         private string GetPathOption(string pathName, Guid parentOptionId, List<ServicePacketMappingOptions> listTreeOptionOfPack)
         {
             var parentOption = listTreeOptionOfPack.FirstOrDefault(x => x.Id == parentOptionId);
-            if(parentOption != null)
+            if (parentOption != null)
             {
                 pathName = parentOption.Name + "--->" + pathName;
-                if(parentOption.ParentId != null)
+                if (parentOption.ParentId != null)
                 {
                     pathName = GetPathOption(pathName, parentOption.ParentId.Value, listTreeOptionOfPack);
                 }
@@ -7690,7 +7706,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listAllCustomerOrder = context.CustomerOrder.ToList();
                 //List id các phiếu yêu cầu đã có phiếu hỗ trợ
                 var listCusOrderIdIsChose = listAllCustomerOrder.Where(x => x.IsOrderAction == true).Select(x => x.ObjectId).ToList();
-                var listCustomerOrder = listAllCustomerOrder.Where(x => x.StatusOrder == statusOrderConfirm 
+                var listCustomerOrder = listAllCustomerOrder.Where(x => x.StatusOrder == statusOrderConfirm
                                                                 && x.IsOrderAction == false && !listCusOrderIdIsChose.Contains(x.OrderId))
                     .Select(x => new CustomerOrderEntityModel
                     {
@@ -7702,7 +7718,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var listEmployeeEntityModel = (from e in context.Employee
                                                join c in context.Contact on e.EmployeeId equals c.ObjectId
-                                               into ec from ecJoined in ec.DefaultIfEmpty()
+                                               into ec
+                                               from ecJoined in ec.DefaultIfEmpty()
                                                where e.Active == true
                                                select new EmployeeEntityModel
                                                {
@@ -7753,10 +7770,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     PriceInitial = x.PriceInitial,
                     OptionId = x.OptionId,
                     ServicePacketId = x.PacketServiceId,
-                    
+
                     Stt = x.Stt,
                 }).OrderBy(x => x.Stt).ToList();
-                
+
                 var listDetailId = listDetail.Select(x => x.OrderDetailId).ToList();
                 var listPacketServiceId = listDetail.Select(x => x.ServicePacketId).Distinct().ToList();
                 var listServicePacket = context.ServicePacket.Where(x => listPacketServiceId.Contains(x.Id)).Select(x => new ServicePacketEntityModel
@@ -7837,7 +7854,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 listAtrrOption.ForEach(item =>
                 {
                     var attributeConfigurationItem = listAllAttributeConfiguration.FirstOrDefault(x => x.Id == item.AttributeConfigurationId);
-                    if(attributeConfigurationItem != null)
+                    if (attributeConfigurationItem != null)
                     {
                         item.AttrName = listAttr.FirstOrDefault(x => x.CategoryId == attributeConfigurationItem.CategoryId)?.CategoryName;
                     }
@@ -7850,13 +7867,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var cusNote = "";
 
                 var customer = context.Customer.FirstOrDefault(x => x.CustomerId == customerOrder.CustomerId);
-                if(customer != null)
+                if (customer != null)
                 {
-                     var contactCus = context.Contact.FirstOrDefault(x => x.ObjectId == customer.CustomerId);
-                     cusName = customer.CustomerName;
-                     cusAddress = contactCus?.Address;
-                     cusPhone = contactCus?.Phone;
-                     cusNote = "";
+                    var contactCus = context.Contact.FirstOrDefault(x => x.ObjectId == customer.CustomerId);
+                    cusName = customer.CustomerName;
+                    cusAddress = contactCus?.Address;
+                    cusPhone = contactCus?.Phone;
+                    cusNote = "";
                 }
                 var cusOrderDate = customerOrder.CreatedDate;
 
@@ -7933,7 +7950,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                                                         ).ToList();
                 var listVendorId = listVendorMappingOption.Select(x => x.VendorId).ToList();
 
-                var listVendor = context.Vendor.Where(x => x.Active == true &&listVendorId.Contains(x.VendorId)).Select(x => new VendorEntityModel
+                var listVendor = context.Vendor.Where(x => x.Active == true && listVendorId.Contains(x.VendorId)).Select(x => new VendorEntityModel
                 {
                     VendorId = x.VendorId,
                     VendorName = x.VendorName,
@@ -7992,14 +8009,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                         //Lưu các điểm báo cáo trong tùy chọn dịch vụ vào phiếu
                         var listServiceMappingOption = (from dt in context.CustomerOrderDetail
-                                                       join mapp in context.ServicePacketMappingOptions on dt.OptionId equals mapp.Id
-                                                       where dt.OrderId == parameter.CustomerOrderId
-                                                       select new CustomerOrderDetailEntityModel
-                                                       {
-                                                           OrderDetailId = dt.OrderDetailId,
-                                                           Stt = dt.Stt,
-                                                           OptionId = mapp.OptionId
-                                                       }).OrderBy(x => x.Stt).ToList();
+                                                        join mapp in context.ServicePacketMappingOptions on dt.OptionId equals mapp.Id
+                                                        where dt.OrderId == parameter.CustomerOrderId
+                                                        select new CustomerOrderDetailEntityModel
+                                                        {
+                                                            OrderDetailId = dt.OrderDetailId,
+                                                            Stt = dt.Stt,
+                                                            OptionId = mapp.OptionId
+                                                        }).OrderBy(x => x.Stt).ToList();
 
                         //Lấy các optionId
                         var listOptionId = listServiceMappingOption.Select(x => x.OptionId).ToList();
@@ -8247,7 +8264,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             if (parameter.StatusOrderAction == 5 && statusId != 5) newObj.StatusId = 1;
 
                             //nếu gửi xác nhận dịch vụ lại và đã gán vendor => chuyển thành trạng thái chờ duyệt
-                            if(parameter.StatusOrderAction == 5 && customerOrderAction.StatusOrder == 5 && newObj.StatusId == 4 && newObj.NguoiThucHienType == 1) newObj.StatusId = 1;
+                            if (parameter.StatusOrderAction == 5 && customerOrderAction.StatusOrder == 5 && newObj.StatusId == 4 && newObj.NguoiThucHienType == 1) newObj.StatusId = 1;
 
                             index++;
                             listSettingEmpToTask.Add(newObj);
@@ -8426,12 +8443,12 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             var listOrderDetailIdAddVendor = context.VendorOrderDetail.Where(x => listVendorOrderId.Contains(x.VendorOrderId)).Select(x => x.OrderDetailId).ToList();
 
                             //Lọc ra các dịch vụ chờ duyệt của nhà cung cấp hoặc nhân viên
-                            listSettingEmpToTask = listSettingEmpToTask.Where(x => !listOrderDetailIdAddVendor.Contains(x.OrderDetailId) && 
+                            listSettingEmpToTask = listSettingEmpToTask.Where(x => !listOrderDetailIdAddVendor.Contains(x.OrderDetailId) &&
                                                                                (x.StatusId == null || x.StatusId == 1)).ToList();
 
                             //Gửi nhân viên thông báo để phê duyệt
                             var listThongBaoHetHanDuyetThucHienDichVu = GuiThongBaoPheDuyetPhuTrachNhiemVu(listSettingEmpToTask, listMappingEmpTask, customerOrderAction, empQuanLyDichVuId);
-                            if(listThongBaoHetHanDuyetThucHienDichVu.Count() > 0) context.ThongBaoHetHanDuyetThucHienDichVu.AddRange(listThongBaoHetHanDuyetThucHienDichVu);
+                            if (listThongBaoHetHanDuyetThucHienDichVu.Count() > 0) context.ThongBaoHetHanDuyetThucHienDichVu.AddRange(listThongBaoHetHanDuyetThucHienDichVu);
 
                             #region khởi tạo đơn hàng
                             //Gom tất cả dịch vụ có cùng nhà cung cấp 
@@ -8565,7 +8582,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         }
 
         public dynamic SetVendorOrder(int vendorOrderType, List<VendorOrder> listAllVendorOrder, List<VendorOrderDetail> listAddVendorOrderDetail, CustomerOrder customerOrderAction,
-                                   int trangThaiMoiId, Guid userId, Guid vendorId, List<VendorOrder> listUpdateVendorOrder,  List<VendorOrder> listAddVendoOrder,
+                                   int trangThaiMoiId, Guid userId, Guid vendorId, List<VendorOrder> listUpdateVendorOrder, List<VendorOrder> listAddVendoOrder,
                                    List<CustomerOrderTaskEntityModel> listDichVu, List<VendorMappingOption> listVendorMappingOption)
         {
             //Cập nhật vào đơn hàng cũ nếu có
@@ -8594,7 +8611,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             };
         }
 
-        public VendorOrder SetNewVendorOrder(CustomerOrder customerOrderAction,int trangThaiMoiId, Guid userId, Guid vendorId, int type)
+        public VendorOrder SetNewVendorOrder(CustomerOrder customerOrderAction, int trangThaiMoiId, Guid userId, Guid vendorId, int type)
         {
             var newVendorOrder = new VendorOrder();
             newVendorOrder.VendorOrderId = Guid.NewGuid();
@@ -8639,7 +8656,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
             var vendorCode = context.Vendor.FirstOrDefault(x => x.VendorId == vendorId)?.VendorCode;
             var vendorOrderCode = context.VendorOrder.Where(x => x.VendorId == vendorId).Max(x => x.VendorOrderCode);
-            if(vendorOrderCode == null)
+            if (vendorOrderCode == null)
             {
                 vendorOrderCode = vendorCode + " - " + String.Format("{0:D3}", 1);
             }
@@ -8653,7 +8670,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             return vendorOrderCode;
         }
 
-        public List<ThongBaoHetHanDuyetThucHienDichVu> GuiThongBaoPheDuyetPhuTrachNhiemVu(List<CustomerOrderTask> listSettingEmpToTask, List<OrderTaskMappingEmp> listMappingEmpTask,  CustomerOrder customerOrderAction, Guid? quanLyDichVuId)
+        public List<ThongBaoHetHanDuyetThucHienDichVu> GuiThongBaoPheDuyetPhuTrachNhiemVu(List<CustomerOrderTask> listSettingEmpToTask, List<OrderTaskMappingEmp> listMappingEmpTask, CustomerOrder customerOrderAction, Guid? quanLyDichVuId)
         {
             var listThongBaoHanAdd = new List<ThongBaoHetHanDuyetThucHienDichVu>();
 
@@ -8816,7 +8833,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Bước tạo phiếu hỗ trợ
                 var createStep = listAllStepPack.FirstOrDefault(x => x.CategoryId == createOrderActionStepId);
                 var listEmpIdCreateId = listAllEmpPermissionConfigure.Where(x => x.PermissionConfigurationId == createStep.Id).Select(x => x.EmployeeId).ToList();
-                if(empLogin != null) {
+                if (empLogin != null)
+                {
                     if (listEmpIdCreateId.Contains(empLogin.EmployeeId) || parameter.UserId == customerOrderAction.CreatedById)
                     {
                         customerOrderAction.IsCreateAction = true;
@@ -8843,7 +8861,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     //Thông tin các bước của phiếu
                     var listAllStep = context.OrderProcessDetail.Where(x => x.OrderProcessId == customerOrderAction.OrderProcessId).OrderBy(x => x.StepId).ToList();
-                   
+
                     //vị trí của bước thực hiện hỗ trợ dịch vụ
                     var reportStepOrder = listAllStep.FirstOrDefault(x => x.CategoryId == reportStepId);
                     var indexReportOrder = listAllStep.IndexOf(reportStepOrder);
@@ -8885,7 +8903,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                              join orderDetail in context.CustomerOrderDetail on x.OrderDetailId equals orderDetail.OrderDetailId
 
                                              join mapping in context.ServicePacketMappingOptions on orderDetail.OptionId equals mapping.Id
-                                             into mappingInfor 
+                                             into mappingInfor
                                              from mapping in mappingInfor.DefaultIfEmpty()
 
                                              join v in context.Vendor on x.VendorId equals v.VendorId
@@ -8893,7 +8911,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                              from v in vX.DefaultIfEmpty()
 
 
-                                             //Join vào đơn hàng
+                                                 //Join vào đơn hàng
                                              join ovdt in context.VendorOrderDetail on x.OrderDetailId equals ovdt.OrderDetailId
                                              into ovdtInfor
                                              from ovdt in ovdtInfor.DefaultIfEmpty()
@@ -8931,23 +8949,23 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listOrderTaskId = listCustomerOrderTask.Select(x => x.Id).ToList();
                 var listAllTrangThai = GeneralList.GetTrangThais("NhanVienXacNhanDichVu").ToList();
                 var listAllEmp = (from map in context.OrderTaskMappingEmp.Where(x => listOrderTaskId.Contains(x.CustomerOrderTaskId))
-                                 join e in context.Employee on map.EmployeeId equals e.EmployeeId
-                                 into eData
-                                 from e in eData.DefaultIfEmpty()
+                                  join e in context.Employee on map.EmployeeId equals e.EmployeeId
+                                  into eData
+                                  from e in eData.DefaultIfEmpty()
 
-                                 join c in context.Contact on e.EmployeeId equals c.ObjectId
-                                 into ec
-                                 from c in ec.DefaultIfEmpty()
+                                  join c in context.Contact on e.EmployeeId equals c.ObjectId
+                                  into ec
+                                  from c in ec.DefaultIfEmpty()
 
-                                 select new EmployeeEntityModel
-                                 {
-                                     EmployeeId = e.EmployeeId,
-                                     EmployeeName = e.EmployeeName,
-                                     Phone = c.Phone,
-                                     CustomerOrderTaskId = map.CustomerOrderTaskId,
-                                     StatusId = map.StatusId,
-                                     StatusName = map.StatusId != null ? listAllTrangThai.FirstOrDefault(x => x.Value == map.StatusId).Name : ""
-                                 }).ToList();
+                                  select new EmployeeEntityModel
+                                  {
+                                      EmployeeId = e.EmployeeId,
+                                      EmployeeName = e.EmployeeName,
+                                      Phone = c.Phone,
+                                      CustomerOrderTaskId = map.CustomerOrderTaskId,
+                                      StatusId = map.StatusId,
+                                      StatusName = map.StatusId != null ? listAllTrangThai.FirstOrDefault(x => x.Value == map.StatusId).Name : ""
+                                  }).ToList();
 
                 //var listAllMapping = context.OrderTaskMappingEmp.Where(x => listOrderTaskId.Contains(x.CustomerOrderTaskId)).ToList();
                 //var listAllEmpId = listAllMapping.Select(x => x.EmployeeId).ToList();
@@ -8971,7 +8989,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     item.ListEmpId = new List<Guid>();
                     item.ListEmployeeEntityModel = emp;
                     item.ListEmpName = "";
-                    emp.ForEach(obj => {
+                    emp.ForEach(obj =>
+                    {
                         //item.EmpPhone = obj?.Phone;
                         item.ListEmpId.Add((Guid)obj.EmployeeId);
                         item.ListEmpName += ", " + obj.EmployeeName;
@@ -8987,7 +9006,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         if (item.NguoiThucHienType == 2)
                         {
                             var checkEmp = listAllEmp.FirstOrDefault(x => x.CustomerOrderTaskId == item.Id && x.EmployeeId == empLogin?.EmployeeId && x.StatusId != 2 && x.StatusId != 3);
-                            if(checkEmp != null) item.XacNhanDichVu = true;
+                            if (checkEmp != null) item.XacNhanDichVu = true;
                         }
                     }
                 });
@@ -9036,7 +9055,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                        from tData in tTable.DefaultIfEmpty()
 
                                        join s in listStatuReport on rp.Status equals s.Value
-                                       
+
                                        where rp.OrderActionId == parameter.OrderActionId
                                        select new ReportPointEntityModel
                                        {
@@ -9084,12 +9103,12 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
         }
 
-        private bool CheckNguoiBaocao(int? nguoiThucHienType,Vendor vendor, Employee empLogin, Guid? reporter, Vendor vendorLogin)
+        private bool CheckNguoiBaocao(int? nguoiThucHienType, Vendor vendor, Employee empLogin, Guid? reporter, Vendor vendorLogin)
         {
             bool isReporter = false;
 
             //Nếu là nhà cung cấp thực hiện
-            if(nguoiThucHienType == 1 && vendorLogin?.VendorId == vendor?.VendorId) isReporter = true;
+            if (nguoiThucHienType == 1 && vendorLogin?.VendorId == vendor?.VendorId) isReporter = true;
             //nếu là nhân viên thực hiện
             if (nguoiThucHienType == 2 && reporter == empLogin?.EmployeeId) isReporter = true;
 
@@ -9164,7 +9183,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                     #region set số thứ tự
                     //Nếu số thứ tự cũ > số thứ tự mới
-                    if(reportPoint.Order >= parameter.ReportPoint.Order)
+                    if (reportPoint.Order >= parameter.ReportPoint.Order)
                     {
                         //Lấy tất cả điểm báo cáo của phiếu trừ chính nó và có số thứ tự >= số thứ tự mới nhập để set số thứ tự
                         var listSetOrder = listAllReportPoint.Where(x => x.Id != reportPoint.Id && x.Order >= parameter.ReportPoint.Order).OrderBy(x => x.Order).ToList();
@@ -9182,8 +9201,9 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         var listSetOrder = listAllReportPoint.Where(x => x.Id != reportPoint.Id && x.Order > reportPoint.Order
                                                                     && x.Order <= parameter.ReportPoint.Order
                                                                     ).OrderBy(x => x.Order).ToList();
-                        listSetOrder.ForEach(item => {
-                            item.Order = item.Order -1 ;
+                        listSetOrder.ForEach(item =>
+                        {
+                            item.Order = item.Order - 1;
                         });
                     }
                     #endregion
@@ -9202,7 +9222,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     reportPoint.UpdatedDate = DateTime.Now;
                     reportPoint.UpdatedById = parameter.UserId;
 
-                  
+
 
                     context.ReportPoint.Update(reportPoint);
                     context.SaveChanges();
@@ -9266,7 +9286,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                       NguoiThucHienType = t.NguoiThucHienType,
                                       VendorId = vData.VendorId,
                                       VendorName = vData.VendorName,
-                                      EnableBaoCaoDoanhThu = o.ThanhToanTruoc == true ? false: true
+                                      EnableBaoCaoDoanhThu = o.ThanhToanTruoc == true ? false : true
                                   }).OrderBy(x => x.Stt).ToList();
 
                 //Danh sách nhiệm vụ nhân viên
@@ -9282,7 +9302,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 if (parameter.ServicePacketMappingOptionsId != null)
                 {
                     var customerOrderTask = context.CustomerOrderTask.FirstOrDefault(x => x.OrderDetailId == parameter.ServicePacketMappingOptionsId && x.OrderActionId == parameter.OrderActionId);
-                    if(customerOrderTask != null)
+                    if (customerOrderTask != null)
                     {
                         var listEmpId = context.OrderTaskMappingEmp.Where(x => x.CustomerOrderTaskId == customerOrderTask.Id).Select(x => x.EmployeeId).ToList();
                         listEmp = context.Employee.Where(x => listEmpId.Contains(x.EmployeeId)).Select(x => new EmployeeEntityModel
@@ -9402,7 +9422,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
                 else
                 {
-                    var currentOrder = listAllCustomerOrder.FirstOrDefault(x =>  x.OrderId == reportPoint.OrderActionId);
+                    var currentOrder = listAllCustomerOrder.FirstOrDefault(x => x.OrderId == reportPoint.OrderActionId);
                     //Lấy phiếu yêu cầu gốc
                     orderAction = listAllCustomerOrder.FirstOrDefault(x => x.OrderType == 1 && x.OrderProcessId == currentOrder.OrderProcessId && x.IsOrderAction == true);
                 }
@@ -9414,7 +9434,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listNotificationConfiguration = context.NotificationConfiguration.Where(x => x.ServicePacketId == orderAction.ServicePacketId).ToList();
                 var listNotificationConfigurationId = listNotificationConfiguration.Select(x => x.Id).ToList();
                 var listEmpNoti = context.EmployeeMappingNotificationConfiguration.Where(x => listNotificationConfigurationId.Contains(x.NotificationConfigurationId.Value)).ToList();
-             
+
                 var body = "Phiếu " + orderAction.OrderCode + ": " + "thay đổi trạng thái";
                 var title = "Phiếu " + orderAction.OrderCode;
                 var type = 2; //1 : order, 2: orderAction
@@ -9437,17 +9457,58 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
+        private List<ProductCategoryEntityModel> GetAllProductCategoryChild(List<ProductCategory> listAll, List<ProductCategoryEntityModel> listServiceType, Guid id)
+        {
+            var listChild = listAll.Where(x => x.ParentId == id)
+                    .Select(x => new ProductCategoryEntityModel
+                    {
+                        ProductCategoryId = x.ProductCategoryId,
+                        ParentId = x.ParentId,
+                        ProductCategoryCode = x.ProductCategoryCode,
+                        ProductCategoryName = x.ProductCategoryName,
+                    }).ToList();
+
+            //Tìm list con
+            listChild.ForEach(item =>
+            {
+                listServiceType.Add(new ProductCategoryEntityModel
+                {
+                    ProductCategoryId = item.ProductCategoryId,
+                    ParentId = item.ParentId,
+                    ProductCategoryCode = item.ProductCategoryCode,
+                    ProductCategoryName = item.ProductCategoryName,
+                });
+                listServiceType = GetAllProductCategoryChild(listAll, listServiceType, item.ProductCategoryId);
+            });
+            return listServiceType;
+        }
         public GetMasterDataCreateOrderProcessResult GetMasterDataCreateOrderProcess(GetMasterDataCreateOrderProcessParameter parameter)
         {
             try
             {
+                var listAllProductCategory = context.ProductCategory.Where(x => x.Active == true).ToList();
                 //Danh sách loại gói dịch vụ
-                var listServiceType = context.ProductCategory.Where(x => x.Active == true).Select(x => new ProductCategoryEntityModel {
-                    ProductCategoryId = x.ProductCategoryId,
-                    ParentId = x.ParentId,
-                    ProductCategoryCode = x.ProductCategoryCode,
-                    ProductCategoryName = x.ProductCategoryName,
-                }).ToList();
+                //var listServiceType = context.ProductCategory.Where(x => x.Active == true && x.ProductCategoryLevel == 0).Select(x => new ProductCategoryEntityModel {
+                //    ProductCategoryId = x.ProductCategoryId,
+                //    ParentId = x.ParentId,
+                //    ProductCategoryCode = x.ProductCategoryCode,
+                //    ProductCategoryName = x.ProductCategoryName,
+                //}).ToList();
+
+                var listServiceType = new List<ProductCategoryEntityModel>();
+
+                var listLevel0 = listAllProductCategory.Where(x => x.ProductCategoryLevel == 0).ToList();
+                listLevel0.ForEach(item =>
+                {
+                    listServiceType.Add(new ProductCategoryEntityModel
+                    {
+                        ProductCategoryId = item.ProductCategoryId,
+                        ParentId = item.ParentId,
+                        ProductCategoryCode = item.ProductCategoryCode,
+                        ProductCategoryName = item.ProductCategoryName,
+                    });
+                    listServiceType = GetAllProductCategoryChild(listAllProductCategory, listServiceType, item.ProductCategoryId);
+                });
 
                 //Danh sách gói dịch vụ
                 var listServicePacket = context.ServicePacket.Select(x => new ServicePacketEntityModel
@@ -9473,10 +9534,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 //Danh sách khách hàng
                 var listCustomer = context.Customer.Where(x => x.Active == true).Select(x => new CustomerEntityModel
-                        {
-                            CustomerId = x.CustomerId,
-                            CustomerName = x.CustomerName,
-                        }).ToList();
+                {
+                    CustomerId = x.CustomerId,
+                    CustomerName = x.CustomerName,
+                }).ToList();
 
                 var listAllContactCus = context.Contact.Where(x => x.ObjectType == ContactObjectType.CUS).ToList();
                 listCustomer.ForEach(item =>
@@ -9535,7 +9596,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                     //Lưu thông tin quy trình từ gói vào phiếu cho khách hàng
                     var servicePacket = context.ServicePacket.FirstOrDefault(x => x.Id == parameter.OrderProcess.ServicePacketId);
-                    if(servicePacket == null)
+                    if (servicePacket == null)
                     {
                         return new CreateOrUpdateCustomerOrderProcessResult()
                         {
@@ -9568,7 +9629,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     mess = "Cập nhật quy trình đặt dịch vụ thành công!";
                     var orderProcess = context.OrderProcess.FirstOrDefault(x => x.Id == parameter.OrderProcess.Id);
-                    if(orderProcess == null)
+                    if (orderProcess == null)
                     {
                         return new CreateOrUpdateCustomerOrderProcessResult()
                         {
@@ -9633,7 +9694,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var listStatusOrderProcess = GeneralList.GetTrangThais("OrderProcess").ToList();
                 var listStatusOrderProcessDetail = GeneralList.GetTrangThais("OrderProcessDetail").ToList();
-                var orderProcessTemp = context.OrderProcess.Where(x => x.Id == parameter.Id).Select(x => new OrderProcessEntityModel {
+                var orderProcessTemp = context.OrderProcess.Where(x => x.Id == parameter.Id).Select(x => new OrderProcessEntityModel
+                {
                     Id = x.Id,
                     OrderProcessCode = x.OrderProcessCode,
                     RateStar = x.RateStar,
@@ -9663,7 +9725,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Lấy phiếu hỗ trợ gán với quy trình
                 var orderActionId = listAllOrder.FirstOrDefault(x => x.OrderProcessId == parameter.Id && x.IsOrderAction == true && x.ObjectId == orderId)?.OrderId;
                 var listExtenOrder = listAllOrder.Where(x => x.OrderProcessId == parameter.Id && x.IsOrderAction == false)
-                                        .Select(x => new CustomerOrderEntityModel {
+                                        .Select(x => new CustomerOrderEntityModel
+                                        {
                                             OrderId = x.OrderId,
                                             OrderCode = x.OrderCode,
                                             OrderType = x.OrderType,
@@ -9673,7 +9736,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 listExtenOrder.ForEach(item =>
                 {
                     var orderAction = listAllOrder.FirstOrDefault(x => x.ObjectId == item.OrderId && x.IsOrderAction == true);
-                    if(orderAction != null)
+                    if (orderAction != null)
                     {
                         item.OrderActionId = orderAction.OrderId;
                         item.OrderActionCode = orderAction.OrderCode;
@@ -9762,7 +9825,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                     var orderProcessDetail = listOrderProcessDetail.FirstOrDefault(x => x.Id == parameter.OrderProcessDetailId);
                     orderProcessDetail.Status = statusDoneOrderProcessDetail;
-                   
+
                     var eventCode = "";
                     //Nếu là bước hoàn thành thì cập nhật phiếu hỗ trợ sang trạng thái hoàn thành (3)
                     var statusCode = context.Category.FirstOrDefault(x => x.CategoryId == orderProcessDetail.CategoryId).CategoryCode;
@@ -9834,26 +9897,27 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var listAllOrderOfCus = context.CustomerOrder
                         .Where(x => listOrderProcessId.Contains(x.OrderProcessId.Value))
-                        .Select(x => new CustomerOrderEntityModel { 
-                                    OrderId = x.OrderId,
-                                    OrderType = x.OrderType,
-                                    IsOrderAction = x.IsOrderAction,
-                                    OrderCode = x.OrderCode,
-                                    ServicePacketId = x.ServicePacketId,
-                                    StatusOrder = x.StatusOrder,
-                                    CreatedDate = x.CreatedDate,
-                                    OrderProcesId = x.OrderProcessId,
-                                    ObjectId = x.ObjectId,
-                                    RateStar = x.RateStar,
-                                    RateConent = x.RateContent,
-                                    Amount = x.Amount,
+                        .Select(x => new CustomerOrderEntityModel
+                        {
+                            OrderId = x.OrderId,
+                            OrderType = x.OrderType,
+                            IsOrderAction = x.IsOrderAction,
+                            OrderCode = x.OrderCode,
+                            ServicePacketId = x.ServicePacketId,
+                            StatusOrder = x.StatusOrder,
+                            CreatedDate = x.CreatedDate,
+                            OrderProcesId = x.OrderProcessId,
+                            ObjectId = x.ObjectId,
+                            RateStar = x.RateStar,
+                            RateConent = x.RateContent,
+                            Amount = x.Amount,
                         }).ToList();
 
                 //List phiếu yêu cầu
                 var listOrder = (from or in listAllOrderOfCus
                                  join pc in listOrderProcess on or.OrderProcesId equals pc.Id
                                  join status in listOrderStatus on or.StatusOrder equals status.Value
-                                 
+
                                  join pk in context.ServicePacket on or.ServicePacketId equals pk.Id
                                  into pkData
                                  from pk in pkData.DefaultIfEmpty()
@@ -9885,7 +9949,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
 
                 var listOrderId = listOrder.Select(x => x.OrderId).ToList();
-                var listOrderDetail = context.CustomerOrderDetail.Where(x => listOrderId.Contains(x.OrderId)).Select(x => new CustomerOrderDetailEntityModel { 
+                var listOrderDetail = context.CustomerOrderDetail.Where(x => listOrderId.Contains(x.OrderId)).Select(x => new CustomerOrderDetailEntityModel
+                {
                     OrderDetailId = x.OrderDetailId,
                     OrderId = x.OrderId,
                     PriceInitial = x.PriceInitial,
@@ -9899,7 +9964,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listOrderDtId = listOrderDetail.Select(x => x.OrderDetailId).ToList();
                 var listVendor = (from v in context.Vendor
                                   join ort in context.CustomerOrderTask on v.VendorId equals ort.VendorId
-                                  join rate in context.OrderProcessMappingEmployee.Where(x => x.ObjectType == 2) on 
+                                  join rate in context.OrderProcessMappingEmployee.Where(x => x.ObjectType == 2) on
                                   new { x1 = ort.OrderActionId, x2 = ort.VendorId } equals new { x1 = rate.OrderActionId, x2 = rate.EmployeeId }
                                   into rateInfor
                                   from rate in rateInfor.DefaultIfEmpty()
@@ -9952,20 +10017,20 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 {
                     //Tìm phiếu hỗ trợ
                     var orderAction = listAllOrderOfCus.FirstOrDefault(x => x.ObjectId == item.OrderId && x.IsOrderAction == true);
-                    if(orderAction != null)
+                    if (orderAction != null)
                     {
                         item.OrderActionId = orderAction.OrderId;
                         item.OrderActionCode = orderAction.OrderCode;
                         item.StatusOrderActionName = listCustomerOrderStatus.FirstOrDefault(x => x.Value == orderAction.StatusOrder).Name;
 
                         //Lấy các task của phiếu hỗ trợ
-                        var listTask= listCustomerOrderTask.Where(y => y.OrderActionId == item.OrderActionId).ToList();
+                        var listTask = listCustomerOrderTask.Where(y => y.OrderActionId == item.OrderActionId).ToList();
                         var listTask_Id = listTask.Select(x => x.Id).ToList();
                         //Lấy các nhân viên trong phiếu
                         var listAllMappingEmp_Id = new List<Guid>();
                         listAllMappingEmp_Id = listAllMapping.Where(x => listTask_Id.Contains(x.CustomerOrderTaskId)).Select(x => x.EmployeeId).Distinct().ToList();
-                        
-                     
+
+
                         listAllMappingEmp_Id.Add(item.CreatedById ?? Guid.Empty);
                         item.ListEmployeeEntityModel = listEmployeeEntityModel.Where(x => listAllMappingEmp_Id.Any(y => y == x.EmployeeId)).ToList();
                         item.ListEmployeeEntityModel.ForEach(x =>
@@ -9984,7 +10049,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     listOrderDetail_Current.ForEach(obj =>
                     {
                         var serviceTree_Current = listServiceTree.FirstOrDefault(x => x.Id == obj.OptionId);
-                        if(serviceTree_Current != null)
+                        if (serviceTree_Current != null)
                         {
                             var option = listOption.FirstOrDefault(x => x.Id == serviceTree_Current.OptionId);
                             obj.OptionName = option?.Name;
@@ -10002,7 +10067,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         Status = x.Status,
                         StatusName = x.Status == 1 ? "Từ chối" : "Đã phê duyệt"
                     }).ToList();
-                  
+
                 });
 
                 context.SaveChanges();
@@ -10048,6 +10113,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var user = context.User.FirstOrDefault(x => x.UserId == parameter.UserId);
 
+                var listEmpIdDanhGiaDuoi3Sao = parameter.ListEmployeeRatingStar.Where(x => x.RateStar < 3 && x.ObjectType == 1).Select(x => x.EmployeeId).ToList();
+                var listEmpIdDanhGiaDuoi2Sao = parameter.ListEmployeeRatingStar.Where(x => x.RateStar < 2 && x.ObjectType == 1).Select(x => x.EmployeeId).ToList();
+
+
+                var listVendorIdDanhGiaDuoi3Sao = parameter.ListEmployeeRatingStar.Where(x => x.RateStar < 3 && x.ObjectType == 2).Select(x => x.EmployeeId).ToList();
+                var listVendorIdDanhGiaDuoi2Sao = parameter.ListEmployeeRatingStar.Where(x => x.RateStar < 2 && x.ObjectType == 2).Select(x => x.EmployeeId).ToList();
+
                 parameter.ListEmployeeRatingStar.ForEach(item =>
                 {
                     var orderProcessMappingEmployee = new OrderProcessMappingEmployee();
@@ -10061,7 +10133,138 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     orderProcessMappingEmployee.RateContent = item.RateContent;
                     orderProcessMappingEmployee.ObjectType = item.ObjectType;
                     context.OrderProcessMappingEmployee.Add(orderProcessMappingEmployee);
+
+
                 });
+
+                var listAllVendor = (from e in context.Vendor.Where(x => listVendorIdDanhGiaDuoi3Sao.Contains(x.VendorId) || listVendorIdDanhGiaDuoi2Sao.Contains(x.VendorId))
+                                     join u in context.User on e.VendorId equals u.EmployeeId
+                                     select new
+                                     {
+                                         VendorId = e.VendorId,
+                                         CodeName = e.VendorCode + "-" + e.VendorName,
+                                         DeviceId = u.DeviceId,
+                                     }).ToList();
+
+                var goiDichVu = context.ServicePacket.FirstOrDefault(x => x.Id == order.ServicePacketId);
+
+                //Thêm thông báo tới quản lí khi có đánh giá dưới 3 sao
+                var listQuanLyId = context.ManagerPacketService.Where(x => x.PackId == order.ServicePacketId).Select(x => x.EmployeeId).ToList();
+                var listAllDataEmp = (from e in context.Employee.Where(x => x.ChucVuId == 1 || listQuanLyId.Contains(x.EmployeeId) || listEmpIdDanhGiaDuoi3Sao.Contains(x.EmployeeId) || listEmpIdDanhGiaDuoi2Sao.Contains(x.EmployeeId))
+                                      join u in context.User on e.EmployeeId equals u.EmployeeId
+                                      select new
+                                      {
+                                          EmployeeId = e.EmployeeId,
+                                          CodeName = e.EmployeeCode + "-" + e.EmployeeName,
+                                          IsCeo = e.ChucVuId == 1 ? true : false,
+                                          IsQuanLy = listQuanLyId.Contains(e.EmployeeId) ? true : false,
+                                          DanhGia3Sao = listEmpIdDanhGiaDuoi3Sao.Contains(e.EmployeeId) ? true : false,
+                                          DanhGia2Sao = listEmpIdDanhGiaDuoi2Sao.Contains(e.EmployeeId) ? true : false,
+                                          DeviceId = u.DeviceId,
+                                      }).ToList();
+
+                var listQuanLy = listAllDataEmp.Where(x => x.IsQuanLy == true).ToList();
+                //Nếu đánh giá gói < 3 sao
+                if (parameter.RateStar < 3)
+                {
+                    listQuanLy.ForEach(item =>
+                    {
+                        GuiThongBaoDanhGiaGoiKem(goiDichVu, order, item.EmployeeId, item.DeviceId);
+                    });
+                }
+
+                //Nếu có nhân viên bị đánh giá dưới 3 sao
+                if (listEmpIdDanhGiaDuoi3Sao.Count() > 0)
+                {
+                    listQuanLy.ForEach(ql =>
+                    {
+                        listEmpIdDanhGiaDuoi3Sao.ForEach(item =>
+                        {
+                            var empInfor = listAllDataEmp.FirstOrDefault(x => x.EmployeeId == item);
+                            var danhGia = parameter.ListEmployeeRatingStar.FirstOrDefault(x => x.EmployeeId == item);
+
+                            if (empInfor != null && danhGia != null)
+                            {
+                                var title = "Đánh giá nhân viên kém";
+                                var content = "Nhân viên: " + empInfor.CodeName + " nhận được đánh giá " + danhGia.RateStar + ". Nội dung: " + danhGia.RateContent;
+                                GuiThongBaoDanhGiaNhanVienNccKem(ql.EmployeeId, ql.DeviceId, content, title, order.OrderId);
+                            }
+                        });
+                    });
+                }
+
+                //Nếu có nhà cung cấp bị đánh giá dưới 3 sao
+                if (listVendorIdDanhGiaDuoi3Sao.Count() > 0)
+                {
+                    listQuanLy.ForEach(ql =>
+                    {
+                        listVendorIdDanhGiaDuoi3Sao.ForEach(item =>
+                        {
+                            var vendorInfor = listAllVendor.FirstOrDefault(x => x.VendorId == item);
+                            var danhGia = parameter.ListEmployeeRatingStar.FirstOrDefault(x => x.EmployeeId == item);
+
+                            if (vendorInfor != null && danhGia != null)
+                            {
+                                var title = "Đánh giá nhà cung cấp kém";
+                                var content = "Nhà cung cấp : " + vendorInfor.CodeName + " nhận được đánh giá " + danhGia.RateStar + ". Nội dung: " + danhGia.RateContent;
+                                GuiThongBaoDanhGiaNhanVienNccKem(ql.EmployeeId, ql.DeviceId, content, title, order.OrderId);
+                            }
+                        });
+                    });
+                }
+
+
+                //Thông báo tới CEO khi có thông báo dưới 2 sao
+
+                var listCEO = listAllDataEmp.Where(x => x.IsCeo == true).ToList();
+                //Nếu đánh giá gói < 2 sao
+                if (parameter.RateStar < 2)
+                {
+                    listCEO.ForEach(item =>
+                    {
+                        GuiThongBaoDanhGiaGoiKem(goiDichVu, order, item.EmployeeId, item.DeviceId);
+                    });
+                }
+
+                //Nếu có nhân viên bị đánh giá dưới 2 ao
+                if (listEmpIdDanhGiaDuoi2Sao.Count() > 0)
+                {
+                    listCEO.ForEach(ql =>
+                    {
+                        listEmpIdDanhGiaDuoi2Sao.ForEach(item =>
+                        {
+                            var empInfor = listAllDataEmp.FirstOrDefault(x => x.EmployeeId == item);
+                            var danhGia = parameter.ListEmployeeRatingStar.FirstOrDefault(x => x.EmployeeId == item);
+
+                            if (empInfor != null && danhGia != null)
+                            {
+                                var title = "Đánh giá nhân viên kém";
+                                var content = "Nhân viên: " + empInfor.CodeName + " nhận được đánh giá " + danhGia.RateStar + ". Nội dung: " + danhGia.RateContent;
+                                GuiThongBaoDanhGiaNhanVienNccKem(ql.EmployeeId, ql.DeviceId, content, title, order.OrderId);
+                            }
+                        });
+                    });
+                }
+
+                //Nếu có nhà cung cấp bị đánh giá dưới23 sao
+                if (listVendorIdDanhGiaDuoi2Sao.Count() > 0)
+                {
+                    listQuanLy.ForEach(ql =>
+                    {
+                        listVendorIdDanhGiaDuoi2Sao.ForEach(item =>
+                        {
+                            var vendorInfor = listAllVendor.FirstOrDefault(x => x.VendorId == item);
+                            var danhGia = parameter.ListEmployeeRatingStar.FirstOrDefault(x => x.EmployeeId == item);
+
+                            if (vendorInfor != null && danhGia != null)
+                            {
+                                var title = "Đánh giá nhà cung cấp kém";
+                                var content = "Nhà cung cấp : " + vendorInfor.CodeName + " nhận được đánh giá " + danhGia.RateStar + ". Nội dung: " + danhGia.RateContent;
+                                GuiThongBaoDanhGiaNhanVienNccKem(ql.EmployeeId, ql.DeviceId, content, title, order.OrderId);
+                            }
+                        });
+                    });
+                }
 
                 context.SaveChanges();
                 return new RatingOrderResult()
@@ -10079,12 +10282,57 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
         }
+
+
+        private void GuiThongBaoDanhGiaGoiKem(ServicePacket goiDichVu, CustomerOrder order, Guid empId, string deviceId)
+        {
+            var content = "Gói dịch vụ: " + goiDichVu?.Name + " nhận được đánh giá " + order.RateStar + ". Nội dung: " + order.RateContent;
+            //Gửi thông báo 
+            if (deviceId != null && deviceId != "")
+            {
+                CommonHelper.PushNotificationToDevice(deviceId, "Đánh giá dịch vụ kém", content, "1", order.OrderId.ToString());
+            }
+            var notification = new
+            {
+                content = content,
+                status = false,
+                url = "/order/create;OrderId=" + order.OrderId,
+                orderId = order.OrderId.ToString(),
+                date = DateTime.Now.ToString("dd/MM/yyy HH:mm:ss"),
+                employeeId = empId,
+                reportId = "",
+                objectType = "DanhGia"
+            };
+            _firebaseClient.Child("notification").Child($"{empId}").PostAsync(notification);
+        }
+
+        private void GuiThongBaoDanhGiaNhanVienNccKem(Guid empId, string deviceId, string content, string title, Guid orderId)
+        {
+            //Gửi thông báo 
+            if (deviceId != null && deviceId != "")
+            {
+                CommonHelper.PushNotificationToDevice(deviceId, title, content, "1", orderId.ToString());
+            }
+            var notification = new
+            {
+                content = content,
+                status = false,
+                url = "/order/create;OrderId=" + orderId,
+                orderId = orderId.ToString(),
+                date = DateTime.Now.ToString("dd/MM/yyy HH:mm:ss"),
+                employeeId = empId,
+                reportId = "",
+                objectType = "DanhGia"
+            };
+            _firebaseClient.Child("notification").Child($"{empId}").PostAsync(notification);
+        }
+
         public DeleteOrderOptionByCusResult DeleteOrderOptionByCus(DeleteOrderOptionByCusParameter parameter)
         {
             try
             {
                 //Nếu là dịch vụ phát sinh
-                if(parameter.IsExtend == true)
+                if (parameter.IsExtend == true)
                 {
                     var optionExtend = context.CustomerOrderDetailExten.FirstOrDefault(x => x.Id == parameter.Id);
                     if (optionExtend == null)
@@ -10228,7 +10476,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
 
-            
+
         }
         public CheckTaskWithReportPointExtendResult CheckTaskWithReportPointExtend(CheckTaskWithReportPointExtendParameter parameter)
         {
@@ -10254,14 +10502,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //So sánh vs listEmp cập nhật mới
                 //Nếu trong list Mới k có listEmpId đang thực hiện báo cáo => trả về lỗi
                 var check = false;
-                listEmpId.ForEach(item => {
+                listEmpId.ForEach(item =>
+                {
                     if (!parameter.ListEmpId.Contains(item))
                     {
                         check = true;
                     }
                 });
 
-                if(check == true)
+                if (check == true)
                 {
                     return new CheckTaskWithReportPointExtendResult
                     {
@@ -10284,7 +10533,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 };
             }
 
-            
+
         }
 
         public async Task<Messages.Results.Employee.TakeListEvaluateResult> TakeListEvaluateForObjectId(Messages.Parameters.Employee.TakeListEvaluateParameter parameter)
@@ -10343,15 +10592,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var orderAction = context.CustomerOrder.FirstOrDefault(x => x.OrderId == customerOrderTask.OrderActionId);
                 var quanLyDichVu = (from u in context.User
-                                      join e in context.Employee on u.EmployeeId equals e.EmployeeId
-                                      into eData
-                                      from e in eData
-                                      where u.UserId == orderAction.CreatedById
-                                      select new
-                                      {
-                                          EmployeeId = e.EmployeeId,
-                                          DeviceId = u.DeviceId,
-                                      }
+                                    join e in context.Employee on u.EmployeeId equals e.EmployeeId
+                                    into eData
+                                    from e in eData
+                                    where u.UserId == orderAction.CreatedById
+                                    select new
+                                    {
+                                        EmployeeId = e.EmployeeId,
+                                        DeviceId = u.DeviceId,
+                                    }
                                      ).FirstOrDefault();
                 var nguoiThaoTacTuChoiChapNhan = "";
 
@@ -10377,7 +10626,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var content = "Nhà cung cấp " + vendorName + " đã đồng ý thực hiện dịch vụ: " + customerOrderTask.Path;
                     if (parameter.StatusId == 3)
                     {
-                        content = "Nhà cung cấp " + vendorName + " đã từ chối thực hiện dịch vụ: " + customerOrderTask.Path  + " với lý do: " + parameter.LyDo;
+                        content = "Nhà cung cấp " + vendorName + " đã từ chối thực hiện dịch vụ: " + customerOrderTask.Path + " với lý do: " + parameter.LyDo;
                         customerOrderTask.StatusId = 4;
                         customerOrderTask.VendorId = null;
                         //Thêm ghi chú
@@ -10423,11 +10672,13 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 else
                 {
                     var empIdLogin = (from u in context.User
-                                    join e in context.Employee on u.EmployeeId equals e.EmployeeId
-                                    where u.UserId == parameter.UserId
-                                    select new {
-                                        EmployeeId =  e.EmployeeId,
-                                        EmployeeName = e.EmployeeName}
+                                      join e in context.Employee on u.EmployeeId equals e.EmployeeId
+                                      where u.UserId == parameter.UserId
+                                      select new
+                                      {
+                                          EmployeeId = e.EmployeeId,
+                                          EmployeeName = e.EmployeeName
+                                      }
                                     ).FirstOrDefault();
 
                     if (empIdLogin == null)
@@ -10510,7 +10761,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     }
 
                     //Kiểm tra xem nhân viên đã duyệt hết chưa, nếu duyệt hết r => chuyển trạng thái thành xác nhận
-                    if(listAllOrderTaskMappingEmp.Count() == listAllOrderTaskMappingEmp.Count(x => x.StatusId == 2))
+                    if (listAllOrderTaskMappingEmp.Count() == listAllOrderTaskMappingEmp.Count(x => x.StatusId == 2))
                     {
                         customerOrderTask.StatusId = 2;//Xác nhận
                         context.CustomerOrderTask.Update(customerOrderTask);
@@ -10525,10 +10776,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     }
                 }
 
-                if(quanLyDichVu != null)
+                if (quanLyDichVu != null)
                 {
                     //Gửi thông báo cho quản lý dịch vụ (người tạo phiếu hỗ trợ)
-                    var content = "Nhân viên " + nguoiThaoTacTuChoiChapNhan + (parameter.StatusId == 2 ? " đã đồng ý thực hiện dịch vụ: "  : " đã từ chối thực hiện dịch vụ: ") + customerOrderTask.Path;
+                    var content = "Nhân viên " + nguoiThaoTacTuChoiChapNhan + (parameter.StatusId == 2 ? " đã đồng ý thực hiện dịch vụ: " : " đã từ chối thực hiện dịch vụ: ") + customerOrderTask.Path;
                     if (quanLyDichVu.DeviceId != null && quanLyDichVu.DeviceId != "")
                     {
                         CommonHelper.PushNotificationToDevice(quanLyDichVu.DeviceId, "Phê duyệt phụ trách", content, "2", customerOrderTask.OrderActionId.ToString());
@@ -10581,7 +10832,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 if (parameter.IsVendor == true)
                 {
                     var vendorId = context.User.FirstOrDefault(x => x.UserId == parameter.UserId)?.EmployeeId;
-                    if(vendorId == null)
+                    if (vendorId == null)
                     {
                         return new DanhSachDichVuNguoiThucHienCanPheDuyetResult
                         {
@@ -10590,7 +10841,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         };
                     }
 
-               
+
                     //Lấy các dịch vụ trong phiếu hỗ trợ gán với nhà cung cấp ở trạng thái chờ phê duyệt, đang thực hiện, hoàn thành
                     listOrderActionTask = (
                                                 from t in context.CustomerOrderTask
@@ -10626,25 +10877,25 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     }
 
                     //Lấy các dịch vụ trong phiếu hỗ trợ gán với nhà cung cấp ở trạng thái chờ phê duyệt, đang thực hiện, hoàn thành
-                    listOrderActionTask = (     from mapping in context.OrderTaskMappingEmp
-                                                join t in context.CustomerOrderTask on mapping.CustomerOrderTaskId equals t.Id
-                                                join or in context.CustomerOrder on t.OrderActionId equals or.OrderId
-                                                join pack in context.ServicePacket on or.ServicePacketId equals pack.Id
+                    listOrderActionTask = (from mapping in context.OrderTaskMappingEmp
+                                           join t in context.CustomerOrderTask on mapping.CustomerOrderTaskId equals t.Id
+                                           join or in context.CustomerOrder on t.OrderActionId equals or.OrderId
+                                           join pack in context.ServicePacket on or.ServicePacketId equals pack.Id
 
-                                                where mapping.EmployeeId == empId &&
-                                                      listTrangThai.Contains(or.StatusOrder.Value) && or.IsOrderAction == true
-                                                select new CustomerOrderTaskEntityModel
-                                                {
-                                                    Id = mapping.Id,
-                                                    NgayYeuCau = or.CreatedDate,
-                                                    OrderActionId = or.OrderId,
-                                                    GoiDichVu = pack.Name,
-                                                    OptionName = t.Path,
-                                                    OrderDetailId = t.OrderDetailId,
-                                                    StatusId = mapping.StatusId,
-                                                    OrderActionCode = or.OrderCode,
-                                                    StatusOrderName = listTrangThaiOrder.FirstOrDefault(x => x.Value == or.StatusOrder).Name
-                                                }).ToList();
+                                           where mapping.EmployeeId == empId &&
+                                                 listTrangThai.Contains(or.StatusOrder.Value) && or.IsOrderAction == true
+                                           select new CustomerOrderTaskEntityModel
+                                           {
+                                               Id = mapping.Id,
+                                               NgayYeuCau = or.CreatedDate,
+                                               OrderActionId = or.OrderId,
+                                               GoiDichVu = pack.Name,
+                                               OptionName = t.Path,
+                                               OrderDetailId = t.OrderDetailId,
+                                               StatusId = mapping.StatusId,
+                                               OrderActionCode = or.OrderCode,
+                                               StatusOrderName = listTrangThaiOrder.FirstOrDefault(x => x.Value == or.StatusOrder).Name
+                                           }).ToList();
                 }
 
 
@@ -10668,7 +10919,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var order = context.CustomerOrder.FirstOrDefault(x => x.OrderId == parameter.OrderId);
-                if(order == null)
+                if (order == null)
                 {
                     return new LuuNhanVienPheDuyetChuyenTiepResult
                     {
@@ -10677,7 +10928,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     };
                 }
 
-                if(parameter.ListEmpId == null || parameter.ListEmpId.Count() == 0)
+                if (parameter.ListEmpId == null || parameter.ListEmpId.Count() == 0)
                 {
                     return new LuuNhanVienPheDuyetChuyenTiepResult
                     {
@@ -10688,16 +10939,17 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
 
                 var listDel = context.PheDuyetChuyenTiepOrder.Where(x => x.OrderId == parameter.OrderId).ToList();
-                if(listDel.Count() > 0)
+                if (listDel.Count() > 0)
                 {
                     context.PheDuyetChuyenTiepOrder.RemoveRange(listDel);
                 }
 
-                if(order.StatusOrder == 11)
+                if (order.StatusOrder == 11)
                 {
                     order.ChuyenTiepPddvps = true;
                     context.CustomerOrder.Update(order);
-                }else if (order.StatusOrder == 12)
+                }
+                else if (order.StatusOrder == 12)
                 {
                     order.ChuyenTiepPdbs = true;
                     context.CustomerOrder.Update(order);
@@ -10714,8 +10966,33 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     newObj.CreatedById = parameter.UserId;
                     newObj.CreatedDate = DateTime.Now;
                     listAdd.Add(newObj);
+
+                    var notification = new
+                    {
+                        content = "Phiếu yêu cầu " + order.OrderCode + " cần bạn phê duyệt",
+                        status = false,
+                        url = "/order/create;OrderId=" + order.OrderId,
+                        orderId = order.OrderId.ToString(),
+                        date = DateTime.Now.ToString("dd/MM/yyy HH:mm:ss"),
+                        employeeId = item,
+                        reportId = "",
+                        objectType = "ChuyenTiepPheDuyet"
+                    };
+                    _firebaseClient.Child("notification").Child($"{item}").PostAsync(notification);
                 });
                 context.PheDuyetChuyenTiepOrder.AddRange(listAdd);
+
+                //Gửi thông báo 
+                var listDeviceId = context.User.Where(x => parameter.ListEmpId.Contains(x.EmployeeId ?? Guid.Empty) && x.DeviceId != null && x.DeviceId != "")
+                                           .Select(x => x.DeviceId).ToList();
+                listDeviceId.ForEach(item =>
+                {
+                    CommonHelper.PushNotificationToDevice(item, "Phê duyệt",
+                                                          "Phiếu yêu cầu " + order.OrderCode + " cần bạn phê duyệt", "1",
+                                                          order.OrderId.ToString());
+                });
+
+
                 context.SaveChanges();
 
                 return new LuuNhanVienPheDuyetChuyenTiepResult
@@ -10738,7 +11015,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var order = context.CustomerOrder.FirstOrDefault(x => x.OrderId == parameter.OrderId);
-                if(order == null)
+                if (order == null)
                 {
                     return new XacNhanDichVuPhatSinhChuyenTiepPDResult
                     {
@@ -10788,7 +11065,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listEmpId = new List<Guid>();
 
                 var order = context.CustomerOrder.FirstOrDefault(x => x.OrderId == parameter.OrderId);
-                if(order == null)
+                if (order == null)
                 {
                     return new XacNhanTuChoiChuyenTiepPDBSResult
                     {
@@ -10798,14 +11075,14 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 }
 
                 //Nếu là xác nhận
-                if(parameter.Type == 1)
+                if (parameter.Type == 1)
                 {
                     //Cập nhật phiếu yêu cầu sang trạng thái chờ thanh toán (4)
                     order.StatusOrder = GeneralList.GetTrangThais("CustomerOrder").FirstOrDefault(x => x.Value == 4).Value;
                     context.CustomerOrder.Update(order);
                 }
                 //Nếu là từ chối
-                else if(parameter.Type == 2)
+                else if (parameter.Type == 2)
                 {
                     //Chuyển orderprocess gán với order thành đã từ chối dịch vụ phát sinh
                     var deniedStatus = GeneralList.GetTrangThais("OrderProcess").FirstOrDefault(x => x.Value == 4).Value;
@@ -10876,7 +11153,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             try
             {
                 var vendorOrder = context.VendorOrder.FirstOrDefault(x => x.VendorOrderId == parameter.VendorOrderId);
-                if(vendorOrder == null)
+                if (vendorOrder == null)
                 {
                     return new ChapNhanTuChoiDonHangResult
                     {
@@ -10906,7 +11183,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                          }).ToList();
 
                 //Nếu có 1 số dịch vụ ở trạng thái chưa duyệt thì cảnh báo
-                if(vendorOrderDetail.Count(x => x.StatusId == statusChoDuyet) > 0)
+                if (vendorOrderDetail.Count(x => x.StatusId == statusChoDuyet) > 0)
                 {
                     return new ChapNhanTuChoiDonHangResult
                     {
@@ -10925,7 +11202,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     var listVendorOrderDetailRemove = context.VendorOrderDetail.Where(x => listVendorOrderDetailTuChoiId.Contains(x.VendorOrderDetailId)).ToList();
                     context.VendorOrderDetail.RemoveRange(listVendorOrderDetailRemove);
 
-                    var listVendorOrderDetail = context.VendorOrderDetail.Where(x => !listVendorOrderDetailTuChoiId.Contains(x.VendorOrderDetailId)).ToList();
+                    var listVendorOrderDetail = context.VendorOrderDetail.Where(x => !listVendorOrderDetailTuChoiId.Contains(x.VendorOrderDetailId) && x.VendorOrderId == parameter.VendorOrderId).ToList();
                     CommonHelper.TinhTienDonHong(vendorOrder, listVendorOrderDetail);
 
                     //Cập nhật các dịch vụ bị từ chối vendorId thành null và trạng thái thành chờ gán
@@ -10998,7 +11275,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                        OrderDetailId = rp.OrderDetailId,
                                        BaoCaoDoanhThu = rp.BaoCaoDoanhThu,
                                    }).FirstOrDefault();
-                
+
                 if (reportPoint == null)
                 {
                     return new LuuBaoCaoDoanhThuResult()
@@ -11046,14 +11323,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     //Kiểm tra xem điều kiện nhập trên ứng với chiết khấu nào
                     //Lấy cấu hình đúng với nhà cung cấp và trong khoảng thời gian hiệu lực
                     var listVendorMappingOptionId = context.VendorMappingOption.Where(x => x.OptionId == reportPoint.OptionId && x.VendorId == reportPoint.VendorId &&
-                                                                                           x.ThoiGianTu.Value.Date <= parameter.ThoiGianThucHien.Value.Date && 
+                                                                                           x.ThoiGianTu.Value.Date <= parameter.ThoiGianThucHien.Value.Date &&
                                                                                            x.ThoiGianDen.Value.Date >= parameter.ThoiGianThucHien.Value.Date
                                                                                 ).Select(x => x.Id).ToList();
-                    var listMucHoaHong = context.CauHinhMucHoaHong.Where(x => 
+                    var listMucHoaHong = context.CauHinhMucHoaHong.Where(x =>
                                                 x.DieuKienId != null && listVendorMappingOptionId.Contains(x.VendorMappingOptionId.Value)
                                                 ).ToList();
 
-                    var listMucHoaHongGroup = listMucHoaHong.GroupBy(x => x.ParentId).Select(x => new {
+                    var listMucHoaHongGroup = listMucHoaHong.GroupBy(x => x.ParentId).Select(x => new
+                    {
                         ParentId = x.Key,
                         ListDieuKien = x.ToList()
                     }).ToList();
@@ -11073,10 +11351,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         mhh.ListDieuKien.ForEach(item =>
                         {
                             var giaTri = listAttrAdd.FirstOrDefault(x => x.DieuKienId == item.DieuKienId);
-                            if(giaTri != null)
+                            if (giaTri != null)
                             {
                                 //Nếu không đáp ứng điều kiện
-                                if(!(item.GiaTriTu <= giaTri.Value && (item.GiaTriDen == null || item.GiaTriDen >= giaTri.Value))) isValid = false;
+                                if (!(item.GiaTriTu <= giaTri.Value && (item.GiaTriDen == null || item.GiaTriDen >= giaTri.Value))) isValid = false;
                             }
                             else
                             {
@@ -11088,10 +11366,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         if (isValid == true)
                         {
                             var parent = listCauHinhHhParent.FirstOrDefault(x => x.Id == mhh.ParentId);
-                            if(parent != null)
+                            if (parent != null)
                             {
                                 var tinhTienHh = parent.LoaiHoaHong == 1 ? parameter.TongTienKhachHangThanhToan * parent.GiaTriHoaHong / 100 : parent.GiaTriHoaHong;
-                                if(tinhTienHh >= preTienHoaHong)
+                                if (tinhTienHh >= preTienHoaHong)
                                 {
                                     vendorOrderDetail.TongTienHoaHong = tinhTienHh;
                                     vendorOrderDetail.LoaiHoaHongId = parent.LoaiHoaHong;
@@ -11246,7 +11524,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                if(parameter.UserName.Trim() == "baoCao")
+                if (parameter.UserName.Trim() == "baoCao")
                 {
                     parameter.Password = AuthUtil.GetHashingPassword(parameter.Password);
                     var user = context.User.FirstOrDefault(u => u.UserName == parameter.UserName.Trim() && u.Password == parameter.Password);

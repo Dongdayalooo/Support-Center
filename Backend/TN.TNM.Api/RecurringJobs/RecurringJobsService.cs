@@ -56,11 +56,10 @@ namespace TN.TNM.Api.RecurringJobs
                     () => AlertReportPoint(),
                     "*/10 * * * *", TimeZoneInfo.Local);
 
-                // Cấu hình và đặt lịch trình cho công việc định kỳ "PhanHangKhachHang"
                 RecurringJob.RemoveIfExists("PhanHangKhachHang");//  12h đêm hằng ngày
                 _recurringJobs.AddOrUpdate("PhanHangKhachHang",
                     () => PhanHangKhachHang(),
-                    "*/30 * * * * *", TimeZoneInfo.Local);
+                    "0 0 * * *", TimeZoneInfo.Local);
 
                 RecurringJob.RemoveIfExists("ThongBaoPheDuyetThucHienNhiemVu");//  Chạy 5p / 1 lần
                 _recurringJobs.AddOrUpdate("ThongBaoPheDuyetThucHienNhiemVu",
@@ -491,7 +490,6 @@ namespace TN.TNM.Api.RecurringJobs
 
                     var _context = scope.ServiceProvider.GetRequiredService<TenantContext>();
 
-                    var now = DateTime.Now.AddMinutes(-10);
 
                     //Lấy các điểm báo cáo có hạn báo cáo đã quá hạn, khác trạng thái hoàn thành
                     var listReportPoint = _context.ReportPoint.Where(x => x.Deadline != null && x.Status != 3 && !listReportId.Contains(x.Id)
@@ -499,8 +497,8 @@ namespace TN.TNM.Api.RecurringJobs
 
                     var newList = new List<ReportPoint>();
                     listReportPoint.ForEach(item => {
-                        var time = DateTime.Now - ((DateTime)(item.Deadline));
-                        if ((int)time.TotalMinutes > 10)
+                        TimeSpan time = DateTime.Now - ((DateTime)(item.Deadline));
+                        if (Math.Abs(time.TotalMinutes) > 10  && Math.Abs(time.TotalMinutes) < 15)
                         {
                             newList.Add(item);
                         }
@@ -565,8 +563,6 @@ namespace TN.TNM.Api.RecurringJobs
                 var lool = ex;
             }
         }
-
-        //phanhangkh
         public void PhanHangKhachHang()
         {
             try
@@ -576,15 +572,21 @@ namespace TN.TNM.Api.RecurringJobs
                 using (var scope = _scopeFactory.CreateScope())
                 {
                     var _context = scope.ServiceProvider.GetRequiredService<TenantContext>();
+
                     var listAllCus = _context.Customer.Where(x => x.Active == true).ToList();
                     var listAllCusId = listAllCus.Select(x => x.CustomerId).ToList();
                     var listAllUser = _context.User.Where(x => listAllCusId.Contains(x.EmployeeId.Value)).ToList();
+
+                    //Lấy toàn bộ phiếu yêu cầu ở trạng thái đã thanh toán, chờ thanh toán
                     var listTrangThaiTinhDoanhThu = GeneralList.GetTrangThais("CustomerOrder").Where(x => x.Value == 4 || x.Value == 5).Select(x => x.Value).ToList();
                     var listAllPhieuYeuCau = _context.CustomerOrder.Where(x => x.IsOrderAction == false && listAllCusId.Contains(x.CustomerId.Value) && listTrangThaiTinhDoanhThu.Contains(x.StatusOrder.Value)).ToList();
+
                     var listPhanHangCategoryTypeId = _context.CategoryType.FirstOrDefault(x => x.CategoryTypeCode == "CUS_LEVEL")?.CategoryTypeId;
                     var listPhanHangCategory = _context.Category.Where(x => x.CategoryTypeId == listPhanHangCategoryTypeId).ToList();
+
                     var listTrangThaiTinhDoanhThuVendorOrder = GeneralList.GetTrangThais("VendorOrder").Where(x => x.Value == 3 || x.Value == 4 || x.Value == 5).Select(x => x.Value).ToList();
                     var listAllVendorOrder = _context.VendorOrder.Where(x => listAllCusId.Contains(x.CustomerId.Value) && listTrangThaiTinhDoanhThuVendorOrder.Contains(x.StatusId)).ToList();
+
                     var listVendorOrderId = listAllVendorOrder.Select(x => x.VendorOrderId).ToList();
                     var listVendorOrderDetail = _context.VendorOrderDetail.Where(x => listVendorOrderId.Contains(x.VendorOrderId)).ToList();
                     var listCauHinhPhanHang = _context.CauHinhPhanHangKh.ToList();
@@ -593,8 +595,10 @@ namespace TN.TNM.Api.RecurringJobs
                     {
                         var listCusIdGioiThieu = listAllCus.Where(x => x.NguoiGioiThieuId == cus.CustomerId).Select(x => x.CustomerId).ToList();
                         var listOrderNguoiGioiThieu = listAllPhieuYeuCau.Where(x => listCusIdGioiThieu.Contains(x.CustomerId.Value)).ToList();
+
                         var listVendorOrderIdNguoiGtCurrent = listAllVendorOrder.Where(x => listCusIdGioiThieu.Contains(x.CustomerId.Value)).Select(x => x.VendorOrderId).ToList();
                         var listOrderDetailNguoiGioiThieu = listVendorOrderDetail.Where(x => listVendorOrderIdNguoiGtCurrent.Contains(x.VendorOrderId)).ToList();
+
 
                         var listOrderCus = listAllPhieuYeuCau.Where(x => x.CustomerId == cus.CustomerId).ToList();
                         var listVendorOrderIdCurrent = listAllVendorOrder.Where(x => x.CustomerId == cus.CustomerId).Select(x => x.VendorOrderId).ToList();
@@ -603,11 +607,10 @@ namespace TN.TNM.Api.RecurringJobs
                         if (listOrderCus.Count() > 0)
                         {
                             var deviceId = listAllUser.FirstOrDefault(x => x.EmployeeId == cus.CustomerId)?.DeviceId;
-                            cus.PhanHangId = CommonHelper.PhanHangKhachHang(cus.CustomerId, deviceId, listOrderCus, listCauHinhPhanHang,
+                            cus.PhanHangId = CommonHelper.PhanHangKhachHang(cus.CustomerId, deviceId, listOrderCus, listCauHinhPhanHang, 
                                                             listPhanHangCategory, listVendorOrderDetailCurrent, listOrderNguoiGioiThieu, listOrderDetailNguoiGioiThieu);
                         }
                     });
-
                     _context.Customer.UpdateRange(listAllCus);
                     _context.SaveChanges();
                 }

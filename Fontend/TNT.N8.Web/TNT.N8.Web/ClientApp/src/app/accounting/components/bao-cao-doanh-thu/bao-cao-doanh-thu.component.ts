@@ -44,9 +44,9 @@ export class BaoCaoDoanhThuComponent implements OnInit {
   //Loại báo cáo
   listBaoCao = [
     { index: 0, name: "Doanh thu tổng hợp" },
-    { index: 1, name: "Doanh thu theo đơn dịch vụ" },
-    { index: 2, name: "Doanh thu theo khách hàng" },
-    { index: 3, name: "Doanh thu theo nhân viên" },
+    // { index: 1, name: "Doanh thu theo đơn dịch vụ" },
+    // { index: 2, name: "Doanh thu theo khách hàng" },
+    // { index: 3, name: "Doanh thu theo nhân viên" },
   ];
 
   baoCaoSelected = { index: 0, name: "Doanh thu tổng hợp" };
@@ -55,15 +55,12 @@ export class BaoCaoDoanhThuComponent implements OnInit {
   listNhomDichVu = [];
   listDichVu = [];
   listLoaiDoanhThu = [];
-  listKhachHang = [];
   listGoiDichVu = [];
 
   //Selected
   listNhomDichVuSelected = [];
   listDichVuSelected = [];
   listLoaiDoanhThuSelected = [];
-  listPhanHangKhachHangSelected = [];
-  listKhachHangSelected = [];
   listGoiDichVuSelected = [];
   tuNgay: Date;
   denNgay: Date;
@@ -73,12 +70,8 @@ export class BaoCaoDoanhThuComponent implements OnInit {
 
   constructor(
     private router: Router,
-    private route: ActivatedRoute,
     private getPermission: GetPermission,
     private messageService: MessageService,
-    private decimalPipe: DecimalPipe,
-    private confirmationService: ConfirmationService,
-    private datePipe: DatePipe,
     private accountingService: AccountingService,
 
   ) {
@@ -88,24 +81,23 @@ export class BaoCaoDoanhThuComponent implements OnInit {
   async ngOnInit() {
     // Define the resource path
     let resource = "acc/accounting/bao-cao-doanh-thu";
-    // Check user's permission to access the resource
+    // Kiểm tra quyền truy cập tài nguyên của người dùng
     let permission: any = await this.getPermission.getPermission(resource);
-    // If user doesn't have permission, redirect to home page
     if (permission.status == false) {
       this.router.navigate(['/home']);
     }
     else {
-      // If user has permission, extract available actions from permission object
-      let listCurrentActionResource = permission.listCurrentActionResource;
-      // Check if 'add' action is allowed, if not, disable 'add' functionality
-      if (listCurrentActionResource.indexOf("add") == -1) {
-        this.actionAdd = false;
-      }
-      // Check if 'download' action is allowed, if not, disable 'download' functionality
-      if (listCurrentActionResource.indexOf("download") == -1) {
-        this.actionDownload = false;
-      }
-      // Fetch additional data required for the component's functionality
+      // Nếu người dùng có quyền, trích xuất các hành động có sẵn từ đối tượng quyền
+      // let listCurrentActionResource = permission.listCurrentActionResource;
+      // // Kiểm tra xem hành động 'thêm' có được phép hay không, nếu không, hãy tắt chức năng 'thêm'
+      // if (listCurrentActionResource.indexOf("add") == -1) {
+      //   this.actionAdd = false;
+      // }
+      // // Kiểm tra xem hành động 'tải xuống' có được phép hay không, nếu không, hãy tắt chức năng 'tải xuống'
+      // if (listCurrentActionResource.indexOf("download") == -1) {
+      //   this.actionDownload = false;
+      // }
+      // Lấy dữ liệu cần thiết cho chức năng
       await this.getMasterBaoCaoTongHop();
 
     }
@@ -124,7 +116,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
       this.listNhomDichVu = result.listNhomDichVu;
       this.listDichVu = result.listDichVu;
       this.listLoaiDoanhThu = result.listLoaiDoanhThu;
-      this.listKhachHang = result.listCustomer;
       this.listGoiDichVu = result.listGoiDichVu;
       this.getBaoCaoTongHop();
     } else {
@@ -162,9 +153,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
       DenNgay: this.denNgay ? convertToUTCTime(new Date(this.denNgay)) : null,
       DoanhThuTu: this.doanhThuTu,
       DoanhThuDen: this.doanhThuDen,
-
-      ListPhanHangId: this.listPhanHangKhachHangSelected ? this.listPhanHangKhachHangSelected.map(x => x.categoryId) : [],
-      ListKhachHang: this.listKhachHangSelected ? this.listKhachHangSelected.map(x => x.customerId) : [],
     };
 
     if (param.TuNgay && param.DenNgay && param.TuNgay > param.DenNgay) {
@@ -195,8 +183,6 @@ export class BaoCaoDoanhThuComponent implements OnInit {
     this.listNhomDichVuSelected = [];
     this.listDichVuSelected = [];
     this.listLoaiDoanhThuSelected = [];
-    this.listPhanHangKhachHangSelected = [];
-    this.listKhachHangSelected = [];
     this.listGoiDichVuSelected = [];
     this.tuNgay = null;
     this.denNgay = null;

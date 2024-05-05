@@ -21,12 +21,16 @@ namespace TN.TNM.DataAccess.Messages.Parameters.Admin.Product
 
         public List<PermissionConfigurationEntityModel> ListServicePacketConfigurationPermissionModel { get; set; }
 
-        public ServicePacketImageEntityModel ServicePacketImageEntityModel { get; set; }
-
         public List<NotificationConfigurationEntityModel> ListNotificationConfigurationModel { get; set; }
 
         public CauHinhQuyTrinhModel CauHinhQuyTrinh { get; set; }
 
         public List<Guid> ListManagerId { get; set; }
+
+        public string FileIcon { get; set; }
+
+        public string FileMainImg { get; set; }
+
+        public string FileBackground { get; set; }
     }
 }

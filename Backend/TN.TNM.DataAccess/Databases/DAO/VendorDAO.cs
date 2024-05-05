@@ -5564,6 +5564,91 @@ namespace TN.TNM.DataAccess.Databases.DAO
         }
 
 
+        public UpdateVendorOrderResult DeleteVendor(GetDataEditVendorParameter parameter)
+        {
+            try
+            {
+                var vendor = context.Vendor.FirstOrDefault(x => x.VendorId == parameter.VendorId);
+                if (vendor == null)
+                {
+                    return new UpdateVendorOrderResult
+                    {
+                        MessageCode = "Không tìm thấy nhà cung cấp trên hệ thống!",
+                        StatusCode = HttpStatusCode.FailedDependency
+                    };
+                }
+
+                var userVendor = context.User.FirstOrDefault(x => x.EmployeeId == parameter.VendorId);
+                if (userVendor != null) context.User.Remove(userVendor);
+
+                var listBillOfSaleDetail = context.BillOfSaleDetail.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if(listBillOfSaleDetail.Count() > 0) context.BillOfSaleDetail.RemoveRange(listBillOfSaleDetail);
+
+                var listContractDetail = context.ContractDetail.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listContractDetail.Count() > 0) context.ContractDetail.RemoveRange(listContractDetail);
+
+                var listCostsQuote = context.CostsQuote.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listCostsQuote.Count() > 0) context.CostsQuote.RemoveRange(listCostsQuote);
+
+                var listCustomerOrderDetail = context.CustomerOrderDetail.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listCustomerOrderDetail.Count() > 0) context.CustomerOrderDetail.RemoveRange(listCustomerOrderDetail);
+
+                var listCustomerOrderTask = context.CustomerOrderTask.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listCustomerOrderTask.Count() > 0) context.CustomerOrderTask.RemoveRange(listCustomerOrderTask);
+
+                var listInventory = context.Inventory.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listInventory.Count() > 0) context.Inventory.RemoveRange(listInventory);
+
+                var listLeadDetail = context.LeadDetail.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listLeadDetail.Count() > 0) context.LeadDetail.RemoveRange(listLeadDetail);
+
+                var listProcurementRequestItem = context.ProcurementRequestItem.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listProcurementRequestItem.Count() > 0) context.ProcurementRequestItem.RemoveRange(listProcurementRequestItem);
+
+                var listProductMappingOptions = context.ProductMappingOptions.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listProductMappingOptions.Count() > 0) context.ProductMappingOptions.RemoveRange(listProductMappingOptions);
+
+                var listProductVendorMapping = context.ProductVendorMapping.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listProductVendorMapping.Count() > 0) context.ProductVendorMapping.RemoveRange(listProductVendorMapping);
+
+                var listQuoteDetail = context.QuoteDetail.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listQuoteDetail.Count() > 0) context.QuoteDetail.RemoveRange(listQuoteDetail);
+
+                var listVendorMappingOption = context.VendorMappingOption.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listVendorMappingOption.Count() > 0) context.VendorMappingOption.RemoveRange(listVendorMappingOption);
+
+                var listVendorOrder = context.VendorOrder.Where(x => x.VendorId == parameter.VendorId).ToList();
+                if (listVendorOrder.Count() > 0) context.VendorOrder.RemoveRange(listVendorOrder);
+
+                var listVendorOrderId = listVendorOrder.Select(x => x.VendorOrderId).ToList();
+
+                var listPhieuThuBaoCoMappingCustomerOrder = context.PhieuThuBaoCoMappingCustomerOrder.Where(x => listVendorOrderId.Contains(x.VendorOrderId.Value)).ToList();
+                if (listPhieuThuBaoCoMappingCustomerOrder.Count() > 0) context.PhieuThuBaoCoMappingCustomerOrder.RemoveRange(listPhieuThuBaoCoMappingCustomerOrder);
+
+                var listVendorOrderCostDetail = context.VendorOrderDetail.Where(x => listVendorOrderId.Contains(x.VendorOrderId)).ToList();
+                if (listVendorOrderCostDetail.Count() > 0) context.VendorOrderDetail.RemoveRange(listVendorOrderCostDetail);
+
+                var listVendorOrderProcurementRequestMapping = context.VendorOrderProcurementRequestMapping.Where(x => listVendorOrderId.Contains(x.VendorOrderId.Value)).ToList();
+                if (listVendorOrderProcurementRequestMapping.Count() > 0) context.VendorOrderProcurementRequestMapping.RemoveRange(listVendorOrderProcurementRequestMapping);
+
+                context.Vendor.Remove(vendor);
+                context.SaveChanges();
+
+                return new UpdateVendorOrderResult
+                {
+                    MessageCode = "Xóa nhà cung cấp thành công!",
+                    StatusCode = HttpStatusCode.OK
+                };
+            }
+            catch (Exception ex)
+            {
+                return new UpdateVendorOrderResult
+                {
+                    MessageCode = ex.Message,
+                    StatusCode = HttpStatusCode.BadRequest
+                };
+            }
+        }
 
     }
 

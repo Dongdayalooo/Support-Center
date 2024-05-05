@@ -256,8 +256,6 @@ namespace TN.TNM.DataAccess.Interfaces
         DeleteEmployeeResult DeleteEmployee(DeleteEmployeeParameter parameter);
         Task<TakeListEvaluateResult> TakeListEvaluateForObjectId(TakeListEvaluateParameter parameter);
         DanhSachNhanVienBaoCaoKhanCapResult DanhSachNhanVienBaoCaoKhanCap(DanhSachNhanVienBaoCaoKhanCapParameter parameter);
-        
-        //baocaonhanvien
         BaoCaoNhanVienResult BaoCaoNhanVien(BaoCaoNhanVienParameter parameter);
         
     }

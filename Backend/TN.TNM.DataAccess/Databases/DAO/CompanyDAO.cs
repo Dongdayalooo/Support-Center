@@ -596,6 +596,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
+                // Chuyển đổi đối tượng từ tham số vào đối tượng CauHinhPhanHangKh bằng AutoMapper
                 var cauHinh = _mapper.Map<CauHinhPhanHangKh>(parameter.CauHinh);
                 var listAllCauHinh = context.CauHinhPhanHangKh.ToList();
                 var messErr = "";
@@ -632,14 +633,17 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 //Nếu là tạo mới
                 if (cauHinh.Id == null || cauHinh.Id == Guid.Empty)
                 {
+                    // Thiết lập Id mới cho cấu hình
                     cauHinh.Id = Guid.NewGuid();
                     cauHinh.CreatedById = parameter.UserId;
                     cauHinh.CreatedDate = DateTime.Now;
+                    // Thêm cấu hình vào cơ sở dữ liệu
                     context.CauHinhPhanHangKh.Add(cauHinh);
                 }
                 //Nếu là cập nhật
                 else
                 {
+                    // Kiểm tra xem bản ghi tồn tại trong danh sách không
                     var exist = listAllCauHinh.FirstOrDefault(x => x.Id == parameter.CauHinh.Id);
                     if (exist == null)
                     {
@@ -649,6 +653,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                             MessageCode = "Bản ghi không tồn tại trên hệ thống!"
                         };
                     }
+                    // Cập nhật thông tin của cấu hình 
                     exist.GiaTriTu = cauHinh.GiaTriTu;
                     exist.GiaTriDen = cauHinh.GiaTriDen;
                     exist.DieuKienId = cauHinh.DieuKienId;
@@ -656,9 +661,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     exist.ParentId = cauHinh.ParentId;
                     exist.UpdatedById = parameter.UserId;
                     exist.UpdatedDate = DateTime.Now;
+                    // Cập nhật bản ghi trong cơ sở dữ liệu
                     context.CauHinhPhanHangKh.Update(exist);
                 }
-
+                // Lưu thay đổi vào cơ sở dữ liệu
                 context.SaveChanges();
                 return new CreateUpdateCauHinhPhkhResult
                 {
@@ -666,6 +672,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                     MessageCode = "Lưu thành công!"
                 };
             }
+            // Bắt các ngoại lệ có thể xảy ra trong quá trình thực thi
             catch (Exception e)
             {
                 return new CreateUpdateCauHinhPhkhResult
@@ -679,9 +686,10 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-
+                // Tìm cấu hình phân hạng theo Id từ cơ sở dữ liệu
                 var cauHinh = context.CauHinhPhanHangKh.FirstOrDefault(x => x.Id == parameter.Id);
-                if(cauHinh == null)
+                // Kiểm tra xem cấu hình có tồn tại hay không
+                if (cauHinh == null)
                 {
                     return new DeleteCauHinhPhanHangKHResult
                     {
@@ -708,7 +716,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
         }
 
-        //cauhinhchietkhau
         public CreateUpdateCauHinhChietKhauResult CreateUpdateCauHinhChietKhau(CreateUpdateCauHinhChietKhauParameter parameter)
         {
             try

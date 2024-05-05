@@ -73,7 +73,7 @@ namespace TN.TNM.DataAccess.Helper
 
                 var messagae = "Đã xác nhận thanh toán!";
                 customerOrder.StatusOrder = GeneralList.GetTrangThais("CustomerOrder").FirstOrDefault(x => x.Value == 5).Value;
-                customerOrder.Amount = amount;
+                //customerOrder.Amount = amount;
                 
                 //Cập nhật bước quy trình: OrderProcessDetail
                 var result = UpdateOrderProcess(context, ProductConsts.CategoryCodeConfirmStep, customerOrder.OrderProcessId, customerOrder.OrderType.Value,
@@ -97,9 +97,9 @@ namespace TN.TNM.DataAccess.Helper
                 customerOrder.UpdatedById = parameter.UserId;
                 customerOrder.UpdatedDate = DateTime.Now;
 
-                //Tính tiền đơn hàng
-                customerOrder.Amount = CommonHelper.TinhTienCustomerOrder(customerOrder.StatusOrder, parameter.ListDetail,
-                                                                         parameter.ListDetailExtend, customerOrder.DiscountType, customerOrder.DiscountValue);
+                ////Tính tiền đơn hàng
+                //customerOrder.Amount = CommonHelper.TinhTienCustomerOrder(customerOrder.StatusOrder, parameter.ListDetail,
+                //                                                         parameter.ListDetailExtend, customerOrder.DiscountType, customerOrder.DiscountValue);
 
                 context.CustomerOrder.Update(customerOrder);
                 context.SaveChanges();

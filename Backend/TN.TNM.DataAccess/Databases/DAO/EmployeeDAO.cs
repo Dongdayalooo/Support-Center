@@ -91,6 +91,8 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         };
                     }
 
+
+
                     #region Thêm Chi nhánh cho nhân viên (nếu có Chi nhánh)
 
                     var branch = context.Branch.FirstOrDefault();
@@ -26537,28 +26539,26 @@ namespace TN.TNM.DataAccess.Databases.DAO
             }
         }
 
-        //baocaonhanvien
+
         public BaoCaoNhanVienResult BaoCaoNhanVien(BaoCaoNhanVienParameter parameter)
         {
             try
             {
-                //các thông tin về ngày bắt đầu và kết thúc (startDate và endDate) được xác định từ thông tin trong parameter.
                 DateTime startDate1 = new DateTime(parameter.TuNgay.Year, parameter.TuNgay.Month, 1, 0, 0, 1);
                 startDate1 = startDate1.AddMonths(-1);
 
                 DateTime endDate1 = new DateTime(parameter.DenNgay.Year, parameter.DenNgay.Month, 1, 23, 59, 59).AddMonths(1).AddDays(-1); // Ngày cuối tháng
                 endDate1 = endDate1.AddMonths(1);
 
-                //listAllCustomerOrder chứa tất cả các đơn đặt hàng của khách hàng được tạo trong khoảng thời gian từ startDate1 đến endDate1
+
                 var listAllCustomerOrder = context.CustomerOrder.Where(x => x.CreatedDate >= startDate1 && x.CreatedDate <= endDate1).ToList();
-                //listAllEmp bao gồm tất cả nhân viên có loại nhân viên tương ứng (EmployeeType) và những người hiện đang hoạt động (Hoạt động == true)
+
                 var listAllEmp = context.Employee.Where(x => x.EmployeeType == parameter.EmployeeType && x.Active == true).Select(x => _mapper.Map<EmployeeEntityModel>(x)).ToList();
 
                 DateTime startDate = new DateTime(parameter.TuNgay.Year, parameter.TuNgay.Month, 1, 0, 0, 1);
                 DateTime endDate = new DateTime(parameter.DenNgay.Year, parameter.DenNgay.Month, 1, 23, 59, 59).AddMonths(1).AddDays(-1); // Ngày cuối tháng
 
                 //1. Trạng thái Doanh thu "Nhân viên tư vấn" 
-                //listTrangThaiIdDieuKien là danh sách chứa các trạng thái đơn hàng liên quan đến doanh thu của nhân viên tư vấn như đơn hàng đã hoàn thành hoặc đang chờ xử lý.
                 var listTrangThaiIdDieuKien = GeneralList.GetTrangThais("CustomerOrder").Where(x => x.Value == 3 || x.Value == 4).Select(x => x.Value).ToList();
 
                 var listKeyHeader = new List<Object>();
@@ -26567,7 +26567,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
                 var listData = new List<ExpandoObject>();
                 var listData2 = new List<ExpandoObject>();
 
-                //Các phép nối (joins) với các bảng dữ liệu:
                 var listEmp = (from e in context.Employee
                                join u in context.User on e.EmployeeId equals u.EmployeeId
 
@@ -26690,13 +26689,15 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                    MapBc = mapBc,
                                    ChucVuId = e.ChucVuId,
                                }).GroupBy(x => x.EmployeeId).ToList();
-                //Lấy danh sách cấu hình: danh sách các hệ số khuyến khích được lấy từ bảng CauHinhHeSoKhuyenKhich dựa trên một số điều kiện cụ thể.
-                var listAllCauHinh = context.CauHinhHeSoKhuyenKhich.Where(x => x.DoiTuongApDungId == parameter.EmployeeType).ToList();
+
+                var listAllCauHinh = context.CauHinhHeSoKhuyenKhich.ToList();
+
+
 
                 //Tổng đơn hàng tham gia: là người tạo phiếu yêu cầu, người hỗ trợ, người tạo phiếu hỗ trợ
-                //Khởi tạo biến currentDate là thời điểm hiện tại.
+
                 DateTime currentDate = DateTime.Now;
-                //Tạo các cột header cho báo cáo nhân sự (listKeyHeader1 và listKeyHeader) bằng cách sử dụng hàm AddKeyColumnBaoCaoNhanSu.(Các cột này bao gồm thông tin về tên nhân viên, số lượng dịch vụ thực hiện, số lượng dịch vụ chờ xác nhận và số lượng dịch vụ từ chối.)
+
                 listKeyHeader1 = AddKeyColumnBaoCaoNhanSu(listKeyHeader1, "", "Tên nhân viên", 1, 2, "left", "180px");
                 listKeyHeader1 = AddKeyColumnBaoCaoNhanSu(listKeyHeader1, "", "Số lượng dịch vụ thực hiện", 1, 2, "center", "110px");
                 listKeyHeader1 = AddKeyColumnBaoCaoNhanSu(listKeyHeader1, "", "Số lượng dịch vụ chờ xác nhận", 1, 2, "center", "110px");
@@ -26709,7 +26710,6 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
                 var addDynamicCol = true;
 
-                //Duyệt qua danh sách nhân viên (listEmp) và thực hiện các tính toán cho mỗi nhân viên:
                 listEmp.ForEach(item =>
                 {
                     var obj1 = new ExpandoObject();
@@ -26848,25 +26848,28 @@ namespace TN.TNM.DataAccess.Databases.DAO
                         //Nếu tháng đang xem là tháng hiện tại thì lấy các cấu hình thưởng có Ngày kết thúc <= ngày hiện tại
                         if (currentDate.Month == dauThang.Month && currentDate.Year == dauThang.Year)
                         {
-                            listCauHinhThuong = listAllCauHinh.Where(x => x.ParentId == null && x.Type == 1 && x.DenNgay.Value.Date < currentDate.Date && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
-                            listCauHinhKhuyenKhich = listAllCauHinh.Where(x => x.ParentId == null && x.Type == 2 && x.DenNgay.Value.Date < currentDate.Date && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
+                            listCauHinhThuong = listAllCauHinh.Where(x => x.DoiTuongApDungId == parameter.EmployeeType && x.ParentId == null && x.Type == 1 && x.DenNgay.Value.Date <= currentDate.Date && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
+                            listCauHinhKhuyenKhich = listAllCauHinh.Where(x => x.DoiTuongApDungId == parameter.EmployeeType &&  x.ParentId == null && x.Type == 2 && x.DenNgay.Value.Date <= currentDate.Date && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
 
 
-                            listCauHinhThuongDuKien = listAllCauHinh.Where(x => x.ParentId == null && x.Type == 1 && x.DenNgay.Value.Date < currentDate.Date && x.TuNgay.Value.Date <= currentDate.Date
+                            listCauHinhThuongDuKien = listAllCauHinh.Where(x => x.DoiTuongApDungId == parameter.EmployeeType &&  x.ParentId == null && x.Type == 1 && x.DenNgay.Value.Date > currentDate.Date && x.TuNgay.Value.Date <= currentDate.Date
                                                                             && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
-                            listCauHinhKhuyenKhichDuKien = listAllCauHinh.Where(x => x.ParentId == null && x.Type == 2 && x.DenNgay.Value.Date < currentDate.Date && x.TuNgay.Value.Date <= currentDate.Date
+                            listCauHinhKhuyenKhichDuKien = listAllCauHinh.Where(x => x.DoiTuongApDungId == parameter.EmployeeType &&  x.ParentId == null && x.Type == 2 && x.DenNgay.Value.Date <= currentDate.Date
                                                                             && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
 
                         }
-
                         //Nếu tháng đang xem < tháng hiện tại thì lấy các cấu hình thưởng có Ngày kết thúc thuộc tháng đang xem
-                        if ((currentDate.Month >= dauThang.Month && currentDate.Year == dauThang.Year) ||
+                        else if ((currentDate.Month >= dauThang.Month && currentDate.Year == dauThang.Year) ||
                             (currentDate.Year >= dauThang.Year))
                         {
                             listCauHinhThuong = listAllCauHinh.Where(x => x.ParentId == null && x.Type == 1 && x.DenNgay.Value.Month == dauThang.Month && x.DenNgay.Value.Year == dauThang.Year
                                                                     && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
                             listCauHinhKhuyenKhich = listAllCauHinh.Where(x => x.ParentId == null && x.Type == 2 && x.DenNgay.Value.Month == dauThang.Month && x.DenNgay.Value.Year == dauThang.Year
                                                                     && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
+
+                            listCauHinhKhuyenKhichDuKien = listAllCauHinh.Where(x => x.DoiTuongApDungId == parameter.EmployeeType && x.ParentId == null && x.Type == 2 && x.DenNgay.Value.Month == currentDate.Month
+                                                                  && x.DenNgay.Value.Year == currentDate.Year
+                                                                  && x.ChucVuId == item.FirstOrDefault().ChucVuId).ToList();
                         }
 
                         //áp dụng cấu hình thưởng, khuyến khích
@@ -26950,6 +26953,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
             {
                 var isAccept = true;
                 var listDk = listAllCauHinh.Where(x => x.ParentId == ch.Id).ToList();
+                if (listDk.Count() == 0) isAccept = false;
                 listDk.ForEach(dk =>
                 {
                     //Tổng doanh thu
@@ -26978,6 +26982,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
 
             return listCauHinh;
         }
+
 
         public List<Object> AddKeyColumnBaoCaoNhanSu(List<Object> listKeyHeader, string key, string name, int colSpan, int rowSpan, string textAlign, string width)
         {

@@ -6,6 +6,7 @@ namespace TN.TNM.DataAccess.Messages.Parameters.Options
 {
     public class DeleteOptionParameter : BaseParameter
     {
-        public Guid Id { get; set; }
+        public List<Guid> Id { get; set; }
+        public string PasswordCeo { get; set; }
     }
 }

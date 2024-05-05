@@ -58,20 +58,129 @@ namespace TN.TNM.DataAccess.Databases.DAO
         {
             try
             {
-                var item = context.Options.FirstOrDefault(x => x.Id == parameter.Id);
+                //Xác nhận mật khẩu CEO 
+                var listCeo = context.Employee.Where(x => x.ChucVuId == 1).ToList();
+                var listCeoId = listCeo.Select(x => x.EmployeeId).ToList();
+                var listPassWord = context.User.Where(x => listCeoId.Contains(x.EmployeeId.Value)).Select(x => x.Password).ToList();
 
-                if (item == null)
+                var passInput = AuthUtil.GetHashingPassword(parameter.PasswordCeo);
+
+                if (!listPassWord.Contains(passInput))
                 {
                     return System.Threading.Tasks.Task.FromResult(new DeleteOptionResult()
                     {
-                        StatusCode = System.Net.HttpStatusCode.ExpectationFailed,
-                        MessageCode = "Không tìm thấy tùy chọn dịch vụ!",
+                        StatusCode = System.Net.HttpStatusCode.FailedDependency,
+                        MessageCode = "Mật khẩu CEO không đúng!",
                     });
                 }
 
+                var listOption = context.Options.Where(x => parameter.Id.Contains(x.Id)).ToList();
+
                 //các thuộc tính của option
-                //var listAttribute = context.AttributeConfiguration.Where(x => x.Id)
-                context.Options.Remove(item);
+                var listAttribute = context.AttributeConfiguration.Where(x => parameter.Id.Contains(x.ObjectId)).ToList();
+                if (listAttribute.Count() > 0) context.AttributeConfiguration.RemoveRange(listAttribute);
+
+                var listOptionMappingVendor = context.VendorMappingOption.Where(x => parameter.Id.Contains(x.OptionId)).ToList();
+                if (listOptionMappingVendor.Count() > 0) context.VendorMappingOption.RemoveRange(listOptionMappingVendor);
+
+                var listRpOption = context.MilestoneConfiguration.Where(x => parameter.Id.Contains(x.OptionId)).ToList();
+                if (listRpOption.Count() > 0) context.MilestoneConfiguration.RemoveRange(listRpOption);
+
+                //Xóa các tùy chọn trong gói
+                var listOptionMappingProduct = context.ServicePacketMappingOptions.Where(x => parameter.Id.Contains(x.OptionId.Value)).ToList();
+                if (listOptionMappingProduct.Count() > 0) context.ServicePacketMappingOptions.RemoveRange(listOptionMappingProduct);
+
+                //Xóa các phiếu yêu cầu có dịch vụ đó
+                var listOptionMappingProductId = listOptionMappingProduct.Select(x => x.Id).ToList();
+                var listCustomerOrderDetail = context.CustomerOrderDetail.Where(x => listOptionMappingProductId.Contains(x.OptionId.Value)).ToList();
+
+
+                var listCustomerOrderId = listCustomerOrderDetail.Select(x => x.OrderId).ToList();
+
+                var listDonDatDvId = context.CustomerOrder.Where(x => listCustomerOrderId.Contains(x.OrderId)).Select(x => x.OrderProcessId).ToList();
+
+                //Xóa các phiếu dịch vụ gán với gói dv
+                var listDonDatDv = context.OrderProcess.Where(x => listDonDatDvId.Contains(x.Id)).ToList();
+
+                //Nếu có đơn đặt dv
+                if (listDonDatDv.Count() > 0)
+                {
+                    var listDetailDonDatDv = context.OrderProcessDetail.Where(x => listDonDatDvId.Contains(x.OrderProcessId.Value)).ToList();
+
+                    var listEmpOrderProcess = context.OrderProcessMappingEmployee.Where(x => listDonDatDvId.Contains(x.OrderProcessId.Value)).ToList();
+
+                    //Xóa phiếu yêu cầu gán với orderProcess
+
+                    var listPhieuYc = context.CustomerOrder.Where(x => listDonDatDvId.Contains(x.OrderProcessId.Value)).ToList();
+
+                    var listPhieuYcId = listPhieuYc.Select(x => x.OrderId).ToList();
+
+                    var listYc = context.CustomerOrderDetail.Where(x => listPhieuYcId.Contains(x.OrderId)).ToList();
+
+                    var listYcPhatSinh = context.CustomerOrderDetailExten.Where(x => listPhieuYcId.Contains(x.OrderId)).ToList();
+
+                    var listYcId = listYc.Select(x => x.OrderDetailId).ToList();
+                    var listYcExten = context.CustomerOrderExtension.Where(x => listYcId.Contains(x.OrderDetailId.Value)).ToList();
+
+                    var listTask = context.CustomerOrderTask.Where(x => listPhieuYcId.Contains(x.OrderActionId.Value)).ToList();
+
+                    var listTaskId = listTask.Select(x => x.Id).ToList();
+                    var listTaskEmp = context.OrderTaskMappingEmp.Where(x => listTaskId.Contains(x.CustomerOrderTaskId)).ToList();
+
+
+                    var listReportPoint = context.ReportPoint.Where(x => listPhieuYcId.Contains(x.OrderActionId.Value)).ToList();
+
+                    var listReportPointId = listReportPoint.Select(x => x.Id).ToList();
+
+                    var listNoteRp = context.Note.Where(x => x.ObjectType == "Report_Point" && listReportPointId.Contains(x.ObjectId)).ToList();
+                    var listNoteOrderAction = context.Note.Where(x => x.ObjectType == "Report_Point" && listPhieuYcId.Contains(x.ObjectId)).ToList();
+
+                    //Xóa các phiếu mua hàng từ Ncc 
+                    var listVendorOrder = context.VendorOrder.Where(x => listPhieuYcId.Contains(x.OrderActionId.Value)).ToList();
+
+                    var listVendorOrderId = listVendorOrder.Select(x => x.VendorOrderId).ToList();
+
+                    var listPhieuThuBaoCoMappingCustomerOrder = context.PhieuThuBaoCoMappingCustomerOrder.Where(x => listVendorOrderId.Contains(x.VendorOrderId.Value)).ToList();
+
+                    var listVendorOrderCostDetail = context.VendorOrderDetail.Where(x => listVendorOrderId.Contains(x.VendorOrderId)).ToList();
+
+                    var listVendorOrderProcurementRequestMapping = context.VendorOrderProcurementRequestMapping.Where(x => listVendorOrderId.Contains(x.VendorOrderId.Value)).ToList();
+
+
+                    if (listPhieuThuBaoCoMappingCustomerOrder.Count() > 0) context.PhieuThuBaoCoMappingCustomerOrder.RemoveRange(listPhieuThuBaoCoMappingCustomerOrder);
+                    if (listVendorOrderCostDetail.Count() > 0) context.VendorOrderDetail.RemoveRange(listVendorOrderCostDetail);
+                    if (listVendorOrderProcurementRequestMapping.Count() > 0) context.VendorOrderProcurementRequestMapping.RemoveRange(listVendorOrderProcurementRequestMapping);
+                    if (listVendorOrder.Count() > 0) context.VendorOrder.RemoveRange(listVendorOrder);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+
+                    if (listNoteRp.Count() > 0) context.Note.RemoveRange(listNoteRp);
+                    if (listNoteOrderAction.Count() > 0) context.Note.RemoveRange(listNoteOrderAction);
+
+                    if (listReportPoint.Count() > 0) context.ReportPoint.RemoveRange(listReportPoint);
+
+                    if (listTaskEmp.Count() > 0) context.OrderTaskMappingEmp.RemoveRange(listTaskEmp);
+                    if (listTask.Count() > 0) context.CustomerOrderTask.RemoveRange(listTask);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+
+                    if (listYcExten.Count() > 0) context.CustomerOrderExtension.RemoveRange(listYcExten);
+                    if (listYcPhatSinh.Count() > 0) context.CustomerOrderDetailExten.RemoveRange(listYcPhatSinh);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+                    if (listYc.Count() > 0) context.CustomerOrderDetail.RemoveRange(listYc);
+                    if (listEmpOrderProcess.Count() > 0) context.OrderProcessMappingEmployee.RemoveRange(listEmpOrderProcess);
+                    if (listDetailDonDatDv.Count() > 0) context.OrderProcessDetail.RemoveRange(listDetailDonDatDv);
+                    context.ChangeTracker.AutoDetectChangesEnabled = false;
+                    context.SaveChanges();
+                    if (listPhieuYc.Count() > 0) context.CustomerOrder.RemoveRange(listPhieuYc);
+                    context.OrderProcess.RemoveRange(listDonDatDv);
+                }
+
+                context.ChangeTracker.AutoDetectChangesEnabled = false;
+                context.SaveChanges();
+
+                context.Options.RemoveRange(listOption);
                 context.SaveChanges();
                 return System.Threading.Tasks.Task.FromResult(new DeleteOptionResult()
                 {
@@ -1245,8 +1354,7 @@ namespace TN.TNM.DataAccess.Databases.DAO
                                (parameter.ListNhomDichVuId == null || parameter.ListNhomDichVuId.Count() == 0 || parameter.ListNhomDichVuId.Contains(o.CategoryId)) &&
                                (parameter.ListDichVuId == null || parameter.ListDichVuId.Count() == 0 || parameter.ListDichVuId.Contains(o.Id)) &&
                                (parameter.ListLoaiDoanhThuId == null || parameter.ListLoaiDoanhThuId.Count() == 0 || (
-                                   parameter.ListLoaiDoanhThuId.Count() == 2 || (parameter.ListLoaiDoanhThuId.Contains(1) 
-                                   && o.ThanhToanTruoc == true) || parameter.ListLoaiDoanhThuId.Contains(2) && o.ThanhToanTruoc == false)
+                                   parameter.ListLoaiDoanhThuId.Count() == 2 || (parameter.ListLoaiDoanhThuId.Contains(1) && o.ThanhToanTruoc == true) || parameter.ListLoaiDoanhThuId.Contains(2) && o.ThanhToanTruoc == false)
                                )
 
                                select new
@@ -1279,11 +1387,21 @@ namespace TN.TNM.DataAccess.Databases.DAO
                               .ToList();
 
                 }
-                ////Doanh thu theo đơn dịch vụ
-               
-                ////Doanh thu theo Kh
-                
-                ////Doanh thu theo nhân viên
+                //Doanh thu theo đơn dịch vụ
+                else if (parameter.TabIndex == 1)
+                {
+                   
+                }
+                //Doanh thu theo Kh
+                else if (parameter.TabIndex == 2)
+                {
+                   
+                }
+                //Doanh thu theo nhân viên
+                else if (parameter.TabIndex == 3)
+                {
+                   
+                }
 
                 return new GetBaoCaoTongHopResult()
                 {

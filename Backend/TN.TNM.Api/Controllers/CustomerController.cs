@@ -700,7 +700,6 @@ namespace TN.TNM.Api.Controllers
             return await this._iCustomerDataAccess.TakeListEvaluateForObjectId(request);
         }
 
-        //capnhatphanhangkh
         [HttpPost]
         [Route("api/customer/capNhatPhanHangKh")]
         public CapNhatPhanHangKhResult CapNhatPhanHangKh([FromBody] CapNhatPhanHangKhParameter request)
